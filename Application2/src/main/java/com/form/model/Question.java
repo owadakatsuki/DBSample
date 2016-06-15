@@ -10,8 +10,8 @@ import javax.persistence.Table;
 @Table(name = "question_tb")
 public class Question {
 	
-	@Id
-	@GeneratedValue
+	@Id/*
+	@GeneratedValue*/
 	private int content_id;
 	private int question_id;
 	private String question;
@@ -28,6 +28,17 @@ public class Question {
 		this.required_flag = required_flag;
 	}
 	
+	
+	
+	public Question(int content_id, int question_id, String question, boolean required_flag, String commentary) {
+		super();
+		this.content_id = content_id;
+		this.question_id = question_id;
+		this.question = question;
+		this.required_flag = required_flag;
+		this.commentary = commentary;
+	}
+
 	public int getContent_id() {
 		return content_id;
 	}
