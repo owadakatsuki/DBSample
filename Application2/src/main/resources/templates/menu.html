@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Menu</title>
+		<script type="text/javascript">
+			function addControl(userType) {
+				alert("Hello JavaScript:D" + userType);
+			}
+		</script>
+	</head>
+	<body>
+		<p class="submit"><input type="button" value="Button" name="loginButton" onclick="addControl(${userType})" /></p>
+		<p th:text="${userType}" />
+		<div id="form1">
+		</div>
+	</body>
+</html>
