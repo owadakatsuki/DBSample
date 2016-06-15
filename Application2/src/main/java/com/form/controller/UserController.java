@@ -15,13 +15,17 @@ import com.form.model.UserRepository;
 @EnableAutoConfiguration
 public class UserController {
 
+
+
+
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping("/")
-	public String home() {
+	@RequestMapping("/dbuser")
+	public String user() {
 		System.out.println("[START] データベースに接続してデータを取得します。");
 		Page<User> users = userRepository.findAll(new PageRequest(0,10));
+
 		for(User user: users) {
 			System.out.println(user.getUser_id() + "=" + user.getUsername() + "," + user.getPassword() + "," + user.getRole());
 		}
