@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Success</title>
+</head>
+<body>
+
+   <dl th:each="hoge : ${datas}">
+      <dt>id</dt>
+      <dd th:text="${hoge.question_id}"></dd>
+
+      <dt>value</dt>
+      <dd th:text="${hoge.question}"></dd>
+    </dl>
+        <p th:text="${datas}" />
+</body>
+</html>
