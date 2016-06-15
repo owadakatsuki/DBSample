@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
+<title>ユーザ解答結果</title>
 </head>
 <body>
 	<div th:each="data : ${datas}">
+		
 		<div th:text="${data.select_answer}"></div>
 		<div th:text="${data.time}"></div>
+		<hr/>
 	</div>
 </body>
 </html>

@@ -19,31 +19,25 @@ import javax.validation.constraints.NotNull;
 @Table(name = "user_answer_tb")
 @IdClass(value = IdClasses.class)
 public class UserAnswer implements Serializable { //implements Serializable{
-	@NotNull
 	@Id
 	@Column
 	private Integer 	user_id;		// ユーザID
 	
-	@NotNull
 	@Id
 	@Column
 	private Integer 	content_id;		// 問題ID
 	
-	@NotNull
 	@Id
 	@Column
 	private Integer 	question_id;	// 小問ID
 	
-	@NotNull
 	@Id
 	@Column
 	private Integer 	answer_id;		// 解答番号
 	
-	@NotNull 
 	@Column
 	private String 		select_answer;	// 選択した値
 	
-	@NotNull 
 	@Column
 	private Timestamp 	time;			// 提出した時間
 	
