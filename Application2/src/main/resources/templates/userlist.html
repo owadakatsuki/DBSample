@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>userlist</title>
+	</head>
+	<body>
+
+			<table>
+			<thead>
+				<tr>
+					<th>ユーザーID</th>
+					<th>名前</th>
+					<th>パスワード</th>
+					<th>管理者権限</th>
+				</tr>
+				<tr th:each="user :${userlist}">
+					<td th:text="${user.getUser_id()}" ></td>
+					<td th:text="${user.getUsername()}" ></td>
+					<td th:text="${user.getPassword()}" ></td>
+					<td th:text="${user.getRole()}" ></td>
+				</tr>
+
+			</thead>
+
+		</table>
+
+
+	</body>
+</html>
