@@ -19,5 +19,4 @@ public class ApplicationController {
 		return "hello";
 	}
 
-
 }

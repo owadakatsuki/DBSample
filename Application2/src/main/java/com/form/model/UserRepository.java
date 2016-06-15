@@ -6,4 +6,5 @@ import org.springframework.data.repository.Repository;
 
 public interface UserRepository  extends Repository<User, String>{
 	Page<User> findAll(Pageable pageable);
+
 }
