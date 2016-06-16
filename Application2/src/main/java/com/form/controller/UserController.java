@@ -1,5 +1,6 @@
 package com.form.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,23 @@ public class UserController {
 		System.out.println("ユーザーリスト表示します！");
 
 		//	ユーザーリストの取得
-		Iterable<User> userlist = userRepository.findAll();
+		List<User> userlist = userRepository.findAll();
 		//リストをセット
 		model.addAttribute("userlist" , userlist);
 
 		return "userlist";
+	}
+
+	@RequestMapping(value="/userdelete",method=RequestMethod.GET)
+	public String userdelete(Locale locale, Model model) {
+		System.out.println("ユーザーを削除します！");
+
+		//	ユーザーリストの取得
+		List<User> userlist = userRepository.findAll();
+		//リストをセット
+		model.addAttribute("userlist" , userlist);
+
+		return "userdelete";
 	}
 
 
