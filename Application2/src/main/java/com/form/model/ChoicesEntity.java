@@ -1,19 +1,17 @@
 package com.form.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name="choices_tb")
 public class ChoicesEntity {
 
-		@anser_id
-		@GeneratedValue(name=answer_id)
+		@Id
+		private int answer_id;		//解答番号
 		private int content_id;		//問
 		private int question_id;	//小問
-		private int answer_id;		//解答番号
 		private String answer;		//解答
 		private boolean is_answer;		//正解
 
