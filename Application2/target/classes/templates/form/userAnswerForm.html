@@ -5,36 +5,35 @@
 <title>ユーザ解答フォーム</title>
 </head>
 <body>
-	<form th:action="@{/userAnswerResult}" method="post" th:object="${useranswer}">
+	<form th:action="@{/form}" method="post" th:object="${useranswer}">
+	 	<!-- <input type="hidden" name="code" id="code" th:value="*{code}"/>  -->
 		<input type="number" name="user_id" th:field="*{user_id}" />
 		<input type="number" name="content_id" th:field="*{content_id}" />
 		<input type="number" name="question_id" th:field="*{question_id}" />
 		<input type="number" name="answer_id" th:field="*{answer_id}" />
-		<input type="text" id="fields" name="select_answer" th:field="*{select_answer}" />
-	
+		<!-- input type="text" name="select_answer" th:field="*{select_answer}" /> -->
+		
+		<p th:text="${validationError}" />
     	<!-- radio test-->
-    	<!-- <div class="form-group">
+    	<div class="form-group">
             <label class="control-label"><abbr title="required">*</abbr> Radio</label>
             <div class="radio" th:each="item : ${radioItems}">
               <label>
-                <input type="radio" name="select_answer" th:value="${item.value}" th:text="${item.key}" th:field="*{answer_id}" /> radio
+                <input type="radio" name="select_answer" th:value="${item.key}" th:text="${item.value}" th:field="*{select_answer}" />
               </label>
             </div>
-            <span th:if="${#fields.hasErrors('answer_id')}" th:errors="*{answer_id}" class="help-block">error!</span>
-        </div>-->
-        <button type="submit" class="btn btn-default">confirm</button>
-	</form>
-</body>
-</html>
-
-<!-- checkbox multi -->
-    	<!-- 
+        </div>
+        
+        <!-- checkbox multi --> 
         <div class="form-group">
             <label class="control-label">Multi checkbox</label>
             <div class="checkbox" th:each="item : ${checkItems}">
               <label>
-                <input type="checkbox" name="fchecks" th:value="${item.value}" th:text="${item.key}" th:field="*{answer_id}">checkbox</input>
+                <input type="checkbox" name="select_answer" th:value="${item.value}" th:text="${item.key}" th:field="*{select_answer}" />
               </label>
             </div>
-            <span th:if="${#fields.hasErrors('fchecks')}" th:errors="*{answer_id}" class="help-block">error!</span>
-        </div> -->
+        </div>
+        <button type="submit" class="btn btn-default">confirm</button>
+	</form>
+</body>
+</html>

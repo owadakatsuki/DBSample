@@ -4,28 +4,36 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
+import com.form.dao.UserAnswerService;
 import com.form.model.UserAnswer;
-import com.form.model.UserAnswerService;
 
 @Controller
 public class UserAnswerController {
 	 @Autowired
-	 UserAnswerService user_answer_service;
+	 UserAnswerService service;
+	 
+	 public void addViewControllers(ViewControllerRegistry registry) {
+	     registry.addViewController("/result").setViewName("form/userAnswerResult");
+	     
+	     
+	     
+	 }
 	 
 	 // User Answer Result List
-	 @RequestMapping("/userAnswerResult")
+	 @RequestMapping(value="/result", method=RequestMethod.GET)
 	 public String List( Model model ) {
 		 try{
-			 java.util.List<UserAnswer> result = user_answer_service.FindAll();
-			 model.addAttribute("datas", user_answer_service.FindAll());
+			 model.addAttribute("datas", service.FindAll());
 		 }catch(Exception e){
 			 return "error";
 		 }
@@ -37,41 +45,40 @@ public class UserAnswerController {
 	 public String GetUserAnswerForm( UserAnswer user_answer, Model model ){
 		try{
 			 model.addAttribute("useranswer", new UserAnswer());
-			 //model.addAttribute("checkItems", CHECK_ITEMS);
+			 model.addAttribute("checkItems", CHECK_ITEMS);
 			 model.addAttribute("radioItems", RADIO_ITEMS); 
 		}catch(Exception e){
 			return "error";
 		}  
 		return "form/userAnswerForm";
 	 }
-		
-	 @RequestMapping(value="/userAnswerResult", method=RequestMethod.POST)
-	 public String PostUserAnswerForm(@ModelAttribute("useranswer") UserAnswer user_answer, BindingResult result, Model model){
+	
+	 //BindingResult : object so you can test for and retrieve validation errors.
+	 @RequestMapping(value="/form", method=RequestMethod.POST)
+	 public String PostUserAnswerForm(@Valid UserAnswer useranswer, BindingResult result, Model model){
 		 try{
 			 	if(!result.hasErrors()){
 			 		UserAnswer useranswer_result = new UserAnswer();
 			 		try{
-			 				useranswer_result.setUser_id(user_answer.getUser_id());
-			 				useranswer_result.setContent_id(user_answer.getContent_id());
-			 				useranswer_result.setQuestion_id(user_answer.getQuestion_id());
-			 				useranswer_result.setAnswer_id(user_answer.getAnswer_id());
-			 				useranswer_result.setSelect_answer(user_answer.getSelect_answer());
-			 				user_answer_service.Save(useranswer_result);
+			 				useranswer_result.setUser_id(useranswer.getUser_id());
+			 				useranswer_result.setContent_id(useranswer.getContent_id());
+			 				useranswer_result.setQuestion_id(useranswer.getQuestion_id());
+			 				useranswer_result.setAnswer_id(useranswer.getAnswer_id());
+			 				useranswer_result.setSelect_answer(useranswer.getSelect_answer());
+			 				
+			 				service.Save(useranswer_result);
 			 		}catch(Exception e){
 			 			return "error";
-			 		}finally{
-			 			List(model);
 			 		}
-			 		return "form/userAnswerResult";
 			 	}else{
 			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return GetUserAnswerForm(user_answer, model);
+			 		return GetUserAnswerForm(useranswer, model);
+			 		//return "form/userAnswerForm";
 			 	}
+			 	return "redirect:/result";
 		}catch(Exception e){
 			return "error";
-		}finally{
- 			List(model);
- 		}
+		}
 	 }
 		
 	 /**
