@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+/*============================
+#form
+============================*/
+#form{
+}
+.title_container{
+}
+.question_container{
+	margin: 10px;
+	background-color:#99CFE5;
+}
+.question{
+	margin: 10px;
+}
+.choice_container{
+	margin: 10px;
+	background-color:#95DFD6;
+}
