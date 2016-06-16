@@ -1,4 +1,4 @@
-package com.form.controller;
+package com.form.dao;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.form.model.Question;
-import com.form.model.QuestionRepository;
 
 @Service
 @Transactional
