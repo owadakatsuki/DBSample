@@ -24,6 +24,7 @@ public class LoginController extends HttpServlet {
 
 	@RequestMapping("/login")
 	public String login(Model model, @RequestParam("userid") String userID, @RequestParam("pass") String password){
+		System.out.println("login来ました");
 
 		if (userID.length() == 0 && password.length() == 0) {
 			model.addAttribute("errMsg", "未入力");

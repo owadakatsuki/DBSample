@@ -20,6 +20,7 @@ public class SampleController {
 
     @RequestMapping("/helo")
     public String helo(Model model) {
+    	System.out.println("helo来ました");
         Iterable<MyData> list = repository.findAll();
         model.addAttribute("datas",list);
     return "login";
