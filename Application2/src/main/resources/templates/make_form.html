@@ -5,14 +5,39 @@
 <title>Success</title>
 </head>
 <body>
+	<div class="form">
+		<form action="#" th:action="@{/long_create}" method="post"
+			th:object="${question_list}">
+			<input type="submit" value="質問追加" name="add_question" /> <input
+				type="submit" name="submit" />
+			<div class="title_container">無題のフォーム</div>
 
-   <dl th:each="hoge : ${datas}">
-      <dt>id</dt>
-      <dd th:text="${hoge.question_id}"></dd>
+			<div th:each="p, row : *{questions}">
+				<div class="question_container">
+					<span class="question"><input th:field="*{questions[__${row.index}__].question}"/>無題の質問</span>
+					<p><label><input type="checkbox" />オプション</label></p>
+					<p><label><input type="checkbox" />オプション</label></p>
+					<p><label><input type="checkbox" />オプション</label></p>
+				</div>
+			</div>
+		</form>
+	</div>
 
-      <dt>value</dt>
-      <dd th:text="${hoge.question}"></dd>
-    </dl>
-        <p th:text="${datas}" />
+
+
+
+<!-- 
+	<form action="#" th:action="@{/long_create}" method="post" th:object="${question_list}">
+		<input type="submit" value="質問追加" name="add_question" />
+		<input type="submit" name="submit" />
+
+		<div th:each="p, row : *{questions}">
+			
+		問題 : <input th:field="*{questions[__${row.index}__].question}"/><br />
+		必答 : <input type="checkbox" th:field="*{questions[__${row.index}__].required_flag}"/><br />
+		解説 : <textarea th:field="*{questions[__${row.index}__].commentary}"> </textarea><br />
+		</div>
+	</form> -->
+
 </body>
 </html>

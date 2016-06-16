@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Question List</title>
+</head>
+<body>
+<a href="/question">Create</a>
+
+	<dl th:each="hoge : ${datas.sample}">
+		<dd th:text="${hoge.question_id}"></dd>
+		<dd th:text="${hoge.question}"></dd>
+	</dl>
+
+
+</body>
+</html>
