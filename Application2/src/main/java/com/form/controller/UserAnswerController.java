@@ -18,13 +18,14 @@ import com.form.model.UserAnswerService;
 @Controller
 public class UserAnswerController {
 	 @Autowired
-	 UserAnswerService service;
+	 UserAnswerService user_answer_service;
 	 
 	 // User Answer Result List
 	 @RequestMapping("/userAnswerResult")
 	 public String List( Model model ) {
 		 try{
-			 model.addAttribute("datas", service.FindAll());
+			 java.util.List<UserAnswer> result = user_answer_service.FindAll();
+			 model.addAttribute("datas", user_answer_service.FindAll());
 		 }catch(Exception e){
 			 return "error";
 		 }
@@ -55,7 +56,7 @@ public class UserAnswerController {
 			 				useranswer_result.setQuestion_id(user_answer.getQuestion_id());
 			 				useranswer_result.setAnswer_id(user_answer.getAnswer_id());
 			 				useranswer_result.setSelect_answer(user_answer.getSelect_answer());
-			 				service.Save(useranswer_result);
+			 				user_answer_service.Save(useranswer_result);
 			 		}catch(Exception e){
 			 			return "error";
 			 		}finally{

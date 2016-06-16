@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserAnswerService {
 	@Autowired
 	UserAnswerRepository user_answer_repository;
