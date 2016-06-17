@@ -25,6 +25,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "user_answer_tb")
@@ -54,7 +55,7 @@ public class UserAnswer implements Serializable { //implements Serializable{
 	private String 		select_answer;	// 選択した値
 	
 	@Column
-	private Timestamp 	time;			// 提出した時間
+	private Timestamp 	time;			// 提出した時間(input default current local time) 
 	
 	public Integer getId() { return id; }
 	public void setId( Integer id ) { this.id = id; }
