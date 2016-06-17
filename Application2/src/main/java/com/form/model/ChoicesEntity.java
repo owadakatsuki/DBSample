@@ -53,4 +53,9 @@ public class ChoicesEntity {
 		public void setIs_answer(boolean is_answer){
 			this.is_answer = is_answer;
 		}
+		@Override
+		public String toString() {
+			return "ChoicesEntity [answer_id=" + answer_id + ", content_id=" + content_id + ", question_id="
+					+ question_id + ", answer=" + answer + ", is_answer=" + is_answer + "]";
+		}
 }

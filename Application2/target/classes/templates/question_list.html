@@ -3,15 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <title>Question List</title>
+<style type="text/css">
+<!--
+	.question {background-color: #99CFE5}
+	.choice {margin: 10px 0px 0px 30px; padding: 5px; background-color:#EAA8BF}
+-->
+</style>
 </head>
 <body>
 <a href="/question">Create</a>
 
-	<dl th:each="hoge : ${datas.sample}">
-		<dd th:text="${hoge.question_id}"></dd>
-		<dd th:text="${hoge.question}"></dd>
-	</dl>
 
+
+<div th:each="question : ${question_list.questions}">
+		<p class="question" th:inline="text">Q : [[*{question.question_id}]]</p>
+		<p class="question" th:text="*{question.question}"></p>
+		<div class="choice" th:each="choice : ${question_list.choices}">
+			<div class="choice" th:if="*{question.question_id} == *{choice.question_id}" >
+				<p th:inline="text">C : [[*{choice.answer_id}]] (Q : [[*{choice.question_id}]])</p><!-- 
+				<p th:inline="text"> [[*{choice.answer}]]</p> -->
+			</div>
+		
+		</div>
+</div>
 
 </body>
 </html>

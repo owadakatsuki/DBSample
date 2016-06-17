@@ -4,14 +4,10 @@ import java.util.List;
 
 public class QuestionList {
 	private List<Question> questions;
+	private List<ChoicesEntity> choices;
 
 	public QuestionList() {
 		super();
-	}
-
-	public QuestionList(List<Question> questions) {
-		super();
-		this.questions = questions;
 	}
 
 	public List<Question> getQuestions() {
@@ -20,6 +16,14 @@ public class QuestionList {
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
+	}
+
+	public List<ChoicesEntity> getChoices() {
+		return choices;
+	}
+
+	public void setChoices(List<ChoicesEntity> choices) {
+		this.choices = choices;
 	}
 
 }
