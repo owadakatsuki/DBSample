@@ -19,7 +19,7 @@
             <label class="control-label"><abbr title="required">*</abbr> Radio</label>
             <div class="radio" th:each="item : ${radioItems}">
               <label>
-                <input type="radio" name="select_answer" th:value="${item.key}" th:text="${item.value}" th:field="*{select_answer}" />
+                <input type="radio" name="select_answer" th:value="${item.value}" th:text="${item.key}" th:field="*{select_answer}" />
               </label>
             </div>
         </div>
