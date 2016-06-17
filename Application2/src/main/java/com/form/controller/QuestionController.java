@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.form.dao.QuestionService;
+import com.form.model.ChoicesEntity;
 import com.form.model.Question;
 import com.form.model.QuestionList;
 
@@ -18,18 +20,47 @@ import com.form.model.QuestionList;
 public class QuestionController {
 	@Autowired
 	QuestionService questionService;
-	  
-    @RequestMapping("/question")
+	
+	
+	@RequestMapping(value = "getTestData", method = RequestMethod.GET)
+	@ResponseBody
+	public String[] getTestData() {
+		System.out.println("getTime");
+	    //logger.info("call getTestData");
+	    String[] datas = {"test1", "test2", "test3"};
+	 
+	    return datas;
+	}
+    
+	@RequestMapping("/question")
     public String helo(Model model) {
     	
-    	List<Question> list = questionService.findAll();
+    	// List<Question> list = questionService.findAll();
     	
     	QuestionList question_list = new QuestionList();
-    	
+
+    	// 質問リスト作成
     	List<Question> tmp = new ArrayList<Question>();
-    	tmp.add(new Question("sample1", true));
-    	tmp.add(new Question("sample2", false));
+    	Question question = new Question();
+    	tmp.add(question);
+    	question = new Question();
+    	question.setQuestion_id(1);
+    	tmp.add(question);
     	question_list.setQuestions(tmp);
+    	
+
+    	// 回答リスト作成
+    	List<ChoicesEntity> choices = new ArrayList<ChoicesEntity>();
+    	ChoicesEntity choice = new ChoicesEntity();
+    	choices.add(choice);
+    	choice = new ChoicesEntity();
+    	choice.setQestion_id(1);
+    	choice.setAnswer_id(1);
+    	System.out.println(choice.getQuestion_id());
+    	choices.add(choice);
+    	question_list.setChoices(choices);
+    	
+    	
     	
     	model.addAttribute("question_list", question_list);
     	
@@ -60,14 +91,28 @@ public class QuestionController {
     
 
     @RequestMapping(value="/create", params="submit", method=RequestMethod.POST)
-    public String create(@ModelAttribute("questions") Question question2, Model model) {  	/*
+    public String create(@ModelAttribute("question_list") QuestionList question_list, Model model) {
+
+    	//  debag
+    	for(Question q : question_list.getQuestions()) {
+			System.out.println("-------------------------");
+			System.out.println(q.toString());
+    		for(ChoicesEntity c : question_list.getChoices()){
+    			if(q.getQuestion_id() == c.getQuestion_id()){
+    				System.out.println(c.toString());
+    			}
+    		}
+    	}
+    	
+    	
+    	/*
         public String create(@ModelAttribute("questionList") ArrayList<Question> question_list, Model model) {  */	
     	/*
     	System.out.println("size = " + question_list.size());
-    	for(Question question : question_list) {*/
-    	System.out.println(question2.toString());
+    	for(Question question : question_list) {
+    	
+    		System.out.println(question2.toString());
       		questionService.save(question2);
-    	/*
     	}*/
     	//repository.flush();
     	Iterable<Question> list = questionService.findAll();
@@ -76,12 +121,25 @@ public class QuestionController {
     }
     
     
-    @RequestMapping(value="/long_create", params="add_question" , method=RequestMethod.POST)
+    @RequestMapping(value="/create", params="add_question" , method=RequestMethod.POST)
     public String add(@ModelAttribute("question_list") QuestionList question_list, Model model) {
-    	List<Question> list = question_list.getQuestions();
+   /* 	List<Question> list = question_list.getQuestions();
+    	System.out.println("list.len = " + list.size());
+    	int id = list.get(list.size()-1).getQuestion_id() + 1;
+    	System.out.println("id = "+ id);
     	Question question = new Question();
+    	question.setQuestion_id(id);
     	list.add(question);
-    	question_list.setQuestions(list);
+    	question_list.setQuestions(list);*/
+    	
+    	/*
+    	
+    	List<ChoicesEntity> choice_ = question_list.getChoices();
+    	ChoicesEntity choice = new ChoicesEntity();
+    	choice.setQestion_id(id);
+    	choice_.add(choice);
+    	question_list.setChoices(choice_);*/
+    	
     	model.addAttribute("questionList", question_list);
     	
     	return "make_form";

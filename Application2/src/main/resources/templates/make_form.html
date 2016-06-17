@@ -3,30 +3,133 @@
 <head>
 <meta charset="UTF-8" />
 <title>Success</title>
+
+
+<!--指定要素へ子要素追加のサンプル-->
+<script type="text/javascript">
+<!-- 
+q_id = 1;
+c_id = 1;
+function addChoice(str) {
+    var element = document.createElement('div');
+    element.className = "choice_container";
+    element.innerHTML = '<input type="hidden" id="choices'+ c_id +'.question_id" name="choices['+c_id+'].question_id" value="1" />  '
+    						+'<input type="hidden" id="choices'+ c_id +'.answer_id" name="choices['+ c_id+'].answer_id" value="'+c_id+'" /> '
+    						+'<input type="checkbox" id="choices' + c_id +'.is_answer" name="choices[' + c_id +'].is_answer" value="true" checked="checked" />'
+    						+'<input type="hidden" name="_choices[' + c_id +'].is_answer" value="off" /> '
+    						+'<input id="choices'+ c_id + '.answer" name="choices[' + c_id + '].answer" value="" />';
+  	c_id++;
+  	if(str == "question"){
+  	    return element;
+  	} else {
+  		var objQuestion = document.getElementById(str);
+  		objQuestion.appendChild(element);
+  	}
+}
+
+function addQuestion() {
+    var element = document.createElement('div');
+    element.className = "question_container";
+    element.innerHTML = '<span class="question"><input id="questions'+ q_id +'.question" name="questions[' + q_id + '].question" value="" />無題の質問'
+	+'<input type="hidden" id="questions'+ q_id+'.question_id" name="questions['+ q_id + '].question_id" value="'+ q_id +'" /></span>';
+
+
+    element.appendChild(addChoice("question"));
+	
+	
+	q_id++;
+    
+    var objForm = document.getElementById("form");
+    objForm.appendChild(element);
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+$(function() {
+    // Ajax通信テスト ボタンクリック
+    $("#ajax_btn").click(function() {
+    	alert("来たよ");
+        // outputDataを空に初期化
+        $("#output_data").text("");
+        $.ajax({
+            type        : "GET",
+            url         : "getTestData",
+            dataType    : "json",
+            success     : function(data) {
+                            success(data);
+                        },
+            error       : function(XMLHttpRequest, textStatus, errorThrown) {
+                            error(XMLHttpRequest, textStatus, errorThrown);
+                        }
+        });
+    });
+});
+ 
+// Ajax通信成功時処理
+function success(data) {
+    alert("success:" + data);
+ 
+    $("#output_data").text("");
+    for (var cnt = 0; cnt < data.length; cnt++) {
+        $("#output_data").append("data[" + cnt + "]：" + data[cnt] + "；");
+    }
+}
+ 
+// Ajax通信失敗時処理
+function error(XMLHttpRequest, textStatus, errorThrown) {
+    alert("error:" + XMLHttpRequest);
+    alert("status:" + textStatus);
+    alert("errorThrown:" + errorThrown);
+}
+
+
+
+-->
+</script>
+   <link rel="stylesheet" type="text/css" href="CSS_make_form.css" />
+
 </head>
 <body>
-	<div class="form">
-		<form action="#" th:action="@{/long_create}" method="post"
-			th:object="${question_list}">
+
+
+<P>  The time on the server is ${serverTime}. </P>
+ 
+<div id="ajax_data">
+    <input type="button" id="ajax_btn" value="Ajax通信テスト" /><br />
+    outputData：<span id="output_data"></span>
+</div>
+ 
+ 
+	<a href="#" onClick="addQuestion()">増やす</a>
+	<form action="#" th:action="@{/create}" method="post"
+		th:object="${question_list}">
+		<div id="form">
 			<input type="submit" value="質問追加" name="add_question" /> <input
 				type="submit" name="submit" />
 			<div class="title_container">無題のフォーム</div>
 
-			<div th:each="p, row : *{questions}">
-				<div class="question_container">
-					<span class="question"><input th:field="*{questions[__${row.index}__].question}"/>無題の質問</span>
-					<p><label><input type="checkbox" />オプション</label></p>
-					<p><label><input type="checkbox" />オプション</label></p>
-					<p><label><input type="checkbox" />オプション</label></p>
+			<div class="question_container" th:each="p, q_row : *{questions}">
+				<span class="question">
+				<input th:field="*{questions[__${q_row.index}__].question}" />無題の質問
+				<input type="hidden" th:field="*{questions[__${q_row.index}__].question_id}" />
+				</span>
+				<div class="choice_container" >
+					<div th:each="c, c_row : *{choices}">
+					<span th:inline="text">Q : [[*{questions[__${q_row.index}__].question_id}]]</span>
+						<div th:if="*{questions[__${q_row.index}__].question_id} == *{choices[__${c_row.index}__].question_id}">
+							<span th:inline="text">C : [[*{choices[__${c_row.index}__].question_id}]]</span> 
+							<input type="hidden" th:field="*{choices[__${c_row.index}__].answer_id}" />
+							<input type="hidden" th:field="*{choices[__${c_row.index}__].question_id}" />
+							<input type="checkbox" th:field="*{choices[__${c_row.index}__].is_answer}" />
+							<input th:field="*{choices[__${c_row.index}__].answer}" />
+						</div>
+					</div>
 				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 
 
-
-
-<!-- 
+	<!-- 
 	<form action="#" th:action="@{/long_create}" method="post" th:object="${question_list}">
 		<input type="submit" value="質問追加" name="add_question" />
 		<input type="submit" name="submit" />
