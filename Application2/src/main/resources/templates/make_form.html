@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <title>Success</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <!--指定要素へ子要素追加のサンプル-->
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
 <!-- 
 q_id = 1;
 c_id = 1;
@@ -60,8 +61,12 @@ $(function() {
             error       : function(XMLHttpRequest, textStatus, errorThrown) {
                             error(XMLHttpRequest, textStatus, errorThrown);
                         }
+        }).done(function(data) {        // Ajax通信が成功した時の処理
+            alert("アップロードが完了しました。");
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) { // Ajax通信が失敗した時の処理
+            alert("アップロードが失敗しました。");
         });
-    });
+    }); 
 });
  
 // Ajax通信成功時処理
@@ -84,6 +89,7 @@ function error(XMLHttpRequest, textStatus, errorThrown) {
 
 
 -->
+/*]]>*/
 </script>
    <link rel="stylesheet" type="text/css" href="CSS_make_form.css" />
 
