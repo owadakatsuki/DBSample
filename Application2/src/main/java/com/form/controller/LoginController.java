@@ -22,21 +22,11 @@ public class LoginController{
 		}
 
 		@RequestMapping(value ="/Login",method=RequestMethod.POST)
-		public String login(Model model, @RequestParam("userid") String user_ID, @RequestParam("pass") String password){
+		public String login(Model model, @RequestParam("userid") int user_ID, @RequestParam("pass") String password){
 			System.out.println("login来ました");
 
-			//エラー判定
-			//user_ID,passwordのどちらかが未入力だった場合のエラー処理
-			if (user_ID.length() == 0 || password.length() == 0) {
-				System.out.println("未入力です。");
-				model.addAttribute("errMsg", "未入力");
-				return "login";
-			}
-
-			int user_id = Integer.parseInt(user_ID);
-
 			//user_IDを引数として渡し、login判定をしてもらう。
-			User user_info = logService.execute(user_id);
+			User user_info = logService.execute(user_ID);
 
 			//データがあったかどうか判定。
 			if(user_info != null){
@@ -44,31 +34,20 @@ public class LoginController{
 			    model.addAttribute("user_info", user_info);
 			} else{
 				System.out.println("データありません。");
-				model.addAttribute("errMsg","ユーザーIDかパスワードが違います。");
+				model.addAttribute("errMsg","※ユーザーIDが存在しません。");
 				return"login";
 			}
 
 			 String uPassword = user_info.getPassword();
-			 String uRole = user_info.getRole();
-
-			//ユーザーに権限があるかないか判定。
-			//この処理自体menuにまかせる？？
-			if(uRole.equals("admin")) {
-				System.out.println("userはadminです。");
-				model.addAttribute("userType", "admin");
-			}  else {
-				System.out.println("userは権限がありません。");
-				model.addAttribute("userType", "user");
-			}
 
 			 //入力されたPasswordが合ってるかどうか判定。
 			if(! uPassword.equals(password)) {
 				System.out.println("passwordが違います。");
-				model.addAttribute("errMsg", "passwordが違います。");
+				model.addAttribute("errMsg", "※passwordが違います。");
 				return "login";
 			} else{
 				System.out.println("login成功");
-				return "login";		//(仮)
+				return "login";		//(仮)　のちにmenu画面へとぶようにする。
 			}
 	}
 }
