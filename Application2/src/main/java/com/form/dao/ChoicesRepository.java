@@ -1,6 +1,8 @@
-package com.form.model;
+package com.form.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.form.model.ChoicesEntity;
 
 public interface ChoicesRepository extends JpaRepository<ChoicesEntity,Integer>{
 
