@@ -17,14 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
+import com.form.dao.MakeFormService;
 import com.form.dao.UserAnswerService;
 import com.form.model.ChoicesEntity;
+import com.form.model.Question;
+import com.form.model.QuestionList;
 import com.form.model.UserAnswer;
 
 @Controller
 public class UserAnswerController {
 	 @Autowired
-	 UserAnswerService service;
+	 UserAnswerService 	service;
+	 @Autowired
+	 MakeFormService 	makeformservice;
 	 
 	 // redirectするときに必要
 	 public void addViewControllers(ViewControllerRegistry registry) {
@@ -36,23 +41,7 @@ public class UserAnswerController {
 	 public String List(@PathVariable Integer id, Model model ) {
 		 try{
 			 UserAnswer answer = service.findById(id);
-			 String[] a = answer.getSelect_answer().split(",");
-			 String[] b = {"3","2","3","1"};
-			 Integer index = 0;
-			 for(String n : a) {
-				 for(String x : b) {
-					 Integer result = x.compareTo(n);
-					 switch(result){
-					 case 0:
-						 index++;
-						 break;
-					 case 1:
-						 continue;
-						 default:;
-					 }
-				 }
-			 }
-			 model.addAttribute("results", index);
+			
 			 // 値照らし合わせ
 			 // 点数計算
 			 
@@ -68,8 +57,12 @@ public class UserAnswerController {
 	 
 	 // 引数UserAnswer-> Question Choice..?
 	 @RequestMapping(value="/form", method=RequestMethod.GET)
-	 public String GetUserAnswerForm( UserAnswer user_answer, Model model ){
+	 public String GetUserAnswerForm( Model model ){
 		try{
+			//QuestionList question_list = makeformservice.findFormByContent_id(0);
+			
+			//model.addAttribute("question_list", question_list);
+	    	//model.addAttribute("questions", new Question());
 			 model.addAttribute("useranswer", new UserAnswer());
 			 model.addAttribute("checkItems", CHECK_ITEMS);
 			 model.addAttribute("radioItems", RADIO_ITEMS); 
@@ -102,7 +95,7 @@ public class UserAnswerController {
 			 		}
 			 	}else{
 			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return GetUserAnswerForm(useranswer, model);
+			 		return GetUserAnswerForm(model);
 			 	}
 			 	return "redirect:/result/" + useranswer_result.getId();
 		}catch(Exception e){
