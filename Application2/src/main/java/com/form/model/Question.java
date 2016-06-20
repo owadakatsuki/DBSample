@@ -11,14 +11,13 @@ import javax.persistence.Table;
 @Table(name = "question_tb")
 public class Question {
 	
-	@Id/*
-	@GeneratedValue*/
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int question_id;
 	private int content_id;
 	private String question;
 	private boolean required_flag;
 	private String commentary;
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int question_id;
 	
 	public Question() {
 		super();

@@ -1,47 +1,53 @@
 package com.form.controller;
 
-import javax.servlet.http.HttpServlet;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.form.dao.LoginService;
+import com.form.model.User;
 
-/**
- * Servlet implementation class LoginSV
- */
 @Controller
-public class LoginController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class LoginController{
+	@Autowired
+	LoginService logService;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginController() {
-        super();
-    }
-
-	@RequestMapping("/login")
-	public String login(Model model, @RequestParam("userid") String userID, @RequestParam("pass") String password){
-		System.out.println("login来ました");
-
-		if (userID.length() == 0 && password.length() == 0) {
-			model.addAttribute("errMsg", "未入力");
-			return "login";
-		}
-		if(!userID.equals(password)) {
-			model.addAttribute("errMsg", "Login Error!");
+		@RequestMapping("/")
+		public String startApp(Model model){
+			System.out.println("StartApp来ました");
 			return "login";
 		}
 
-		if(userID.equals("admin")) {
+		@RequestMapping(value ="/Login",method=RequestMethod.POST)
+		public String login(Model model, @RequestParam("userid") int user_ID, @RequestParam("pass") String password){
+			System.out.println("login来ました");
 
-			model.addAttribute("userType", "admin");
-		}  else {
+			//user_IDを引数として渡し、login判定をしてもらう。
+			User user_info = logService.execute(user_ID);
 
-			model.addAttribute("userType", "user");
-		}
-		return "menu";
+			//データがあったかどうか判定。
+			if(user_info != null){
+			    System.out.println("データ取りました！！name="+user_info.getUsername());
+			    model.addAttribute("user_info", user_info);
+			} else{
+				System.out.println("データありません。");
+				model.addAttribute("errMsg","※ユーザーIDが存在しません。");
+				return"login";
+			}
+
+			 String uPassword = user_info.getPassword();
+
+			 //入力されたPasswordが合ってるかどうか判定。
+			if(! uPassword.equals(password)) {
+				System.out.println("passwordが違います。");
+				model.addAttribute("errMsg", "※passwordが違います。");
+				return "login";
+			} else{
+				System.out.println("login成功");
+				return "login";		//(仮)　のちにmenu画面へとぶようにする。
+			}
 	}
 }

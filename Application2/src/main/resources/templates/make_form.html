@@ -3,30 +3,60 @@
 <head>
 <meta charset="UTF-8" />
 <title>Success</title>
+<link rel="stylesheet" type="text/css" href="CSS_make_form.css" />
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="JS_make_form.js"></script>
+
 </head>
 <body>
-	<div class="form">
-		<form action="#" th:action="@{/long_create}" method="post"
-			th:object="${question_list}">
+
+
+<P>  The time on the server is ${serverTime}. </P>
+ 
+<div id="ajax_data">
+    <input type="button" id="ajax_btn" value="Ajax通信テスト" /><br />
+    outputData：<span id="output_data"></span>
+</div>
+
+    <input type="button" id="add_question_btn" value="問題増えろ" /><br />
+    <input type="button" id="add_choice_btn" value="質問増えろ" /><br />
+	<form action="#" th:action="@{/create}" method="post"
+		th:object="${question_list}">
+		<div id="form">
 			<input type="submit" value="質問追加" name="add_question" /> <input
 				type="submit" name="submit" />
 			<div class="title_container">無題のフォーム</div>
 
-			<div th:each="p, row : *{questions}">
-				<div class="question_container">
-					<span class="question"><input th:field="*{questions[__${row.index}__].question}"/>無題の質問</span>
-					<p><label><input type="checkbox" />オプション</label></p>
-					<p><label><input type="checkbox" />オプション</label></p>
-					<p><label><input type="checkbox" />オプション</label></p>
+			<div class="question_container" th:each="p, q_row : *{questions}">
+				<span class="question">
+				<input th:field="*{questions[__${q_row.index}__].question}" />無題の質問
+				<input type="hidden" th:field="*{questions[__${q_row.index}__].question_id}" />
+				</span>
+				
+				
+				
+				
+				<div class="choice_container" >
+					<div th:each="c, c_row : *{choices}">
+					<span th:inline="text">Q : [[*{questions[__${q_row.index}__].question_id}]]</span>
+						<div th:if="*{questions[__${q_row.index}__].question_id} == *{choices[__${c_row.index}__].question_id}">
+							<span th:inline="text">C : [[*{choices[__${c_row.index}__].question_id}]]</span>
+							<input type="hidden" th:field="*{choices[__${c_row.index}__].question_id}" /> 
+							<input type="hidden" th:field="*{choices[__${c_row.index}__].answer_id}" />
+							<input type="checkbox" th:field="*{choices[__${c_row.index}__].is_answer}" />
+							<input th:field="*{choices[__${c_row.index}__].answer}" />
+						</div>
+					</div>
 				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 
 
-
-
-<!-- 
+	<!-- 
 	<form action="#" th:action="@{/long_create}" method="post" th:object="${question_list}">
 		<input type="submit" value="質問追加" name="add_question" />
 		<input type="submit" name="submit" />
