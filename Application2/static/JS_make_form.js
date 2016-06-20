@@ -1,15 +1,13 @@
 $(function() {
+	var content_id = 4;
     // Ajax通信テスト ボタンクリック
     $("#add_question_btn").click(function() {
-        /*// outputDataを空に初期化
-        $("#output_data").text("");*/
-    	var content_id = 5;
         $.ajax({
             type        : "POST",
             url         : "createNewQuestion",
             dataType    : "json",
-            data		: {"content_id" : content_id},
-            contentType: 'application/json', 
+            data		:  JSON.stringify({"id": content_id }),
+            contentType : "application/json", 
             success     : function(data) {
                             addQuestion(data);
                         },
@@ -29,7 +27,8 @@ $(function() {
             type        : "POST",
             url         : "createNewChoice",
             dataType    : "json",
-            data		: {"content_id": content_id},
+            data		: JSON.stringify({"id": content_id}),
+            contentType : "application/json", 
             success     : function(data) {alert("OK");
                         },
             error       : function(XMLHttpRequest, textStatus, errorThrown) {
