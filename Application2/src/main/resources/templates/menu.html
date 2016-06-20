@@ -1,18 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Menu</title>
-		<script type="text/javascript">
-			function addControl(userType) {
-				alert("Hello JavaScript:D" + userType);
-			}
-		</script>
-	</head>
-	<body>
-		<p class="submit"><input type="button" value="Button" name="loginButton" onclick="addControl(${userType})" /></p>
-		<p th:text="${userType}" />
-		<div id="form1">
-		</div>
-	</body>
+<head>
+<title>MENU</title>
+</head>
+<body>
+
+<h1 align="center"><font color="#ff9933">MENU</font></h1>
+
+<form action="/login" method="GET">
+	<input type="submit" style="position: absolute; right: 10px; top: 10px" value="ログアウト" />
+</form>
+
+<!--
+<div style="height:50%; width:80%; overflow-y:scrol;">
+
+
+<div align="center">
+-->
+
+<p align="center">
+
+<form action="/kanrisha" method="GET">
+	<input type="submit" style="margin:0px; float:left;" value="ユーザ管理" />
+</form>
+
+<form action="/kanrisha" method="GET">
+	<input type="submit" style="margin:0px; float:left;" value="フォーム作成" />
+</form>
+
+</p>
+
+<!--
+</div>
+
+<div align="center" class="copyright">Copyright (C) 1996-2002 杜甫々</div>
+-->
+	<table height="80%" width="80%" align="center" border="1">
+	<caption align="left">フォーム一覧</caption>
+		<tr>
+			<th>解答番号</th>
+			<th>タイトル</th>
+			<th>ボタン</th>
+		</tr>
+		<tr th:each="contentList :${contentList}">
+			<td width="100" align="center" th:text="${contentList.getContent_id()}"></td>
+			<td width="500" th:text="${contentList.getContent_title()}"></td>
+
+			<td>
+			<div style="display:inline-flex">
+				<form action="/question" method="GET">
+					<input type="hidden" name="contentId" th:value="${contentList.getContent_id()}" />
+					<input type="submit" style="margin:1px; float:left;" value="解答" />
+				</form>
+				<form action="/formcreate" method="GET">
+					<input type="hidden" name="contentId" th:value="${contentList.getContent_id()}" />
+					<input type="submit" style="margin:1px; float:left;" value="更新" />
+				</form>
+				<form action="/remove" method="GET">
+					<input type="hidden" name="contentId" th:value="${contentList.getContent_id()}" />
+					<input type="submit" style="margin:1px; float:left;" value="削除" />
+				</form>
+			</div>
+			</td>
+
+		</tr>
+	</table>
+
+</body>
 </html>
