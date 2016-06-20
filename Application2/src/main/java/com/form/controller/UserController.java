@@ -64,22 +64,44 @@ public class UserController {
 	public String usernewOk(@ModelAttribute("newuser") User user ,Model model)  {
 
 		System.out.println("新規情報受け取りました。");
-
+		System.out.println(user.getUser_id());
 		System.out.println(user.getUsername());
-
 		System.out.println(user.getPassword());
 		System.out.println(user.getRole());
+		
 
 
 		userRepository.save(user);
-
+		
+		model.addAttribute("id", user.getUser_id());
 		model.addAttribute("name", user.getUsername());
 		model.addAttribute("pass", user.getPassword());
 		model.addAttribute("role", user.getRole());
+		model.addAttribute("user", user);
 
-		System.out.println("新規登録");
+		System.out.println("登録");
 
 		return "usernewOK";
+	}
+	
+	@RequestMapping(value="/userupdate",method=RequestMethod.POST)
+	public String userupdate(@ModelAttribute("newuser") User user ,Model model)  {
+
+		System.out.println("変更する情報受け取りました。");
+
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		System.out.println(user.getRole());
+/*
+		model.addAttribute("name", user.getUsername());
+		model.addAttribute("pass", user.getPassword());
+		model.addAttribute("role", user.getRole());
+*/
+
+		model.addAttribute("newuser", user);
+		System.out.println("セットしました");
+
+		return "usernew";
 	}
 }
 

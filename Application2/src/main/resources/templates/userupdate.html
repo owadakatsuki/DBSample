@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
-		<title>《ユーザー》編集</title>
+		<title>《user》編集</title>
 	</head>
 
 	<body>
 		<form action="/userupdate" method="POST" th:object="${user}">
-			<div>　名前　　：</div>
+			<div>　名前　　：</div><input type="text" value="name" />
 			<div>パスワード：</div>
 			<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}" ></div>
 			<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}" ></div>
