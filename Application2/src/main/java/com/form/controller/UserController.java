@@ -39,17 +39,7 @@ public class UserController {
 		return "userlist";
 	}
 
-	@RequestMapping(value="/userdelete",method=RequestMethod.GET)
-	public String userdelete(Locale locale, Model model) {
-		System.out.println("ユーザーを削除します！");
 
-		//	ユーザーリストの取得
-		List<User> userlist = userRepository.findAll();
-		//リストをセット
-		model.addAttribute("userlist" , userlist);
-
-		return "userdelete";
-	}
 
 
 }

@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Login</title>
+<head>
+	<meta charset="UTF-8" />
+	<title>Login</title>
+</head>
+<body>
+<div align="center">
+		<p  th:if ="${errMsg != null}">
+		 	<p th:text = "${errMsg}">
+			</p>
+		</p>
 
-	</head>
-	<body>
-		<form method="post" action= "/login">
-			<p>UserID</p>
-			<p><input type="text" name="userid"/></p>
+		<form th:action="@{/Login}" method="post">
+				<p>UserID</p>
+				<p><input type="text" name="userid" required="required"/></p>
 
-			<p>Password</p>
-			<p><input type="password" name="pass"/></p>
+				<p>Password</p>
+				<p><input type="password" name="pass" required="required"/></p>
 
-			<p class="submit"><input type="submit" value="Login" name="loginButton" /></p>
+			<p class="submit">
+				<input type="submit" value="Login" name="loginButton" />
+				<input type="reset" value="Clear" name="clear"/>
+			</p>
 		</form>
-
-	</body>
+</div>
+</body>
 </html>

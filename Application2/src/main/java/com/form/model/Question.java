@@ -3,6 +3,7 @@ package com.form.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,10 +11,10 @@ import javax.persistence.Table;
 @Table(name = "question_tb")
 public class Question {
 	
-	@Id/*
-	@GeneratedValue*/
-	private int content_id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int question_id;
+	private int content_id;
 	private String question;
 	private boolean required_flag;
 	private String commentary;

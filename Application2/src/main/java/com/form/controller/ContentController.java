@@ -29,7 +29,7 @@ public class ContentController {
 
         model.addAttribute("contentList", contentList);
 
-        return "menu";
+        return "menu"; // メニュー画面に遷移
     }
 
     @RequestMapping(value="/remove")
@@ -47,6 +47,37 @@ public class ContentController {
 
         model.addAttribute("contentList", contentList);
 
+        return "menu"; // 削除後、メニュー画面のまま
+    }
+
+    @RequestMapping("/qustion")
+    public String question(Locale locale, Model model) {
+        System.out.println("[START] 解答画面に遷移します。");
+
+        List<Content> contentList = contentRepository.findAll();
+
+        for (Content content : contentList) {
+            System.out.println(content.getContent_id() + content.getContent_title());
+        }
+
+        model.addAttribute("contentList", contentList);
+
         return "menu";
     }
+
+    @RequestMapping("/make_form")
+    public String makeForm(Locale locale, Model model) {
+        System.out.println("[START] フォーム編集画面に遷移します。");
+
+        List<Content> contentList = contentRepository.findAll();
+
+        for (Content content : contentList) {
+            System.out.println(content.getContent_id() + content.getContent_title());
+        }
+
+        model.addAttribute("contentList", contentList);
+
+        return "menu";
+    }
+
 }
