@@ -58,23 +58,19 @@ public class MakeFormService {
 	  public QuestionList findFormByContent_id(int id) {
 		  	QuestionList question_list = new QuestionList();
 		  	question_list.setQuestions(questionRepository.findByContent_id(id));
-		  	System.out.println("question is get.");
 		  	question_list.setChoices(choicesRepository.findByContent_id(id));
-		  	System.out.println("choice is get.");
-		  /*	if(question_list.getQuestions()== null) {
+		  	if(question_list.getQuestions().size() == 0) {
 		  		Question question = new Question();
-		  		question.setQuestion_id(0);
 		  		question.setContent_id(id);
 		  		questionSave(question);
 		  		question_list.getQuestions().add(question);
-		  	}
-		  	if(question_list.getChoices()==null) {
+		  		
 		  		ChoicesEntity choice = new ChoicesEntity();
-		  		choice.setQuestion_id(0);
+		  		choice.setQuestion_id(question.getQuestion_id());
 		  		choice.setContent_id(id);
 		  		choiceSave(choice);
 		  		question_list.getChoices().add(choice);
-		  	}*/
+		  	}
 		  	return question_list;
 	    }
 

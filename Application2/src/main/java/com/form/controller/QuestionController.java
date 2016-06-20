@@ -25,19 +25,21 @@ public class QuestionController {
 	@RequestMapping(value = "createNewQuestion",consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public Question createNewQuestion(@RequestBody SendId id) {
-		Question question = new Question();/*
-		question.setContent_id(content_id.getId());
-    	MakeFormService.questionSave(question);*/
+		Question question = new Question();
+		question.setContent_id(id.getContent_id());
+    	MakeFormService.questionSave(question);
 		return question;
 	}
 
 
 	@RequestMapping(value = "createNewChoice", consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
-	public ChoicesEntity createNewChoice(@RequestBody SendId content_id) {
-		ChoicesEntity  choice= new ChoicesEntity();/*
-		choice.setContent_id(content_id.getId());
-    	MakeFormService.choiceSave(choice);*/
+	public ChoicesEntity createNewChoice(@RequestBody SendId id) {
+		ChoicesEntity  choice= new ChoicesEntity();
+		choice.setContent_id(id.getContent_id());
+		choice.setQuestion_id(id.getQuestion_id());
+    	MakeFormService.choiceSave(choice);
+		
 		return choice;
 	}
     
@@ -53,30 +55,6 @@ public class QuestionController {
 
 		QuestionList question_list = MakeFormService.findFormByContent_id(0);
 		
-		/*
-    	// 質問リスト作成
-    	List<Question> tmp = new ArrayList<Question>();
-    	Question question = new Question();
-    	tmp.add(question);
-    	question = new Question();
-    	question.setQuestion_id(1);
-    	tmp.add(question);
-    	question_list.setQuestions(tmp);
-    	
-
-    	// 回答リスト作成
-    	List<ChoicesEntity> choices = new ArrayList<ChoicesEntity>();
-    	ChoicesEntity choice = new ChoicesEntity();
-    	choices.add(choice);
-    	choice = new ChoicesEntity();
-    	choice.setQuestion_id(5);
-    	choice.setAnswer_id(5);
-    	System.out.println(choice.getQuestion_id());
-    	choices.add(choice);
-    	question_list.setChoices(choices);
-    	//debug(question_list);
-*/    	
-    	
     	model.addAttribute("question_list", question_list);
     	
     	model.addAttribute("questions",new Question());
