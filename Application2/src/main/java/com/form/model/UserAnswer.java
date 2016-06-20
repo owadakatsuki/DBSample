@@ -35,7 +35,7 @@ public class UserAnswer implements Serializable { //implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)	// 後でuser_answer_id
 	private Integer		id;
 
 	@NotNull
