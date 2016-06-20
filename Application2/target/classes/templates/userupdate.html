@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta charset="UTF-8">
-		<title>ユーザー情報編集画面</title>
+		<meta charset="UTF-8"/>
+		<title>《ユーザー》編集</title>
 	</head>
 
 	<body>
-
-
+		<form action="/userupdate" method="POST" th:object="${user}">
+			<div>　名前　　：</div>
+			<div>パスワード：</div>
+			<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}" ></div>
+			<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}" ></div>
+		</form>
 
 	</body>
 </html>
