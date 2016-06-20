@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.form.model.Content;
 import com.form.model.ContentRepository;
+import com.form.model.User;
 
 @Controller
 public class ContentController {
@@ -27,6 +28,9 @@ public class ContentController {
             System.out.println(content.getContent_id() + content.getContent_title());
         }
 
+        User user_info = new User();
+        user_info.setRole("role");
+        model.addAttribute("user_info", user_info);
         model.addAttribute("contentList", contentList);
 
         return "menu"; // メニュー画面に遷移
