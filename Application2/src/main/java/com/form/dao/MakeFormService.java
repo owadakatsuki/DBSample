@@ -14,7 +14,8 @@ import com.form.model.QuestionList;
 @Transactional
 public class MakeFormService {  
 	@Autowired
-	  MakeFormRepository questionRepository; 
+	  QuestionRepository questionRepository; 
+	@Autowired
 	  ChoicesRepository choicesRepository;
 
 	  public List<Question> findAll() {
@@ -54,9 +55,23 @@ public class MakeFormService {
 	   // questionRepository.delete(id);
 	  }
 	   
-	  public Question find(Long id) {
-	     //   return questionRepository.findOne(id);
-		  return new Question();
+	  public QuestionList findFormByContent_id(int id) {
+		  	QuestionList question_list = new QuestionList();
+		  	question_list.setQuestions(questionRepository.findByContent_id(id));
+		  	question_list.setChoices(choicesRepository.findByContent_id(id));
+		  	if(question_list.getQuestions().size() == 0) {
+		  		Question question = new Question();
+		  		question.setContent_id(id);
+		  		questionSave(question);
+		  		question_list.getQuestions().add(question);
+		  		
+		  		ChoicesEntity choice = new ChoicesEntity();
+		  		choice.setQuestion_id(question.getQuestion_id());
+		  		choice.setContent_id(id);
+		  		choiceSave(choice);
+		  		question_list.getChoices().add(choice);
+		  	}
+		  	return question_list;
 	    }
 
 }

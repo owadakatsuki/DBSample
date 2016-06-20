@@ -5,6 +5,7 @@
 #form{
 }
 .title_container{
+	border: 5px;
 }
 .question_container{
 	margin: 10px;

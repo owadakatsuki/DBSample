@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>《ユーザー》新規登録</title>
+	</head>
+	<body>
+		<form action="/usernewOK" method= "POST" th:object="${newuser}">
+		<div>名前		：<input type="text" name="username" th:field="*{username}"/></div>
+		<div>パスワード：<input type="password" name="password" th:field="*{password}"/></div>
+		<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}"/>user</div>
+		<div><input type="radio" name="role" value="admin" th:field="*{role}"/>admin</div>
+		<input type="submit" value="登録" name="registration"/>
+		<input type= "reset" value="リセット" name="reset"/>
+		</form>
+	</body>
+</html>

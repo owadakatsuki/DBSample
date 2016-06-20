@@ -22,13 +22,13 @@ public class User {
 		this.user_id = user_id;
 	}
 
-	@Column(nullable = false)
+	@Column(name="username", nullable = false)
 	private String username;
 
 	public String getUsername() {
 		return username;
 	}
-	public void setUesrname(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -53,4 +53,5 @@ public class User {
 	public void setRole(String role){
 		this.role = role;
 	}
+
 }

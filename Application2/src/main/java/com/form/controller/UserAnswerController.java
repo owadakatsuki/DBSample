@@ -12,19 +12,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
+import com.form.dao.MakeFormService;
 import com.form.dao.UserAnswerService;
 import com.form.model.ChoicesEntity;
+import com.form.model.Content;
+import com.form.model.Question;
+import com.form.model.QuestionList;
 import com.form.model.UserAnswer;
 
 @Controller
 public class UserAnswerController {
 	 @Autowired
-	 UserAnswerService service;
+	 UserAnswerService 	service;
+	 @Autowired
+	 MakeFormService 	makeformservice;
 	 
 	 // redirectするときに必要
 	 public void addViewControllers(ViewControllerRegistry registry) {
@@ -36,23 +44,7 @@ public class UserAnswerController {
 	 public String List(@PathVariable Integer id, Model model ) {
 		 try{
 			 UserAnswer answer = service.findById(id);
-			 String[] a = answer.getSelect_answer().split(",");
-			 String[] b = {"3","2","3","1"};
-			 Integer index = 0;
-			 for(String n : a) {
-				 for(String x : b) {
-					 Integer result = x.compareTo(n);
-					 switch(result){
-					 case 0:
-						 index++;
-						 break;
-					 case 1:
-						 continue;
-						 default:;
-					 }
-				 }
-			 }
-			 model.addAttribute("results", index);
+			
 			 // 値照らし合わせ
 			 // 点数計算
 			 
@@ -67,9 +59,13 @@ public class UserAnswerController {
 	 }
 	 
 	 // 引数UserAnswer-> Question Choice..?
-	 @RequestMapping(value="/form", method=RequestMethod.GET)
-	 public String GetUserAnswerForm( UserAnswer user_answer, Model model ){
+	 @RequestMapping(value="/form", method=RequestMethod.POST)
+	 public String GetUserAnswerForm(@Valid Content content, Model model ){
 		try{
+			// QuestionList question_list = makeformservice.findFormByContent_id(contentID);
+			 System.out.println(content.getContent_id() + content.getContent_title());
+			// model.addAttribute("question_list", question_list);
+	    	 model.addAttribute("questions", new Question());
 			 model.addAttribute("useranswer", new UserAnswer());
 			 model.addAttribute("checkItems", CHECK_ITEMS);
 			 model.addAttribute("radioItems", RADIO_ITEMS); 
@@ -80,8 +76,8 @@ public class UserAnswerController {
 	 }
 	
 	 //BindingResult : object so you can test for and retrieve validation errors.
-	 @RequestMapping(value="/form", method=RequestMethod.POST)
-	 public String PostUserAnswerForm(@Valid UserAnswer useranswer, BindingResult result, Model model){
+	 @RequestMapping(value="/formAnswer", method=RequestMethod.POST)
+	 public String PostUserAnswerForm(@Valid Content content, @Valid UserAnswer useranswer, BindingResult result, Model model){
 		 try{
 			 	UserAnswer useranswer_result = null;
 			 	int i = 0;
@@ -102,7 +98,7 @@ public class UserAnswerController {
 			 		}
 			 	}else{
 			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return GetUserAnswerForm(useranswer, model);
+			 		return GetUserAnswerForm(content, model);
 			 	}
 			 	return "redirect:/result/" + useranswer_result.getId();
 		}catch(Exception e){
