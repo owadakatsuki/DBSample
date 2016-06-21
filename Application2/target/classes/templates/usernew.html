@@ -5,7 +5,10 @@
 		<title>《user》登録</title>
 	</head>
 	<body>
+	
+	
 <div align="center">	
+		<div th:text="${ermsg}"></div>
 		<form action="/usernewOK" method= "POST" th:object="${newuser}">
 		<div>ユーザーID	：<input type="text" name="userid" th:field="*{user_id}"/></div>
 		<div>名前		：<input type="text" name="username" th:field="*{username}"/></div>
