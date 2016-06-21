@@ -14,7 +14,7 @@
 					<input type="hidden" name="content_id" 		th:value="${question.getContent_id()}" />
 					<input type="hidden" name="question_id" 	th:value="${question.getQuestion_id()}" />
 					<input type="hidden" name="answer_id" 		th:value="${choice.getAnswer_id()}" />
-					<input type="radio" name="select_answer" 	th:field="*{select_answer}" th:value="${choice.answer_id}" th:text="${choice.answer}" />
+					<input type="checkbox" name="select_answer" th:field="*{select_answer}" th:value="${choice.answer_id}" th:text="${choice.answer}" />
 				</div>
 			</div>
 		</div>
