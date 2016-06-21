@@ -25,6 +25,7 @@ import com.form.model.ChoicesEntity;
 import com.form.model.Content;
 import com.form.model.Question;
 import com.form.model.QuestionList;
+import com.form.model.User;
 import com.form.model.UserAnswer;
 
 @Controller
@@ -58,17 +59,21 @@ public class UserAnswerController {
 		 return "form/userAnswerResult";
 	 }
 	 
-	 // 引数UserAnswer-> Question Choice..?
-	 @RequestMapping(value="/form", method=RequestMethod.POST)
+	 @RequestMapping(value="/form", method=RequestMethod.POST)	// user : menuからもらう必要ある
 	 public String GetUserAnswerForm(@Valid Content content, Model model ){
 		try{
-			 QuestionList question_list = makeformservice.findFormByContent_id(content.getContent_id());
-			 //System.out.println(content.getContent_id() + content.getContent_title());
+			 QuestionList	question_list 		= makeformservice.findFormByContent_id(content.getContent_id());
+			 UserAnswer 	init_hidden_value 	= new UserAnswer();
+			 
+			 init_hidden_value.setUser_id(1);	// テスト
+			 init_hidden_value.setContent_id(content.getContent_id());
+			 
 			 model.addAttribute("question_list", question_list);
-	    	 model.addAttribute("questions", new Question());
-			 model.addAttribute("useranswer", new UserAnswer());
-			 model.addAttribute("checkItems", CHECK_ITEMS);
-			 model.addAttribute("radioItems", RADIO_ITEMS); 
+			 model.addAttribute("useranswer", init_hidden_value);
+			 
+			 
+			 //model.addAttribute("checkItems", CHECK_ITEMS);
+			 //model.addAttribute("radioItems", RADIO_ITEMS); 
 		}catch(Exception e){
 			return "error";
 		}  
