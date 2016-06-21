@@ -13,33 +13,30 @@
 	</div>
 
 	<div align="center">
-	<h1>解答結果</h1>
+		<h1>解答結果</h1>
 
-	<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
-	<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
+		<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
+		<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
 
-	<ul>
-	<div th:each="i : ${#numbers.sequence(1,10)}">
-	<il th:text="'Q'+${i}" ></il>
-	<il th:text="${user_info.getUsername()}+':'"></il>	<!-- 小問 -->
+		<ul><!-- 何がしたいなのかな？divの使い方が適切な場所ではなさそうだね。 -->
+			<div th:each="i : ${#numbers.sequence(1,10)}">
+				<li th:text="'Q'+${i}" ></li>
+				<li th:text="${user_info.getUsername()}+':'"></li>	<!-- 小問 -->
 
-	<!-- <il th:if="${eqals}">○</il>-->	<!-- user解答と答えが合っていたら  -->
-	<!-- <il th:unless="${eqals}">×</il>--><!-- user解答と答えが合っていなかったら -->
+				<!-- <il th:if="${eqals}">○</il>-->	<!-- user解答と答えが合っていたら  -->
+				<!-- <il th:unless="${eqals}">×</il>--><!-- user解答と答えが合っていなかったら -->
 
-	<il><p th:text="'あなたの解答→'+${user_info.getUser_id()}"></p></il>		<!-- 自分の解答 -->
-	<il><p th:text="'正解→'+${user_info.getUsername()}"></p></il>			<!-- 正解の番号 -->
-	<il th:if="${errMsg}!=null"><p th:text="'解説:'+${errMsg}"></p></il>	<!-- 解説 -->
+				<li><p th:text="'あなたの解答→'+${user_info.getUser_id()}"></p></li>		<!-- 自分の解答 -->
+				<li><p th:text="'正解→'+${user_info.getUsername()}"></p></li>			<!-- 正解の番号 -->
+				<li th:if="${errMsg}!=null"><p th:text="'解説:'+${errMsg}"></p></li>	<!-- 解説 -->
 
+			</div>
+		</ul>
+
+		<a href="menu" name="menu">メニューへ</a>
+		<br></br>
+		<br></br>
+		<input type="submit" value="logout" name="logout"/>
 	</div>
-	</ul>
-
-
-
-	<a href="menu" name="menu">メニューへ</a>
-	<br></br>
-	<br></br>
-	<input type="submit" value="logout" name="logout"/>
-	</div>
-
 </body>
 </html>

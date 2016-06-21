@@ -2,16 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
-		<title>《user》編集</title>
+		<title>《user》登録</title>
 	</head>
-
 	<body>
-		<form action="/userupdate" method="POST" th:object="${user}">
-			<div>　名前　　：</div><input type="text" value="name" />
-			<div>パスワード：</div>
-			<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}" ></div>
-			<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}" ></div>
+	
+	
+<div align="center">	
+		<form action="/userrenew" method= "POST" th:object="${user}">
+		<div>ユーザーID	：<input type="text" name="userid" th:field="*{user_id}"/></div>
+		<div>名前		：<input type="text" name="username" th:field="*{username}"/></div>
+		<div>パスワード：<input type="password" name="password" th:field="*{password}"/></div>
+		<div><input type="radio" name="role" value="user" checked="checked" th:field="*{role}"/>user</div>
+		<div><input type="radio" name="role" value="admin" th:field="*{role}"/>admin</div>
+		<input type="submit" value="登録" name="registration"/>
+		<input type= "reset" value="リセット" name="reset"/>
 		</form>
-
+</div>		
 	</body>
 </html>

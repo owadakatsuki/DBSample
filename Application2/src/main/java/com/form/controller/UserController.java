@@ -36,6 +36,7 @@ public class UserController {
 		List<User> userlist = userRepository.findAll();
 		//リストをセット
 		model.addAttribute("userlist" , userlist);
+		System.out.println("取れた");
 
 		return "userlist";
 	}
@@ -69,8 +70,76 @@ public class UserController {
 		System.out.println(user.getPassword());
 		System.out.println(user.getRole());
 		
+		User userid=  userRepository.findOne(user.getUser_id());
+		if(userid == null) {
+			userRepository.save(user);
+		
+		model.addAttribute("id", user.getUser_id());
+		model.addAttribute("name", user.getUsername());
+		model.addAttribute("pass", user.getPassword());
+		model.addAttribute("role", user.getRole());
+		model.addAttribute("user", user);
+
+		System.out.println("登録");
+		
+		} else {
+			String ermsg = "IDが既に使われています。";
+			model.addAttribute("ermsg",ermsg);
+			
+			System.out.println("IDが既に使われています。");
+			return "usernew";
+		}
+
+		return "usernewOK";
+	}
+	
+	/*
+	@RequestMapping(value="/userupdate",method=RequestMethod.POST)
+	public String userupdate(@ModelAttribute("newuser") User user ,Model model)  {
+
+		System.out.println("変更する情報受け取りました。");
+
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		System.out.println(user.getRole());
+
+		//model.addAttribute("name", user.getUsername());
+		//model.addAttribute("pass", user.getPassword());
+		//model.addAttribute("role", user.getRole());
 
 
+		model.addAttribute("newuser", user);
+		System.out.println("セットしました");
+
+		return "usernew";
+	}
+*/
+	
+	@RequestMapping(value="/userupdate",method=RequestMethod.POST)
+	public String userupdate(@ModelAttribute("user") User user ,Model model)  {
+
+		System.out.println("変更情報受け取りました。");
+		System.out.println(user.getUser_id());
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		System.out.println(user.getRole());
+		
+		model.addAttribute("user", user);
+
+		System.out.println("usernew画面に同じ");
+
+		return "userupdate";
+	}
+	
+	@RequestMapping(value="/userrenew",method=RequestMethod.POST)
+	public String userrenew(@ModelAttribute("user") User user ,Model model)  {
+
+		System.out.println("新規情報受け取りました。");
+		System.out.println(user.getUser_id());
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		System.out.println(user.getRole());
+		
 		userRepository.save(user);
 		
 		model.addAttribute("id", user.getUser_id());
@@ -83,25 +152,7 @@ public class UserController {
 
 		return "usernewOK";
 	}
-	
-	@RequestMapping(value="/userupdate",method=RequestMethod.POST)
-	public String userupdate(@ModelAttribute("newuser") User user ,Model model)  {
-
-		System.out.println("変更する情報受け取りました。");
-
-		System.out.println(user.getUsername());
-		System.out.println(user.getPassword());
-		System.out.println(user.getRole());
-/*
-		model.addAttribute("name", user.getUsername());
-		model.addAttribute("pass", user.getPassword());
-		model.addAttribute("role", user.getRole());
-*/
-
-		model.addAttribute("newuser", user);
-		System.out.println("セットしました");
-
-		return "usernew";
-	}
 }
+
+
 
