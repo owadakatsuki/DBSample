@@ -62,9 +62,9 @@ public class UserAnswerController {
 	 @RequestMapping(value="/form", method=RequestMethod.POST)
 	 public String GetUserAnswerForm(@Valid Content content, Model model ){
 		try{
-			// QuestionList question_list = makeformservice.findFormByContent_id(contentID);
-			 System.out.println(content.getContent_id() + content.getContent_title());
-			// model.addAttribute("question_list", question_list);
+			 QuestionList question_list = makeformservice.findFormByContent_id(content.getContent_id());
+			 //System.out.println(content.getContent_id() + content.getContent_title());
+			 model.addAttribute("question_list", question_list);
 	    	 model.addAttribute("questions", new Question());
 			 model.addAttribute("useranswer", new UserAnswer());
 			 model.addAttribute("checkItems", CHECK_ITEMS);
@@ -73,6 +73,7 @@ public class UserAnswerController {
 			return "error";
 		}  
 		return "form/userAnswerForm";
+		//return "redirect:/formAnswer";
 	 }
 	
 	 //BindingResult : object so you can test for and retrieve validation errors.
@@ -80,7 +81,6 @@ public class UserAnswerController {
 	 public String PostUserAnswerForm(@Valid Content content, @Valid UserAnswer useranswer, BindingResult result, Model model){
 		 try{
 			 	UserAnswer useranswer_result = null;
-			 	int i = 0;
 			 	if(!result.hasErrors()){
 			 		try{
 			 			//for (i = 0; i < useranswer.size(); i++) {
