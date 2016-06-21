@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
-		<title>《ユーザー》一覧</title>
+		<title>《user》一覧</title>
 	</head>
 	<body>
-
+<div align="center">
 			<table>
 			<thead>
 				<tr>
@@ -20,33 +20,35 @@
 					</th>
 
 				</tr>
-				<tr th:each="user :${userlist}" th:object="${user}">
+				<tr th:each="user :${userlist}">
 
 
 					<td th:text="${user.getUser_id()}" ></td>
 					<td th:text="${user.getUsername()}" ></td>
 					<td th:text="${user.getRole()}" ></td>
 					<td>
-						<form action="/userupdate" method="GET" >
+						<form action="/userupdate" method="POST" th:object="${user}">
 							<input type="submit" value="編集"/>
+							<input type="hidden" th:value="*{user_id}"  name="user_id"/>
+							<input type="hidden" th:value="*{username}"  name="username"/>
+							<input type="hidden" th:value="*{password}"  name="password"/>
+							<input type="hidden" th:value="*{role}"  name="role"/>
 						</form>
 					</td>
 					<td>
+
 						<form action="/userdelete" method="GET">
 
-							<input type="submit"  value="削除"/>
-							<input type="hidden" th:value="${user.getUser_id()}"  name="userid"/>
+							<center><input type="submit"  value="削除"/></center>
+							<center><input type="hidden" th:value="${user.getUser_id()}"  name="userid"/></center>
 
 						</form>
+
 					</td>
-
-
 				</tr>
-
 			</thead>
-
 		</table>
-
-
+		
+</div>		
 	</body>
 </html>
