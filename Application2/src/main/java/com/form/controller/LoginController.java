@@ -47,7 +47,7 @@ public class LoginController{
 				return "login";
 			} else{
 				System.out.println("login成功");
-				return "login";		//(仮)　のちにmenu画面へとぶようにする。
+				return "";		//(仮) のちにmenu画面へとぶようにする。
 			}
 	}
 }

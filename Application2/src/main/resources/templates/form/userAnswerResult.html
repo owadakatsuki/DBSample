@@ -5,12 +5,41 @@
 <title>ユーザ解答結果</title>
 </head>
 <body>
-	<p th:text="${results}" />
-	<div th:each="data : ${datas}">		
+	<p th:text="${results}"></p>
+	<div th:each="data : ${datas}">
 		<div th:text="${data.select_answer}"></div>
 		<div th:text="${data.time}"></div>
 		<hr/>
 	</div>
-	aaaaaaa
+
+	<div align="center">
+	<h1>解答結果</h1>
+
+	<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
+	<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
+
+	<ul>
+	<div th:each="i : ${#numbers.sequence(1,10)}">
+	<il th:text="'Q'+${i}" ></il>
+	<il th:text="${user_info.getUsername()}+':'"></il>	<!-- 小問 -->
+
+	<!-- <il th:if="${eqals}">○</il>-->	<!-- user解答と答えが合っていたら  -->
+	<!-- <il th:unless="${eqals}">×</il>--><!-- user解答と答えが合っていなかったら -->
+
+	<il><p th:text="'あなたの解答→'+${user_info.getUser_id()}"></p></il>		<!-- 自分の解答 -->
+	<il><p th:text="'正解→'+${user_info.getUsername()}"></p></il>			<!-- 正解の番号 -->
+	<il th:if="${errMsg}!=null"><p th:text="'解説:'+${errMsg}"></p></il>	<!-- 解説 -->
+
+	</div>
+	</ul>
+
+
+
+	<a href="menu" name="menu">メニューへ</a>
+	<br></br>
+	<br></br>
+	<input type="submit" value="logout" name="logout"/>
+	</div>
+
 </body>
 </html>
