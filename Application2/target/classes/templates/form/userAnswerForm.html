@@ -5,8 +5,18 @@
 <title>ユーザ解答フォーム</title>
 </head>
 <body>
-	<form th:action="@{/formAnswer}" method="post" th:object="${useranswer}">
-		<div th:each="question : ${question_list.questions}">
+	<form th:action="@{/formAnswer}" method="post" th:object="${list}">
+		<div th:each="p, q_row : ${list}"  th:id="'qContainer_' + ${list[__${q_row.index}__].question_id}">
+			<input type="hidden" name="content_id" th:value="${list[__${q_row.index}__].content_id}" />
+			<input type="hidden" name="question_id" th:value="${list[__${q_row.index}__].question_id}" /> 
+			<input type="hidden" name="user_id" th:value="${list[__${q_row.index}__].user_id}" /> 
+			<input type="hidden" name="answer_id" th:value="${list[__${q_row.index}__].answer_id}" />  
+			<div th:text="${question_list.questions[__${q_row.index}__].question}"></div>
+			<div class="choice" th:each="choice : ${question_list.choices}">
+				<div class="choice" th:if="${list[__${q_row.index}__].question_id} == ${choice.question_id}" >
+					<input type="checkbox" name="select_answer" th:value="${choice.answer_id}" th:text="${choice.answer}" />
+			
+		  <!--<div th:each="question : ${question_list.questions}">
 			<div class="question" th:inline="text">Q : [[${question.question}]]</div>
 			<div class="choice" th:each="choice : ${question_list.choices}">
 				<div class="choice" th:if="${question.question_id} == ${choice.question_id}" >
@@ -16,7 +26,8 @@
 					<input type="hidden" name="answer_id" 		th:value="${choice.getAnswer_id()}" />
 					<input type="checkbox" name="select_answer" th:field="*{select_answer}" th:value="${choice.answer_id}" th:text="${choice.answer}" />
 				</div>
-			</div>
+			</div>-->
+			</div></div>
 		</div>
 		<button type="submit" class="btn btn-default">提出</button>
 	</form>
