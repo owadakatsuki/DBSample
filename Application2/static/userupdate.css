@@ -1,8 +1,23 @@
 @CHARSET "UTF-8";
-
-.title_container{
-	border: 5px;
+/*============================
+#form
+============================*/
+#form{
 }
 .userid{
-	background-color:#004080; font-size:17px;	
+	color:#696969; font-size:23px;
+	font-weight:bold;
 }
+.userid:first-letter{color:#0099ff;}
+
+.name{
+	color:#696969; font-size:23px;
+	font-weight:bold;
+}
+.name:first-letter{color:#D31996;}
+
+.pass{
+	color:#696969; font-size:23px;
+	font-weight:bold;
+}
+.pass:first-letter{color:#19DD89;}
