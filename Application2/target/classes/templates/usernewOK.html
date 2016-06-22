@@ -2,20 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="usernewOK.css" /> 
 		<title>《user》登録確認</title>
+		
 	</head>
 	<body>
 	<div align="center">
 		<p class="hidden" th:object="${user}"/>
-		<p>ユーザーID:<nobr th:text="*{id}"></nobr></p>
+		<p><b class="id">ユーザーID:</b>
+		<nobr th:text="*{id}"></nobr></p>
 		
-		<p>ユーザ名:<nobr th:text="*{name}"></nobr></p>
-					<!-- ↓パスワードは隠す　-->
-		<p>パスワード:<nobr th:text="*{pass}"></nobr></p>
-
-		<p>管理者権限:<nobr th:text="*{role}"></nobr></p>
+		<p><b class="name">ユーザ名:</b>
+		<nobr th:text="*{name}"></nobr></p>
+		
+		<p><b class="role">管理者権限:</b>
+		<nobr  th:text="*{role}"></nobr></p>
+		
 		<form action="/userlist" method="GET">
-			<input type="submit"  value="確認"/>
+			<input class="submit" type="submit"  value="OK"/>
 		</form>
 	</div>
 
