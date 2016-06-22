@@ -27,7 +27,7 @@ public class LoginController{
 		}
 
 		@RequestMapping(value ="/Login",method=RequestMethod.POST)
-		public String login(Model model, @RequestParam("userid") int user_ID, @RequestParam("pass") String password){
+		public String login(Model model, @RequestParam("userid") String user_ID, @RequestParam("pass") String password){
 			System.out.println("login来ました");
 
 			//user_IDを引数として渡し、login判定をしてもらう。
