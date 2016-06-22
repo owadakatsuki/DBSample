@@ -8,6 +8,7 @@ html, body{
     padding: 0;        /* 余白の削除 */
     width:100%;
     height:100%;
+    font-size: 1em;
 }
 
 /* ヘッダーの固定 */
@@ -31,8 +32,10 @@ input[type="button"] {
 	font-size: 1em;
 }
 
-.form{
+input[type="submit"] {
+	font-size: 1em;
 }
+
 .title_container{
 	margin: 10px;
 	padding: 5px;
@@ -43,7 +46,7 @@ input[type="button"] {
 }
 .question_container{
 	width: 80%;
-	margin: 10px auto;
+	margin: 15px auto;
 	padding: 20px;
 	border: solid 1px;
 }
@@ -56,6 +59,8 @@ input[type="button"] {
 	padding: 5px;
 	font-size: 2em;
 }
+
+
 
 .choice_container{
 	margin: 10px;

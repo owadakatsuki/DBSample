@@ -18,20 +18,16 @@
 		<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
 		<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
 
-		<ul><!-- 何がしたいなのかな？divの使い方が適切な場所ではなさそうだね。 -->
-			<div th:each="i : ${#numbers.sequence(1,10)}">
-				<li th:text="'Q'+${i}" ></li>
-				<li th:text="${user_info.getUsername()}+':'"></li>	<!-- 小問 -->
 
-				<!-- <il th:if="${eqals}">○</il>-->	<!-- user解答と答えが合っていたら  -->
-				<!-- <il th:unless="${eqals}">×</il>--><!-- user解答と答えが合っていなかったら -->
-
-				<li><p th:text="'あなたの解答→'+${user_info.getUser_id()}"></p></li>		<!-- 自分の解答 -->
-				<li><p th:text="'正解→'+${user_info.getUsername()}"></p></li>			<!-- 正解の番号 -->
-				<li th:if="${errMsg}!=null"><p th:text="'解説:'+${errMsg}"></p></li>	<!-- 解説 -->
-
+			<div th:each="i : ${#numbers.sequence(1,resultList.size())}">
+				<p th:text="'Q'+${i}" ></p>
+				<div th:each="result:${resltList}" th:object="${result}">
+					<p th:text="*{question}+':'+*{marubBatsu}"></p>	<!-- 問題文、〇× -->
+					<p th:text="'あなたの解答→'+*{select_answer}"></p>	<!-- 解答 -->
+					<p th:text="'正解→'+*{answer}"></p>					<!-- 正解 -->
+					<p th:if="*{commentary}!=null"><p th:text="'解説:'+*{commentary}"></p>	<!-- 解説 -->
+				</div>
 			</div>
-		</ul>
 
 		<a href="menu" name="menu">メニューへ</a>
 		<br></br>
