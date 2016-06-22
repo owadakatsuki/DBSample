@@ -1,5 +1,7 @@
 package com.form.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.form.dao.LoginService;
+import com.form.model.Content;
+import com.form.model.ContentRepository;
 import com.form.model.User;
 
 @Controller
 public class LoginController{
 	@Autowired
 	LoginService logService;
+    ContentRepository contentRepository;
 
 		@RequestMapping("/")
 		public String startApp(Model model){
@@ -47,7 +52,12 @@ public class LoginController{
 				return "login";
 			} else{
 				System.out.println("login成功");
-				return "";		//(仮) のちにmenu画面へとぶようにする。
+
+				// 大問一覧取得
+		        List<Content> contentList = contentRepository.findAll();
+		        model.addAttribute("contentList", contentList);
+
+				return "menu";	//(仮) のちにmenu画面へとぶようにする。
 			}
 	}
 }
