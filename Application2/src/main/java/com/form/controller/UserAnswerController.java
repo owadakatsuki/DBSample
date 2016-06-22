@@ -3,8 +3,8 @@ package com.form.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -23,6 +23,7 @@ import com.form.model.ChoicesEntity;
 import com.form.model.Content;
 import com.form.model.Question;
 import com.form.model.QuestionList;
+import com.form.model.ResultEntity;
 import com.form.model.UserAnswer;
 
 @Controller
@@ -31,50 +32,99 @@ public class UserAnswerController {
 	 UserAnswerService 	service;
 	 @Autowired
 	 MakeFormService 	makeformservice;
-	 
+
 	 // redirectするときに必要
 	 public void addViewControllers(ViewControllerRegistry registry) {
 	     registry.addViewController("/result/{user_id}/{content_id}").setViewName("form/userAnswerResult");
 	 }
-	 
+
 	 // ユーザ解答結果
 	 @RequestMapping(value="/result/{user_id}/{content_id}", method=RequestMethod.GET)
 	 public String List(@PathVariable Integer user_id, @PathVariable Integer content_id, Model model ) {
 		 try{
+			 QuestionList	question_list  = makeformservice.findFormByContent_id(content_id);
+
 			 //UserAnswer answer = service.findById(id);
-			 List<UserAnswer> id = service.findByUserIdandContentId(user_id, content_id);
-			 System.out.println(id);
-			 
-			 // 値照らし合わせ
-			 // 点数計算
-			 
-			 // 書いた解答
-			 
-			 // これはテスト
-			 //model.addAttribute("datas", answer);
+			 List<UserAnswer> userAnswerList = service.findByUserIdandContentId(user_id, content_id);
+			 //System.out.println(id);
+
+
+
+			//小問ごとの結果を入れるListを作成
+			 List<ResultEntity> resultList = new ArrayList<ResultEntity>();
+			 boolean flg = true;
+
+			 for(Question question : question_list.getQuestions()) {
+				 ResultEntity resultEntity = new ResultEntity();
+
+				 for(ChoicesEntity choices : question_list.getChoices()){
+					 resultEntity.setQuestion(question.getQuestion());
+					 resultEntity.setCommentary(question.getCommentary());
+
+					 if ((choices.getQuestion_id() == question.getQuestion_id()) && choices.getIs_answer()) {
+						    resultEntity.setAnswer(choices.getAnswer());
+					 }
+				 }
+
+				 for(UserAnswer userAnswer : userAnswerList ){
+					 //qustionEntityとuserAnswerEntityの小問IDが一致した解答をresultEntityに入れる
+					 if(userAnswer.getQuestion_id()==question.getQuestion_id()){
+					 resultEntity.setSelect_answer(userAnswer.getSelect_answer());
+					 }
+				 }
+
+
+
+
+
+				 //正解の数と解答の数が一致していなかったらfalse
+				 if (resultEntity.getAnswer().size() != resultEntity.getSelect_answer().size()) {
+				 flg = false;
+				 } else {
+				 //解答の中に一つでも正解がなければfalse
+				 for(String answer : resultEntity.getAnswer()){
+				 if(!resultEntity.getSelect_answer().contains(answer)){
+				 	flg = false;
+				 }
+				 }
+				 }
+
+				 //flgの結果によって値をresultEntityに入れる
+				 //正解と解答の完全一致のみtrue
+				 if(flg){
+				 resultEntity.setMaruBatsu("〇");
+				 }else{
+				 resultEntity.setMaruBatsu("×");
+				 }
+
+				 //resultEntityをresultListに入れる
+				 resultList.add(resultEntity);
+			 }
+			 model.addAttribute("resultList",resultList);
+
 		 }catch(Exception e){
 			 return "error";
 		 }
 		 return "form/userAnswerResult";
 	 }
-	 
+
 	 @RequestMapping(value="/form", method=RequestMethod.POST)	// user : menuからもらう必要ある
 	 public String GetUserAnswerForm(@Valid Content content, Model model ){
 		try{
-			 QuestionList	question_list  = makeformservice.findFormByContent_id(content.getContent_id());		 
-			
+			 QuestionList	question_list  = makeformservice.findFormByContent_id(content.getContent_id());
+
 			 for(ChoicesEntity choices : question_list.getChoices()) {
 				 choices.setIs_answer(false);		// is answer 表示しない
 			 }
-			 
+
 			 model.addAttribute("question_list", question_list);
 			 model.addAttribute("content_id", content.getContent_id());
 		}catch(Exception e){
 			return "error";
-		}  
+		}
 		return "form/userAnswerForm";
 	 }
-	
+
 	 //BindingResult : object so you can test for and retrieve validation errors.
 	 @RequestMapping(value="/formAnswer", method=RequestMethod.POST)
 	 public String PostUserAnswerForm(@Valid Content content, @Valid QuestionList question_list, BindingResult result, Model model){
@@ -125,7 +175,7 @@ public class UserAnswerController {
 				 				useranswer_result.setAnswer_id(user_Answer.getAnswer_id());
 				 				useranswer_result.setSelect_answer(user_Answer.getSelect_answer());
 				 				service.Save(useranswer_result);
-							} 
+							}
 			 		}catch(Exception e){
 			 			model.addAttribute("error", e.getMessage());
 			 			return "error";
@@ -139,7 +189,7 @@ public class UserAnswerController {
 			return "error";
 		}*/
 	 }
-	 
+
 	 // check boxの表示に使用するアイテム
 	 final static Map<String, Integer> CHECK_ITEMS = Collections.unmodifiableMap(new LinkedHashMap<String, Integer>() {
 		 {
