@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.form.dao.ContentRepository;
 import com.form.dao.LoginService;
 import com.form.model.Content;
-import com.form.model.ContentRepository;
 import com.form.model.User;
 
 @Controller

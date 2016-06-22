@@ -1,7 +1,9 @@
-package com.form.model;
+package com.form.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.form.model.Content;
 
 public interface ContentRepository extends JpaRepository<Content, Integer>{
 
