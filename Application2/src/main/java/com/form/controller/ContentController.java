@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.form.model.Content;
 import com.form.model.ContentRepository;
+import com.form.model.User;
 
 @Controller
 public class ContentController {
@@ -30,13 +31,10 @@ public class ContentController {
 //            System.out.println(content.getContent_id() + content.getContent_title());
 //        }
 
-/** 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理
- *
+        // 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理(結合テストでは消す予定)
         User user_info = new User();
-        user_info.setRole("role");
+        user_info.setRole("root");
         model.addAttribute("user_info", user_info);
-
-*/
 
         // 大問一覧をセット
         model.addAttribute("contentList", contentList);
@@ -55,20 +53,16 @@ public class ContentController {
 
         List<Content> contentList = contentRepository.findAll();
 
-        /** 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理
-         *
-                User user_info = new User();
-                user_info.setRole("role");
-                model.addAttribute("user_info", user_info);
+        // 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理(結合テストでは消す予定)
+        User user_info = new User();
+        user_info.setRole("root");
+        model.addAttribute("user_info", user_info);
 
-<<<<<<< HEAD
-        */
-=======
         model.addAttribute("contentList", contentList);
 
         return "menu";
     }
-/*
+/**
     @RequestMapping("/make_form")
     public String makeForm(Locale locale, Model model) {
         System.out.println("[START] フォーム編集画面に遷移します。");
@@ -78,42 +72,41 @@ public class ContentController {
         for (Content content : contentList) {
             System.out.println(content.getContent_id() + content.getContent_title());
         }
->>>>>>> 22_makeform
 
         // 削除後の大問一覧をセット
         model.addAttribute("contentList", contentList);
 
         return "menu";
-    }*/
+    }
 
-//    @RequestMapping("/qustion")
-//    public String question(Locale locale, Model model) {
-//        System.out.println("[START] 解答画面に遷移します。");
-//
-//        List<Content> contentList = contentRepository.findAll();
-//
-//        for (Content content : contentList) {
-//            System.out.println(content.getContent_id() + content.getContent_title());
-//        }
-//
-//        model.addAttribute("contentList", contentList);
-//
-//        return "menu";
-//    }
-//
-//    @RequestMapping("/make_form")
-//    public String makeForm(Locale locale, Model model) {
-//        System.out.println("[START] フォーム編集画面に遷移します。");
-//
-//        List<Content> contentList = contentRepository.findAll();
-//
-//        for (Content content : contentList) {
-//            System.out.println(content.getContent_id() + content.getContent_title());
-//        }
-//
-//        model.addAttribute("contentList", contentList);
-//
-//        return "menu";
-//    }
+    @RequestMapping("/qustion")
+    public String question(Locale locale, Model model) {
+        System.out.println("[START] 解答画面に遷移します。");
 
+        List<Content> contentList = contentRepository.findAll();
+
+        for (Content content : contentList) {
+            System.out.println(content.getContent_id() + content.getContent_title());
+        }
+
+        model.addAttribute("contentList", contentList);
+
+        return "menu";
+    }
+
+    @RequestMapping("/make_form")
+    public String makeForm(Locale locale, Model model) {
+        System.out.println("[START] フォーム編集画面に遷移します。");
+
+        List<Content> contentList = contentRepository.findAll();
+
+        for (Content content : contentList) {
+            System.out.println(content.getContent_id() + content.getContent_title());
+        }
+
+        model.addAttribute("contentList", contentList);
+
+        return "menu";
+    }
+*/
 }
