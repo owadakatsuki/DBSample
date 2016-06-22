@@ -2,6 +2,35 @@
 /*============================
 #form
 ============================*/
+/* html,bodyタグの設定 */
+html, body{
+    margin: 0;         /* 余白の削除 */
+    padding: 0;        /* 余白の削除 */
+    width:100%;
+    height:100%;
+}
+
+/* ヘッダーの固定 */
+div#header-fixed
+{
+    position: fixed;            /* ヘッダーの固定 */
+    top: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width: 100%;                /* 横幅100%　*/
+    height: 140px;              /* 縦幅140px */
+}
+
+div#header { 
+	border: 5px solid #fff;    /* 表示領域を白枠で囲う */
+	height: 100%;              /* 縦の表示領域はheader-bkと同じ */
+	width: 960px;              /* 横の幅970px */
+	margin: auto;              /* 中央揃え */
+}
+
+input[type="button"] {
+	font-size: 1em;
+}
+
 .form{
 }
 .title_container{
@@ -9,7 +38,7 @@
 	padding: 5px;
 	border: solid 1px;
 }
-.title_container input {
+.title_container input[type="text"] {
 	font-size: 3em;
 }
 .question_container{

@@ -60,13 +60,30 @@ public class ContentController {
                 user_info.setRole("role");
                 model.addAttribute("user_info", user_info);
 
+<<<<<<< HEAD
         */
+=======
+        model.addAttribute("contentList", contentList);
+
+        return "menu";
+    }
+/*
+    @RequestMapping("/make_form")
+    public String makeForm(Locale locale, Model model) {
+        System.out.println("[START] フォーム編集画面に遷移します。");
+
+        List<Content> contentList = contentRepository.findAll();
+
+        for (Content content : contentList) {
+            System.out.println(content.getContent_id() + content.getContent_title());
+        }
+>>>>>>> 22_makeform
 
         // 削除後の大問一覧をセット
         model.addAttribute("contentList", contentList);
 
         return "menu";
-    }
+    }*/
 
 //    @RequestMapping("/qustion")
 //    public String question(Locale locale, Model model) {
