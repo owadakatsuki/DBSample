@@ -52,17 +52,13 @@ public class MakeFormService {
 		  contentRepository.save(question_list.getContent());
 		  
 		  for(Question q : questions) {
-			  	if(q.getQuestion_id() == 0) {
-			  		System.out.println("消したデータです");
-			  	}else {
+			  	if(q.getQuestion_id() != 0) {
 			  		questionSave(q);
 			  	}
 		  }
 		  
 		  for(ChoicesEntity c : choices) {
-			  	if(c.getAnswer_id() == 0) {
-			  		System.out.println("消したデータです");
-			  	}else {
+			  	if(c.getAnswer_id() != 0) {
 			  		choiceSave(c);
 			  	}
 		  }
@@ -74,6 +70,11 @@ public class MakeFormService {
 	  }
 
 	  public void deleteQuestion(int id) {
+		  List<ChoicesEntity>choices = choicesRepository.findByQuestion_id(id);
+		  for(ChoicesEntity c: choices) {
+			  deleteChoice(c.getAnswer_id());
+		  }
+		  
 		  questionRepository.deleteQuestion(id);
 	  }
 	  
@@ -89,12 +90,14 @@ public class MakeFormService {
 		  	if(question_list.getQuestions().size() == 0) {
 		  		Question question = new Question();
 		  		question.setContent_id(id);
+		  		question.setQuestion("無題の質問");
 		  		questionSave(question);
 		  		question_list.getQuestions().add(question);
 		  		
 		  		ChoicesEntity choice = new ChoicesEntity();
 		  		choice.setQuestion_id(question.getQuestion_id());
 		  		choice.setContent_id(id);
+		  		choice.setAnswer("選択肢");
 		  		choiceSave(choice);
 		  		question_list.getChoices().add(choice);
 		  	}

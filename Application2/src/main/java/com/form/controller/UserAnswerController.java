@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import com.form.dao.MakeFormService;
 import com.form.dao.UserAnswerService;
+import com.form.model.ChoicesEntity;
 import com.form.model.Content;
 import com.form.model.Question;
 import com.form.model.QuestionList;
@@ -33,22 +34,24 @@ public class UserAnswerController {
 	 
 	 // redirectするときに必要
 	 public void addViewControllers(ViewControllerRegistry registry) {
-	     registry.addViewController("/result/{id}").setViewName("form/userAnswerResult");
+	     registry.addViewController("/result/{user_id}/{content_id}").setViewName("form/userAnswerResult");
 	 }
 	 
 	 // ユーザ解答結果
-	 @RequestMapping(value="/result/{id}", method=RequestMethod.GET)
-	 public String List(@PathVariable Integer id, Model model ) {
+	 @RequestMapping(value="/result/{user_id}/{content_id}", method=RequestMethod.GET)
+	 public String List(@PathVariable Integer user_id, @PathVariable Integer content_id, Model model ) {
 		 try{
-			 UserAnswer answer = service.findById(id);
-			
+			 //UserAnswer answer = service.findById(id);
+			 List<UserAnswer> id = service.findByUserIdandContentId(user_id, content_id);
+			 System.out.println(id);
+			 
 			 // 値照らし合わせ
 			 // 点数計算
 			 
 			 // 書いた解答
 			 
 			 // これはテスト
-			 model.addAttribute("datas", answer);
+			 //model.addAttribute("datas", answer);
 		 }catch(Exception e){
 			 return "error";
 		 }
@@ -58,49 +61,61 @@ public class UserAnswerController {
 	 @RequestMapping(value="/form", method=RequestMethod.POST)	// user : menuからもらう必要ある
 	 public String GetUserAnswerForm(@Valid Content content, Model model ){
 		try{
-			 QuestionList	question_list 		= makeformservice.findFormByContent_id(content.getContent_id());		 
-			 //UserAnswer 	init_hidden_value 	= new UserAnswer();
-			 
-			 //init_hidden_value.setUser_id(1);	// テスト
-			 //init_hidden_value.setContent_id(content.getContent_id());
-			 
-			 
-			 //model.addAttribute("useranswer", init_hidden_value);
-			 
-			 List<UserAnswer> list = new ArrayList<UserAnswer>();
-			 for (Question item : question_list.getQuestions()) {
-					 UserAnswer ans = new UserAnswer();
-					 ans.setUser_id(1);
-					 ans.setContent_id(item.getContent_id());
-					 ans.setQuestion_id(item.getQuestion_id());
-					 list.add(ans);
+			 QuestionList	question_list  = makeformservice.findFormByContent_id(content.getContent_id());		 
+			
+			 for(ChoicesEntity choices : question_list.getChoices()) {
+				 choices.setIs_answer(false);		// is answer 表示しない
 			 }
 			 
 			 model.addAttribute("question_list", question_list);
-			 model.addAttribute("list", list);
-	
-			 //model.addAttribute("checkItems", CHECK_ITEMS);
-			 //model.addAttribute("radioItems", RADIO_ITEMS); 
+			 model.addAttribute("content_id", content.getContent_id());
 		}catch(Exception e){
 			return "error";
 		}  
 		return "form/userAnswerForm";
-		//return "redirect:/formAnswer";
 	 }
 	
 	 //BindingResult : object so you can test for and retrieve validation errors.
 	 @RequestMapping(value="/formAnswer", method=RequestMethod.POST)
-	 public String PostUserAnswerForm(@Valid Content content, @Valid List<UserAnswer> list, BindingResult result, Model model){
+	 public String PostUserAnswerForm(@Valid Content content, @Valid QuestionList question_list, BindingResult result, Model model){
 		 try{
+			 UserAnswer useranswer_result = null;
+			 if(!result.hasErrors()){
+			 		try{
+			 				for(ChoicesEntity choices : question_list.getChoices()) {
+			 					if(choices.getIs_answer() == true){
+			 						useranswer_result = new UserAnswer();
+			 						useranswer_result.setUser_id(1);
+			 						useranswer_result.setContent_id(choices.getContent_id());
+			 						useranswer_result.setQuestion_id(choices.getQuestion_id());
+			 						useranswer_result.setAnswer_id(choices.getAnswer_id());
+			 						useranswer_result.setSelect_answer(choices.getAnswer());
+			 						service.Save(useranswer_result);
+			 					}
+			 				}
+			 		}catch(Exception e){
+			 			model.addAttribute("error", e.getMessage());
+			 			return "error";
+			 		}
+			 	}else{
+			 		model.addAttribute("validationError", "不正な値が入力されました。");
+			 		return GetUserAnswerForm(content, model);
+			 	}
+			 	return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
+		 }catch(Exception e){
+			return "error";
+		 }
+		 /*
+		 // try{
 			 	UserAnswer useranswer_result = null;
 			 	if(!result.hasErrors()){
 			 		try{
-		 					/*useranswer_result = new UserAnswer();
+		 					useranswer_result = new UserAnswer();
 			 				useranswer_result.setUser_id(useranswer.getUser_id());
 			 				useranswer_result.setContent_id(useranswer.getContent_id());
 			 				useranswer_result.setQuestion_id(useranswer.getQuestion_id());
 			 				useranswer_result.setAnswer_id(useranswer.getAnswer_id());
-			 				useranswer_result.setSelect_answer(useranswer.getSelect_answer());*/
+			 				useranswer_result.setSelect_answer(useranswer.getSelect_answer());
 			 				//service.Save(useranswer_result);
 			 				for (UserAnswer user_Answer : list) {
 			 					useranswer_result = new UserAnswer();
@@ -112,6 +127,7 @@ public class UserAnswerController {
 				 				service.Save(useranswer_result);
 							} 
 			 		}catch(Exception e){
+			 			model.addAttribute("error", e.getMessage());
 			 			return "error";
 			 		}
 			 	}else{
@@ -121,7 +137,7 @@ public class UserAnswerController {
 			 	return "redirect:/result/" + useranswer_result.getId();
 		}catch(Exception e){
 			return "error";
-		}
+		}*/
 	 }
 	 
 	 // check boxの表示に使用するアイテム

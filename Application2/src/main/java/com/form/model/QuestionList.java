@@ -11,6 +11,7 @@ public class QuestionList {
 		super();
 	}
 
+
 	public Content getContent() {
 		return content;
 	}

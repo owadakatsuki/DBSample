@@ -46,19 +46,25 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 				</span>					
 					<input type="checkbox" th:field="*{questions[__${q_row.index}__].required_flag}" /> 解答必須
 					<input type="button" class="add_choice_btn" th:id="*{questions[__${q_row.index}__].question_id} + '_' + ${q_row.index}" value="選択肢追加" />
-						<input type="button" class="delete_question_btn" th:id="${q_row.index} + '_' + *{questions[__${q_row.index}__].question_id}" value="問題削除" />
-
+					<input type="button" class="delete_question_btn" th:id="${q_row.index} + '_' + *{questions[__${q_row.index}__].question_id}" value="問題削除" />
+					<br />
+					<span class="alert">※正解とする選択肢にチェックを入れてください。</span>
 				
 				
 			<!--#### 選択肢 ####-->
 				<div class="choice_container" th:id="'cContainer_' + ${q_row.index}">
 					<div th:each="c, c_row : *{choices}"
 						th:if="*{questions[__${q_row.index}__].question_id} == *{choices[__${c_row.index}__].question_id}" th:id="'choice_' + *{choices[__${c_row.index}__].answer_id}">
+
+						<!-- 隠しパラメータ -->
 						<input type="hidden" th:field="*{choices[__${c_row.index}__].question_id}" /> 
 						<input type="hidden" th:field="*{choices[__${c_row.index}__].answer_id}" />
 						<input type="hidden" th:field="*{choices[__${c_row.index}__].content_id}" />
+						
+						<!-- 正解とチェック -->
 						<input type="checkbox" th:field="*{choices[__${c_row.index}__].is_answer}" /> 
 						<input th:field="*{choices[__${c_row.index}__].answer}"  required="required"/>
+						
 						<input type="button" class="delete_choice_btn" th:id="*{choices[__${c_row.index}__].answer_id}" value="削除" />
 					</div>
 				</div>
