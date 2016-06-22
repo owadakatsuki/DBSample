@@ -11,7 +11,7 @@ import com.form.model.User;
 @Repository
 public interface UserRepository  extends JpaRepository<User, String>{
 
-	 @Query("delete from UserEntity where user_id = ?1")
+	 @Query("delete from User where user_id = ?1")
 	  void deleteUser(String id);
 	 
 	
