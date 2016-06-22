@@ -18,6 +18,15 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 
 </head>
 <body>
+
+<!-- ヘッダー部分 -->
+<div id="header-fixed">
+	<div id="header">
+	
+	</div>
+</div>
+
+
 	<form action="#" th:action="@{/create}" method="post" th:object="${question_list}" th:id="${content_id}">
 		<!--#### ボタン ####-->
 			<input type="button" class="add_question_btn" value="問題追加" th:id="${content_id}" /><br />
