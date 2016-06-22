@@ -8,15 +8,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.form.dao.ChoicesRepository;
 import com.form.dao.ContentRepository;
+import com.form.dao.QuestionRepository;
 import com.form.model.Content;
+import com.form.model.UserInfo;
 
 @Controller
+@SessionAttributes("user_info")
 public class ContentController {
 
     @Autowired
     ContentRepository contentRepository;
+
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    ChoicesRepository choicesRepository;
+	@Autowired
+	private UserInfo user_info;
 
     // contentメソッドの処理は、LoginControllerに移します。
     @RequestMapping("/menu")
@@ -47,6 +60,8 @@ public class ContentController {
 
         // 問題の削除
         contentRepository.delete(contentID);
+        questionRepository.delete(contentID);
+        choicesRepository.delete(contentID);
 
         System.out.println("[END] 削除しました。");
 

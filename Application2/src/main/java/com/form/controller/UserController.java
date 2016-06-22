@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.form.dao.UserRepository;
 import com.form.model.User;
-import com.form.model.UserRepository;
 
 @Controller
 @EnableAutoConfiguration
@@ -42,12 +42,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/userdelete",method=RequestMethod.GET)
-	public String userdelete(@RequestParam ("userid") int user_id, Locale locale, Model model) {
+	public String userdelete(@RequestParam ("userid") String user_id, Locale locale, Model model) {
 		System.out.println("削除しに来た");
 
 
 		//	レコードを削除
-		userRepository.delete(user_id);
+		userRepository.deleteUser(user_id);
 		System.out.println("削除できた");
 		//削除完了画面
 		return "userdelete";
