@@ -18,6 +18,7 @@ import com.form.model.User;
 public class LoginController{
 	@Autowired
 	LoginService logService;
+	@Autowired
     ContentRepository contentRepository;
 
 		@RequestMapping("/")
