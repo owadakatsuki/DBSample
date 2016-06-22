@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.form.model.Content;
 import com.form.model.ContentRepository;
-import com.form.model.User;
 
 @Controller
 public class ContentController {
@@ -31,10 +30,10 @@ public class ContentController {
 //            System.out.println(content.getContent_id() + content.getContent_title());
 //        }
 
-        // 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理(結合テストでは消す予定)
-        User user_info = new User();
-        user_info.setRole("root");
-        model.addAttribute("user_info", user_info);
+//        // 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理(結合テストでは消す予定)
+//        User user_info = new User();
+//        user_info.setRole("admin");
+//        model.addAttribute("user_info", user_info);
 
         // 大問一覧をセット
         model.addAttribute("contentList", contentList);
@@ -53,10 +52,10 @@ public class ContentController {
 
         List<Content> contentList = contentRepository.findAll();
 
-        // 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理(結合テストでは消す予定)
-        User user_info = new User();
-        user_info.setRole("root");
-        model.addAttribute("user_info", user_info);
+//        // 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理(結合テストでは消す予定)
+//        User user_info = new User();
+//        user_info.setRole("admin");
+//        model.addAttribute("user_info", user_info);
 
         model.addAttribute("contentList", contentList);
 
