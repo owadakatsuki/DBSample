@@ -14,7 +14,7 @@ public class ResultEntity {
 	@Column
 	private String MaruBatsu;
 	@Column
-	private String select_answer;
+	private List<String> select_answer;
 	@Column
 	private List<String> answer;
 	@Column
@@ -29,7 +29,7 @@ public class ResultEntity {
 	public String getMaruBatsu() {
 		return MaruBatsu;
 	}
-	public String getSelect_answer(){
+	public List<String> getSelect_answer(){
 		return select_answer;
 	}
 	public List<String> getAnswer() {
@@ -48,7 +48,7 @@ public class ResultEntity {
 		MaruBatsu = maruBatsu;
 	}
 	public void setSelect_answer(String select_answer){
-		this.select_answer = select_answer;
+		this.select_answer.add(select_answer);
 	}
 	public void setAnswer(String answer) {
 		this.answer.add(answer);

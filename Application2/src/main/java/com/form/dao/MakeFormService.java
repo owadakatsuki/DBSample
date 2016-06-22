@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.form.model.ChoicesEntity;
+import com.form.model.Content;
+import com.form.model.ContentRepository;
 import com.form.model.Question;
 import com.form.model.QuestionList;
 
 @Service
 @Transactional
 public class MakeFormService {  
+	@Autowired
+	  ContentRepository contentRepository;
 	@Autowired
 	  QuestionRepository questionRepository; 
 	@Autowired
@@ -21,17 +25,21 @@ public class MakeFormService {
 	  public List<Question> findAll() {
 	    return questionRepository.findAll();
 	  }
+	  public void createForm() {
+		  Content content = new Content();
+		  content.setContent_title("無題のタイトル");
+		  contentRepository.save(content);
+		  
+		  
+	  }
 
 	  public int questionSave(Question question) {
-		 // question.setContent_id(2);
 		  questionRepository.saveAndFlush(question);
-		  System.out.println(question.toString());
 		  
 	    return question.getQuestion_id();
 	  }
 	  
 	  public int choiceSave(ChoicesEntity choice) {
-		 // question.setContent_id(2);
 		  choicesRepository.saveAndFlush(choice);
 		  
 	    return choice.getQuestion_id();
@@ -41,22 +49,41 @@ public class MakeFormService {
 		  List<Question> questions = question_list.getQuestions();
 		  List<ChoicesEntity> choices = question_list.getChoices();
 		  
+		  contentRepository.save(question_list.getContent());
+		  
 		  for(Question q : questions) {
-			  questionSave(q);
+			  	if(q.getQuestion_id() == 0) {
+			  		System.out.println("消したデータです");
+			  	}else {
+			  		questionSave(q);
+			  	}
 		  }
 		  
 		  for(ChoicesEntity c : choices) {
-			  choiceSave(c);
+			  	if(c.getAnswer_id() == 0) {
+			  		System.out.println("消したデータです");
+			  	}else {
+			  		choiceSave(c);
+			  	}
 		  }
 		  return;
 	  }
-	   
+
 	  public void delete(Long id) {
 	   // questionRepository.delete(id);
+	  }
+
+	  public void deleteQuestion(int id) {
+		  questionRepository.deleteQuestion(id);
+	  }
+	  
+	  public void deleteChoice(int id) {
+		  choicesRepository.deleteChoice(id);
 	  }
 	   
 	  public QuestionList findFormByContent_id(int id) {
 		  	QuestionList question_list = new QuestionList();
+		  	question_list.setContent(contentRepository.find(id));
 		  	question_list.setQuestions(questionRepository.findByContent_id(id));
 		  	question_list.setChoices(choicesRepository.findByContent_id(id));
 		  	if(question_list.getQuestions().size() == 0) {

@@ -3,11 +3,20 @@ package com.form.model;
 import java.util.List;
 
 public class QuestionList {
+	private Content content;
 	private List<Question> questions;
 	private List<ChoicesEntity> choices;
 
 	public QuestionList() {
 		super();
+	}
+
+	public Content getContent() {
+		return content;
+	}
+
+	public void setContent(Content content) {
+		this.content = content;
 	}
 
 	public List<Question> getQuestions() {
