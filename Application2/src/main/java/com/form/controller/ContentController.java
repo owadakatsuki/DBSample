@@ -20,7 +20,7 @@ public class ContentController {
 
     // contentメソッドの処理は、LoginControllerに移します。
     @RequestMapping("/menu")
-    public String content(Locale locale, Model model) {
+    public String content(Model model) {
         System.out.println("[START] データベースに接続してデータを取得します。");
 
         // 大問一覧取得
@@ -37,6 +37,7 @@ public class ContentController {
         model.addAttribute("user_info", user_info);
 
 */
+
         // 大問一覧をセット
         model.addAttribute("contentList", contentList);
 
