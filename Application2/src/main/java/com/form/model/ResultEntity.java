@@ -1,5 +1,7 @@
 package com.form.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 
@@ -12,9 +14,9 @@ public class ResultEntity {
 	@Column
 	private String MaruBatsu;
 	@Column
-	private String select_answer;
+	private List<String> select_answer;
 	@Column
-	private String answer;
+	private List<String> answer;
 	@Column
 	private String commentary;
 
@@ -27,10 +29,10 @@ public class ResultEntity {
 	public String getMaruBatsu() {
 		return MaruBatsu;
 	}
-	public String getSelect_answer(){
+	public List<String> getSelect_answer(){
 		return select_answer;
 	}
-	public String getAnswer() {
+	public List<String> getAnswer() {
 		return answer;
 	}
 	public String getCommentary() {
@@ -46,10 +48,10 @@ public class ResultEntity {
 		MaruBatsu = maruBatsu;
 	}
 	public void setSelect_answer(String select_answer){
-		this.select_answer = select_answer;
+		this.select_answer.add(select_answer);
 	}
 	public void setAnswer(String answer) {
-		this.answer = answer;
+		this.answer.add(answer);
 	}
 	public void setCommentary(String commentary) {
 		this.commentary = commentary;

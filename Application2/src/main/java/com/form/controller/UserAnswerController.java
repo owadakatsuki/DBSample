@@ -1,7 +1,7 @@
 package com.form.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
@@ -12,16 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import com.form.dao.MakeFormService;
 import com.form.dao.UserAnswerService;
-import com.form.model.ChoicesEntity;
 import com.form.model.Content;
 import com.form.model.Question;
 import com.form.model.QuestionList;
@@ -58,41 +55,62 @@ public class UserAnswerController {
 		 return "form/userAnswerResult";
 	 }
 	 
-	 // 引数UserAnswer-> Question Choice..?
-	 @RequestMapping(value="/form", method=RequestMethod.POST)
+	 @RequestMapping(value="/form", method=RequestMethod.POST)	// user : menuからもらう必要ある
 	 public String GetUserAnswerForm(@Valid Content content, Model model ){
 		try{
-			// QuestionList question_list = makeformservice.findFormByContent_id(contentID);
-			 System.out.println(content.getContent_id() + content.getContent_title());
-			// model.addAttribute("question_list", question_list);
-	    	 model.addAttribute("questions", new Question());
-			 model.addAttribute("useranswer", new UserAnswer());
-			 model.addAttribute("checkItems", CHECK_ITEMS);
-			 model.addAttribute("radioItems", RADIO_ITEMS); 
+			 QuestionList	question_list 		= makeformservice.findFormByContent_id(content.getContent_id());		 
+			 //UserAnswer 	init_hidden_value 	= new UserAnswer();
+			 
+			 //init_hidden_value.setUser_id(1);	// テスト
+			 //init_hidden_value.setContent_id(content.getContent_id());
+			 
+			 
+			 //model.addAttribute("useranswer", init_hidden_value);
+			 
+			 List<UserAnswer> list = new ArrayList<UserAnswer>();
+			 for (Question item : question_list.getQuestions()) {
+					 UserAnswer ans = new UserAnswer();
+					 ans.setUser_id(1);
+					 ans.setContent_id(item.getContent_id());
+					 ans.setQuestion_id(item.getQuestion_id());
+					 list.add(ans);
+			 }
+			 
+			 model.addAttribute("question_list", question_list);
+			 model.addAttribute("list", list);
+	
+			 //model.addAttribute("checkItems", CHECK_ITEMS);
+			 //model.addAttribute("radioItems", RADIO_ITEMS); 
 		}catch(Exception e){
 			return "error";
 		}  
 		return "form/userAnswerForm";
+		//return "redirect:/formAnswer";
 	 }
 	
 	 //BindingResult : object so you can test for and retrieve validation errors.
 	 @RequestMapping(value="/formAnswer", method=RequestMethod.POST)
-	 public String PostUserAnswerForm(@Valid Content content, @Valid UserAnswer useranswer, BindingResult result, Model model){
+	 public String PostUserAnswerForm(@Valid Content content, @Valid List<UserAnswer> list, BindingResult result, Model model){
 		 try{
 			 	UserAnswer useranswer_result = null;
-			 	int i = 0;
 			 	if(!result.hasErrors()){
 			 		try{
-			 			//for (i = 0; i < useranswer.size(); i++) {
-			 				useranswer_result = new UserAnswer();
+		 					/*useranswer_result = new UserAnswer();
 			 				useranswer_result.setUser_id(useranswer.getUser_id());
 			 				useranswer_result.setContent_id(useranswer.getContent_id());
 			 				useranswer_result.setQuestion_id(useranswer.getQuestion_id());
 			 				useranswer_result.setAnswer_id(useranswer.getAnswer_id());
-			 				useranswer_result.setSelect_answer(useranswer.getSelect_answer());
-			 				
-			 				service.Save(useranswer_result);
-			 			//}	
+			 				useranswer_result.setSelect_answer(useranswer.getSelect_answer());*/
+			 				//service.Save(useranswer_result);
+			 				for (UserAnswer user_Answer : list) {
+			 					useranswer_result = new UserAnswer();
+				 				useranswer_result.setUser_id(user_Answer.getUser_id());
+				 				useranswer_result.setContent_id(user_Answer.getContent_id());
+				 				useranswer_result.setQuestion_id(user_Answer.getQuestion_id());
+				 				useranswer_result.setAnswer_id(user_Answer.getAnswer_id());
+				 				useranswer_result.setSelect_answer(user_Answer.getSelect_answer());
+				 				service.Save(useranswer_result);
+							} 
 			 		}catch(Exception e){
 			 			return "error";
 			 		}

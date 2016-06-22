@@ -22,16 +22,42 @@ public class QuestionController {
 	MakeFormService MakeFormService;
 	
 
+	// menu -> 問題作成 への遷移
+	@RequestMapping("/formcreate")
+	    public String helo(@ModelAttribute("contentId") int content_id, Model model) {
+        System.out.println("[START] 問題作成画面を表示します。");
+
+		QuestionList question_list = MakeFormService.findFormByContent_id(content_id);
+		
+    	model.addAttribute("question_list", question_list);
+    	
+    	model.addAttribute("content_id", content_id);
+
+    	return "make_form";
+    }
+
+	
+	// フォームの新規作成
+	@RequestMapping(value = "createNewForm")
+	public void createNewForm(Model model) {
+		MakeFormService.createForm();
+	}
+	
+
+	// 新規問題追加
 	@RequestMapping(value = "createNewQuestion",consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public Question createNewQuestion(@RequestBody SendId id) {
 		Question question = new Question();
 		question.setContent_id(id.getContent_id());
+		System.out.println("id:" + id.getContent_id());
     	MakeFormService.questionSave(question);
+    	
+    	
 		return question;
 	}
 
-
+	// 新規選択肢追加
 	@RequestMapping(value = "createNewChoice", consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
 	public ChoicesEntity createNewChoice(@RequestBody SendId id) {
@@ -42,26 +68,34 @@ public class QuestionController {
 		
 		return choice;
 	}
-    
-	
-	
-	
-	@RequestMapping("/question")
-    public String helo(Model model) {
-    	
-    	// List<Question> list = MakeFormService.findAll();
-    	
-    	// QuestionList question_list = new QuestionList();
 
-		QuestionList question_list = MakeFormService.findFormByContent_id(0);
+	// 選択肢削除
+	@RequestMapping(value = "deleteChoice", consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@ResponseBody
+	public void deleteChoice(@RequestBody SendId id) {
+    	MakeFormService.choiceDelete(id.getChoice_id());
 		
-    	model.addAttribute("question_list", question_list);
-    	
-    	model.addAttribute("questions",new Question());
+		return;
+	}
+	
+	
+	// 問題作成・更新
+    @RequestMapping(value="/create", params="submit", method=RequestMethod.POST)
+    public String create(@ModelAttribute("question_list") QuestionList question_list, Model model) {
+    	for(Question q : question_list.getQuestions()) {
+    		System.out.println(q.toString());
+    	}
+    	MakeFormService.save(question_list);
 
-    	return "make_form";
+    	Iterable<Question> list = MakeFormService.findAll();
+    	model.addAttribute("datas",list);
+    	return "redirect:/menu";
     }
     
+    
+    
+    
+    // debug
     @RequestMapping("/question_list")
     public String question_list(Model model) {
     	Iterable<Question> list = MakeFormService.findAll();
@@ -70,41 +104,4 @@ public class QuestionController {
     }
     
     
-
-    @RequestMapping(value="/create", params="submit", method=RequestMethod.POST)
-    public String create(@ModelAttribute("question_list") QuestionList question_list, Model model) {
-
-    	//  debag
-    	for(Question q : question_list.getQuestions()) {
-			System.out.println("-------------------------");
-			System.out.println(q.toString());
-    		for(ChoicesEntity c : question_list.getChoices()){
-    			if(q.getQuestion_id() == c.getQuestion_id()){
-    				System.out.println(c.toString());
-    			}
-    		}
-    	}
-    	
-    	MakeFormService.save(question_list);
-
-    	Iterable<Question> list = MakeFormService.findAll();
-    	model.addAttribute("datas",list);
-    	return "question_list";
-    }
-    
-    public void debug(QuestionList question_list){
-
-    	//  debag
-    	for(Question q : question_list.getQuestions()) {
-			System.out.println("-------------------------");
-			System.out.println(q.toString());
-    		for(ChoicesEntity c : question_list.getChoices()){
-    			if(q.getQuestion_id() == c.getQuestion_id()){
-    				System.out.println(c.toString());
-    			}
-    		}
-    	}
-    	
-    	
-    }
 }

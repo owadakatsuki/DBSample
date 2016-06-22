@@ -10,9 +10,12 @@ public class SendId implements Serializable  {
 
 	@JsonProperty("content_id")
 	private int content_id;
-	
+
 	@JsonProperty("question_id")
 	private int question_id;
+	
+	@JsonProperty("choice_id")
+	private int choice_id;
 
 	public int getContent_id() {
 		return content_id;
@@ -28,6 +31,14 @@ public class SendId implements Serializable  {
 
 	public void setQuestion_id(int question_id) {
 		this.question_id = question_id;
+	}
+
+	public int getChoice_id() {
+		return choice_id;
+	}
+
+	public void setChoice_id(int choice_id) {
+		this.choice_id = choice_id;
 	}
 
 
