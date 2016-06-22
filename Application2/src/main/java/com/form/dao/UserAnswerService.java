@@ -23,6 +23,10 @@ public class UserAnswerService {
 		return user_answer_repository.findAll();
 	}
 	
+	public List<UserAnswer> findByUserIdandContentId(int user_id, int content_id){
+		return user_answer_repository.findByUserIdandContentId(user_id, content_id);
+	}
+	
 	@Transactional(rollbackFor = {Exception.class}, timeout = 3) 
 	public UserAnswer Save(final UserAnswer user_answer) {
 		return user_answer_repository.save(user_answer);
