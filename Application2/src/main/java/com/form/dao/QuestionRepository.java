@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.form.model.Question;
 
-public interface QuestionRepository extends JpaRepository<Question, String>{
+public interface QuestionRepository extends JpaRepository<Question, Integer>{
 
 
 	  @Query("select q from Question q where content_id = ?1")
