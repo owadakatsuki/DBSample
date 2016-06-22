@@ -115,6 +115,7 @@ function addQuestion(form_id, data) {
 	
 	str += '<input type="button" class="delete_question_btn" value="問題削除" id="' + question_num + '_' + data.question_id + '">';
 	
+	str += '<br /><span class="alert">※正解とする選択肢にチェックを入れてください。</span>';
 	
 	str += '<div class="choice_container" id="cContainer_' + question_num + '"></div>';
 
