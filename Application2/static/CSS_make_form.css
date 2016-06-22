@@ -27,6 +27,9 @@ div#header {
 	margin: auto;              /* 中央揃え */
 }
 
+input[type="button"] {
+	font-size: 1em;
+}
 
 .form{
 }
@@ -35,7 +38,7 @@ div#header {
 	padding: 5px;
 	border: solid 1px;
 }
-.title_container input {
+.title_container input[type="text"] {
 	font-size: 3em;
 }
 .question_container{

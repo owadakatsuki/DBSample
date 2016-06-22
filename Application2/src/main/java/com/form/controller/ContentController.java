@@ -68,7 +68,7 @@ public class ContentController {
 
         return "menu";
     }
-
+/*
     @RequestMapping("/make_form")
     public String makeForm(Locale locale, Model model) {
         System.out.println("[START] フォーム編集画面に遷移します。");
@@ -82,6 +82,6 @@ public class ContentController {
         model.addAttribute("contentList", contentList);
 
         return "menu";
-    }
+    }*/
 
 }

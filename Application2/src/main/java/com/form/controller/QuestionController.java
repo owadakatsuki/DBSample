@@ -23,7 +23,7 @@ public class QuestionController {
 	
 
 	// menu -> 問題作成 への遷移
-	@RequestMapping("/formcreate")
+	@RequestMapping("/make_form")
 	    public String helo(@ModelAttribute("contentId") int content_id, Model model) {
         System.out.println("[START] 問題作成画面を表示します。");
 
@@ -50,6 +50,7 @@ public class QuestionController {
 	public Question createNewQuestion(@RequestBody SendId id) {
 		Question question = new Question();
 		question.setContent_id(id.getContent_id());
+		question.setQuestion("無題の質問");
 		System.out.println("id:" + id.getContent_id());
     	MakeFormService.questionSave(question);
     	
@@ -64,18 +65,30 @@ public class QuestionController {
 		ChoicesEntity  choice= new ChoicesEntity();
 		choice.setContent_id(id.getContent_id());
 		choice.setQuestion_id(id.getQuestion_id());
+		choice.setAnswer("選択肢");
     	MakeFormService.choiceSave(choice);
 		
 		return choice;
 	}
 
+	// 問題削除
+	@RequestMapping(value = "deleteQuestion", consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@ResponseBody
+	public boolean deleteQuestion(@RequestBody SendId id) {
+		System.out.println("[START] deleteQuestion");
+    	MakeFormService.deleteQuestion(id.getQuestion_id());
+		
+		return true;
+	}
+
+
 	// 選択肢削除
 	@RequestMapping(value = "deleteChoice", consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
-	public void deleteChoice(@RequestBody SendId id) {
-    	MakeFormService.choiceDelete(id.getChoice_id());
+	public boolean deleteChoice(@RequestBody SendId id) {
+    	MakeFormService.deleteChoice(id.getChoice_id());
 		
-		return;
+		return true;
 	}
 	
 	

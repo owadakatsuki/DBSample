@@ -52,11 +52,19 @@ public class MakeFormService {
 		  contentRepository.save(question_list.getContent());
 		  
 		  for(Question q : questions) {
-			  questionSave(q);
+			  	if(q.getQuestion_id() == 0) {
+			  		System.out.println("消したデータです");
+			  	}else {
+			  		questionSave(q);
+			  	}
 		  }
 		  
 		  for(ChoicesEntity c : choices) {
-			  choiceSave(c);
+			  	if(c.getAnswer_id() == 0) {
+			  		System.out.println("消したデータです");
+			  	}else {
+			  		choiceSave(c);
+			  	}
 		  }
 		  return;
 	  }
@@ -64,7 +72,12 @@ public class MakeFormService {
 	  public void delete(Long id) {
 	   // questionRepository.delete(id);
 	  }
-	  public void choiceDelete(int id) {
+
+	  public void deleteQuestion(int id) {
+		  questionRepository.deleteQuestion(id);
+	  }
+	  
+	  public void deleteChoice(int id) {
 		  choicesRepository.deleteChoice(id);
 	  }
 	   
