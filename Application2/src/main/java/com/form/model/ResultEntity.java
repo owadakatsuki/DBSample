@@ -3,12 +3,9 @@ package com.form.model;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 
 public class ResultEntity {
 
-	@Id
-	private int question_id;
 	@Column
 	private  String question;
 	@Column
@@ -49,13 +46,5 @@ public class ResultEntity {
 	}
 	public void setCommentary(String commentary) {
 		this.commentary = commentary;
-	}
-
-
-	public int getQuestion_id() {
-		return question_id;
-	}
-	public void setQuestion_id(int question_id) {
-		this.question_id = question_id;
 	}
 }
