@@ -15,6 +15,9 @@ public interface ChoicesRepository extends JpaRepository<ChoicesEntity, String>{
 	  @Query("select choice from ChoicesEntity choice where content_id = ?1")
 	  List<ChoicesEntity> findByContent_id(int id);
 	  
+	  @Query("select choice from ChoicesEntity choice where question_id = ?1")
+	  List<ChoicesEntity> findByQuestion_id(int id);
+	  
 
       @Modifying
 	  @Query("delete from ChoicesEntity where answer_id = ?1")
