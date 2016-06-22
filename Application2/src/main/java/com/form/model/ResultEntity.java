@@ -20,9 +20,6 @@ public class ResultEntity {
 	@Column
 	private String commentary;
 
-	public int getQuestion_id() {
-		return question_id;
-	}
 	public String getQuestion() {
 		return question;
 	}
@@ -38,9 +35,6 @@ public class ResultEntity {
 	public String getCommentary() {
 		return commentary;
 	}
-	public void setQuestion_id(int question_id) {
-		this.question_id = question_id;
-	}
 	public void setQuestion(String question) {
 		this.question = question;
 	}
@@ -55,5 +49,13 @@ public class ResultEntity {
 	}
 	public void setCommentary(String commentary) {
 		this.commentary = commentary;
+	}
+
+
+	public int getQuestion_id() {
+		return question_id;
+	}
+	public void setQuestion_id(int question_id) {
+		this.question_id = question_id;
 	}
 }
