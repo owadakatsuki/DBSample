@@ -5,29 +5,33 @@
 <title>ユーザ解答結果</title>
 </head>
 <body>
-	<p th:text="${results}"></p>
-	<div th:each="data : ${datas}">
-		<div th:text="${data.select_answer}"></div>
-		<div th:text="${data.time}"></div>
-		<hr/>
-	</div>
-
 	<div align="center">
 		<h1>解答結果</h1>
 
 		<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
 		<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
 
-
-			<div th:each="i : ${#numbers.sequence(1,resultList.size())}">
-				<p th:text="'Q'+${i}" ></p>
-				<div th:each="result:${resltList}" th:object="${result}">
-					<p th:text="*{question}+':'+*{marubBatsu}"></p>	<!-- 問題文、〇× -->
-					<p th:text="'あなたの解答→'+*{select_answer}"></p>	<!-- 解答 -->
-					<p th:text="'正解→'+*{answer}"></p>					<!-- 正解 -->
-					<p th:if="*{commentary}!=null"><p th:text="'解説:'+*{commentary}"></p>	<!-- 解説 -->
-				</div>
+		<div th:object="${resultList}">
+			<div th:each="p, q_row :${resultList}">
+					<p th:text="${resultList[__${q_row.index}__].question}"></p>
+					<p th:text="${resultList[__${q_row.index}__].maruBatsu}"></p><!-- 問題文、〇× -->
+					<p th:text="'あなたの解答→'+${resultList[__${q_row.index}__].select_answer}"></p>	
+					<p th:text="'正解→'+${resultList[__${q_row.index}__].answer}"></p>					
+					<div th:if="${resultList[__${q_row.index}__].commentary}!=null">
+						<p th:text="'解説:'+${resultList[__${q_row.index}__].commentary}" ></p>
+					</div>
+					<hr/>
 			</div>
+		</div>
+			<!-- <div th:each="i : ${#numbers.sequence(1,${resultList}.size())}">
+				<p th:text="'Q'+${i}" ></p>
+				<div th:each="p, q_row :${resultList}">
+					<p th:text="*{question}+':'+*{marubBatsu}"></p>	問題文、〇×
+					<p th:text="'あなたの解答→'+*{select_answer}"></p>	解答
+					<p th:text="'正解→'+*{answer}"></p>					正解
+					<div th:if="*{commentary}!=null"><p th:text="'解説:'+*{commentary}" ></p></div>	解説
+				</div>
+			</div> -->
 
 		<a href="menu" name="menu">メニューへ</a>
 		<br></br>

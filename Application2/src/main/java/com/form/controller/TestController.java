@@ -16,7 +16,7 @@ public class TestController {
 	@Autowired
 	UserRepository uRepo;
 
-	@RequestMapping("/")
+/*	@RequestMapping("/")
 	public String test(Model model){
 		System.out.println("testメソッドです");
 		ResultEntity resultEntity = new ResultEntity();
@@ -39,5 +39,5 @@ public class TestController {
 		return"Form/userAnswerResult";
 
 
-	}
+	}*/
 }
