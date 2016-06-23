@@ -49,8 +49,11 @@ public class UserController {
 		//	レコードを削除
 		userRepository.delete(user_id);
 		System.out.println("削除できた");
-		//削除完了画面
-		return "userdelete";
+		
+		List<User> userlist = userRepository.findAll();
+		//リストをセット
+		model.addAttribute("userlist" , userlist);
+		return "userlist";
 	}
 
 	@RequestMapping(value="/usernew",method=RequestMethod.GET)
