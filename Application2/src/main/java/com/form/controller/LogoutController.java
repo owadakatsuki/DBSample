@@ -18,7 +18,6 @@ public class LogoutController {
         sessionStatus.setComplete();
         model.addAttribute("user_info", user_info);
 		return "redirect:/";
-		//こんにちは
 	}
 
 }

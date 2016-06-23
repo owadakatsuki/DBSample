@@ -103,7 +103,7 @@ function deleteChoice(choice_id) {
 function addQuestion(form_id, data) {
 	question_num++;
 	var str = '<div class="question_container" id="qContainer_'+ question_num +'">' 
-		+ '<span class="question">Q : <input id="questions' + question_num + '.question" name="questions[' + question_num + '].question" value="無題の質問" />'
+		+ '<span class="question">Q : <input id="questions' + question_num + '.question" name="questions[' + question_num + '].question" value="無題の質問" maxlength="100"  />'
 		+ '<input type="hidden" id="questions' + question_num + '.question_id" name="questions[' + question_num + '].question_id" value="' + data.question_id + '" />'
 		+ '<input type="hidden" id="questions' + question_num + '.content_id" name="questions[' + question_num + '].content_id" value="' + data.content_id + '" /></span>';
 	
@@ -133,7 +133,7 @@ function addChoice(choice_container_id, data) {
 			+ '<input type="hidden" id="choices' + choice_num + '.answer_id" name="choices[' + choice_num + '].answer_id" value="' + data.answer_id +'" />'
 			+ '<input type="checkbox" id="choices' + choice_num + '.is_answer1" name="choices[' + choice_num + '].is_answer" value="true" />'
 			+ '<input type="hidden" name="_choices[' + choice_num + '].is_answer" value="on" />'
-			+ '<div class="checked"><input id="choices' + choice_num + '.answer" name="choices['+ choice_num +'].answer" value="' + data.answer + '" /></div>'
+			+ '<div class="checked"><input id="choices' + choice_num + '.answer" name="choices['+ choice_num +'].answer" value="' + data.answer + '"  maxlength="100" /></div>'
 			+ '<input type="button" class="delete_choice_btn" value="削除" id="' + data.answer_id +'" />';
 	str += '</div>'; 
 	$("#cContainer_" + choice_container_id).append(str);

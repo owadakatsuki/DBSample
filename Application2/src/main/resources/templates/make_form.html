@@ -26,7 +26,7 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 
 <div class="title_container">
 		<!--#### タイトル ####-->	
-<span>フォームタイトル：<input type="text" th:field="${question_list.content.content_title}"  required="required"/>
+<span>フォームタイトル：<input type="text" th:field="${question_list.content.content_title}"  required="required" maxlength="100" />
 <input type="hidden" th:field="${question_list.content.content_id}" /> 		
 <!--#### ボタン ####-->
 			<input type="button" class="add_question_btn" value="問題追加" th:id="${question_list.content.content_id}" />
@@ -40,7 +40,7 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 			
 			<!--#### 問題文 ####-->
 				<span class="question"> Q : 
-					<input th:field="*{questions[__${q_row.index}__].question}"  required="required"/>
+					<input th:field="*{questions[__${q_row.index}__].question}"  required="required" maxlength="100" />
 					<input type="hidden" th:field="*{questions[__${q_row.index}__].question_id}" /> 
 					<input type="hidden" th:field="*{questions[__${q_row.index}__].content_id}" /> 
 				</span>					
@@ -64,11 +64,20 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 						<!-- 正解とチェック -->
 						<input type="checkbox" th:field="*{choices[__${c_row.index}__].is_answer}" /> 
 						<div class="checked">
-						<input th:field="*{choices[__${c_row.index}__].answer}"  required="required"/>
+						<input th:field="*{choices[__${c_row.index}__].answer}"  required="required" maxlength="100" />
 						</div>
 						<input type="button" class="delete_choice_btn" th:id="*{choices[__${c_row.index}__].answer_id}" value="削除" />
 					</div>
 				</div>
+				
+				<div class="comment_container">
+					<textarea row="3" cols="100" th:field="*{questions[__${q_row.index}__].commentary}" maxlength="100">
+					</textarea>
+				</div>
+				
+				
+				
+				
 			</div>
 	</form>
 
