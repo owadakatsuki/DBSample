@@ -133,7 +133,7 @@ function addChoice(choice_container_id, data) {
 			+ '<input type="hidden" id="choices' + choice_num + '.answer_id" name="choices[' + choice_num + '].answer_id" value="' + data.answer_id +'" />'
 			+ '<input type="checkbox" id="choices' + choice_num + '.is_answer1" name="choices[' + choice_num + '].is_answer" value="true" />'
 			+ '<input type="hidden" name="_choices[' + choice_num + '].is_answer" value="on" />'
-			+ '<input id="choices' + choice_num + '.answer" name="choices['+ choice_num +'].answer" value="' + data.answer + '" />'
+			+ '<div class="checked"><input id="choices' + choice_num + '.answer" name="choices['+ choice_num +'].answer" value="' + data.answer + '" /></div>'
 			+ '<input type="button" class="delete_choice_btn" value="削除" id="' + data.answer_id +'" />';
 	str += '</div>'; 
 	$("#cContainer_" + choice_container_id).append(str);

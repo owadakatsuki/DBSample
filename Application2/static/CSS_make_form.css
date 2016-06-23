@@ -73,3 +73,13 @@ input[type="submit"] {
 	padding: 5px;
 	font-size: 1em;
 }
+
+
+div.checked {
+	display: inline-block;
+    background-color: #000;
+}
+
+input[type=checkbox]:checked ~ div.checked{
+	background-color: red;
+}

@@ -63,8 +63,9 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 						
 						<!-- 正解とチェック -->
 						<input type="checkbox" th:field="*{choices[__${c_row.index}__].is_answer}" /> 
+						<div class="checked">
 						<input th:field="*{choices[__${c_row.index}__].answer}"  required="required"/>
-						
+						</div>
 						<input type="button" class="delete_choice_btn" th:id="*{choices[__${c_row.index}__].answer_id}" value="削除" />
 					</div>
 				</div>
