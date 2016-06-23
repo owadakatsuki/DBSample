@@ -42,12 +42,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/userdelete",method=RequestMethod.GET)
-	public String userdelete(@RequestParam ("userid") String user_id, Locale locale, Model model) {
-		System.out.println("削除しに来た");
+	public String userdelete(@RequestParam ("user_id") String user_id, Locale locale, Model model) {
+		System.out.println("Stringでuseridは受け取れた。");
 
 
 		//	レコードを削除
-		userRepository.deleteUser(user_id);
+		userRepository.delete(user_id);
 		System.out.println("削除できた");
 		//削除完了画面
 		return "userdelete";
