@@ -10,7 +10,8 @@
 
 		<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
 		<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
-
+		
+		<h3 th:text="${answer_flag_count}"></h3> / <h3 th:text="${question_count}"></h3>
 		<div th:object="${resultList}">
 			<div th:each="p, q_row :${resultList}">
 					<p th:text="${resultList[__${q_row.index}__].question}"></p>

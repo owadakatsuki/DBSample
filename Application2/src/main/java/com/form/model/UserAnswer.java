@@ -40,7 +40,7 @@ public class UserAnswer implements Serializable { //implements Serializable{
 
 	@NotNull
 	@Column
-	private Integer 	user_id;		// ユーザID
+	private String 		user_id;		// ユーザID
 	
 	@Column
 	private Integer 	content_id;		// 問題ID
@@ -60,8 +60,8 @@ public class UserAnswer implements Serializable { //implements Serializable{
 	public Integer getUser_answer_id() { return user_answer_id; }
 	public void setUser_answer_id( Integer user_answer_id ) { this.user_answer_id = user_answer_id; }
 	
-	public Integer getUser_id() { return user_id; }
-	public void setUser_id( Integer user_id ) { this.user_id = user_id; }
+	public String getUser_id() { return user_id; }
+	public void setUser_id( String user_id ) { this.user_id = user_id; }
 	
 	public Integer getContent_id() { return content_id; }
 	public void setContent_id( Integer content_id ) { this.content_id = content_id; }
