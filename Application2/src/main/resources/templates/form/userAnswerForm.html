@@ -25,7 +25,7 @@
 					<input type="hidden" th:field="*{choices[__${c_row.index}__].content_id}" />
 					<input type="hidden" th:field="*{choices[__${c_row.index}__].answer_id}" />
 					<input type="checkbox" th:field="*{choices[__${c_row.index}__].is_answer}" /> 
-					<input th:field="*{choices[__${c_row.index}__].answer}" />
+					<span th:field="*{choices[__${c_row.index}__].answer}" th:text="*{choices[__${c_row.index}__].answer}"></span>
 					<!-- <input type="checkbox" th:field="*{choices[__${c_row.index}__].answer}" th:value="*{choices[__${c_row.index}__].answer_id}" th:text="*{choices[__${c_row.index}__].answer}" /> -->
 				</div>
 			</div>	

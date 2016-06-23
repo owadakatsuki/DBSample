@@ -32,10 +32,59 @@ public class UserAnswerController {
 	 UserAnswerService 	service;
 	 @Autowired
 	 MakeFormService 	makeformservice;
-
+	 
 	 // redirectするときに必要
 	 public void addViewControllers(ViewControllerRegistry registry) {
-	     registry.addViewController("/result/{user_id}/{content_id}").setViewName("form/userAnswerResult");
+	    registry.addViewController("/result/{user_id}/{content_id}").setViewName("form/userAnswerResult");
+	 }
+
+	 @RequestMapping(value="/form", method=RequestMethod.POST)	// user : menuからもらう必要ある
+	 public String GetUserAnswerForm(@Valid Content content, Model model ){
+		try{
+			 QuestionList	question_list  = makeformservice.findFormByContent_id(content.getContent_id());
+
+			 for(ChoicesEntity choices : question_list.getChoices()) {
+				 choices.setIs_answer(false);		// is answer 表示しない
+			 }
+
+			 model.addAttribute("question_list", question_list);
+			 model.addAttribute("content_id", content.getContent_id());
+		}catch(Exception e){
+			return "error";
+		}
+		return "form/userAnswerForm";
+	 }
+
+	 //BindingResult : object so you can test for and retrieve validation errors.
+	 @RequestMapping(value="/formAnswer", method=RequestMethod.POST)
+	 public String PostUserAnswerForm(@Valid Content content, @Valid QuestionList question_list, BindingResult result, Model model){
+		 try{
+			 UserAnswer useranswer_result = null;
+			 if(!result.hasErrors()){
+			 		try{
+			 				for(ChoicesEntity choices : question_list.getChoices()) {
+			 					if(choices.getIs_answer() == true){
+			 						useranswer_result = new UserAnswer();
+			 						useranswer_result.setUser_id(1);
+			 						useranswer_result.setContent_id(choices.getContent_id());
+			 						useranswer_result.setQuestion_id(choices.getQuestion_id());
+			 						useranswer_result.setAnswer_id(choices.getAnswer_id());
+			 						useranswer_result.setSelect_answer(choices.getAnswer());
+			 						service.Save(useranswer_result);
+			 					}
+			 				}
+			 		}catch(Exception e){
+			 			model.addAttribute("error", e.getMessage());
+			 			return "error";
+			 		}
+			 	}else{
+			 		model.addAttribute("validationError", "不正な値が入力されました。");
+			 		return GetUserAnswerForm(content, model);
+			 	}
+			 	return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
+		 }catch(Exception e){
+			return "error";
+		 }
 	 }
 
 	 // ユーザ解答結果
@@ -95,89 +144,7 @@ public class UserAnswerController {
 		 return "form/userAnswerResult";
 	 }
 
-	 @RequestMapping(value="/form", method=RequestMethod.POST)	// user : menuからもらう必要ある
-	 public String GetUserAnswerForm(@Valid Content content, Model model ){
-		try{
-			 QuestionList	question_list  = makeformservice.findFormByContent_id(content.getContent_id());
-
-			 for(ChoicesEntity choices : question_list.getChoices()) {
-				 choices.setIs_answer(false);		// is answer 表示しない
-			 }
-
-			 model.addAttribute("question_list", question_list);
-			 model.addAttribute("content_id", content.getContent_id());
-		}catch(Exception e){
-			return "error";
-		}
-		return "form/userAnswerForm";
-	 }
-
-	 //BindingResult : object so you can test for and retrieve validation errors.
-	 @RequestMapping(value="/formAnswer", method=RequestMethod.POST)
-	 public String PostUserAnswerForm(@Valid Content content, @Valid QuestionList question_list, BindingResult result, Model model){
-		 try{
-			 UserAnswer useranswer_result = null;
-			 if(!result.hasErrors()){
-			 		try{
-			 				for(ChoicesEntity choices : question_list.getChoices()) {
-			 					if(choices.getIs_answer() == true){
-			 						useranswer_result = new UserAnswer();
-			 						useranswer_result.setUser_id(1);
-			 						useranswer_result.setContent_id(choices.getContent_id());
-			 						useranswer_result.setQuestion_id(choices.getQuestion_id());
-			 						useranswer_result.setAnswer_id(choices.getAnswer_id());
-			 						useranswer_result.setSelect_answer(choices.getAnswer());
-			 						service.Save(useranswer_result);
-			 					}
-			 				}
-			 		}catch(Exception e){
-			 			model.addAttribute("error", e.getMessage());
-			 			return "error";
-			 		}
-			 	}else{
-			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return GetUserAnswerForm(content, model);
-			 	}
-			 	return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
-		 }catch(Exception e){
-			return "error";
-		 }
-		 /*
-		 // try{
-			 	UserAnswer useranswer_result = null;
-			 	if(!result.hasErrors()){
-			 		try{
-		 					useranswer_result = new UserAnswer();
-			 				useranswer_result.setUser_id(useranswer.getUser_id());
-			 				useranswer_result.setContent_id(useranswer.getContent_id());
-			 				useranswer_result.setQuestion_id(useranswer.getQuestion_id());
-			 				useranswer_result.setAnswer_id(useranswer.getAnswer_id());
-			 				useranswer_result.setSelect_answer(useranswer.getSelect_answer());
-			 				//service.Save(useranswer_result);
-			 				for (UserAnswer user_Answer : list) {
-			 					useranswer_result = new UserAnswer();
-				 				useranswer_result.setUser_id(user_Answer.getUser_id());
-				 				useranswer_result.setContent_id(user_Answer.getContent_id());
-				 				useranswer_result.setQuestion_id(user_Answer.getQuestion_id());
-				 				useranswer_result.setAnswer_id(user_Answer.getAnswer_id());
-				 				useranswer_result.setSelect_answer(user_Answer.getSelect_answer());
-				 				service.Save(useranswer_result);
-							}
-			 		}catch(Exception e){
-			 			model.addAttribute("error", e.getMessage());
-			 			return "error";
-			 		}
-			 	}else{
-			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return GetUserAnswerForm(content, model);
-			 	}
-			 	return "redirect:/result/" + useranswer_result.getId();
-		}catch(Exception e){
-			return "error";
-		}*/
-	 }
-
-	 // check boxの表示に使用するアイテム
+	 /*// check boxの表示に使用するアイテム
 	 final static Map<String, Integer> CHECK_ITEMS = Collections.unmodifiableMap(new LinkedHashMap<String, Integer>() {
 		 {
 		      put("checkbox_A", 1);
@@ -197,5 +164,5 @@ public class UserAnswerController {
 		     put("radio_D", 4);
 		     put("radio_E", 5);
 		 }
-	  });
+	  });*/
 }
