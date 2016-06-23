@@ -3,44 +3,42 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>《user》一覧</title>
+		<link rel="stylesheet" type="text/css" href="CSS_user.css" />
 	</head>
 	<body>
 <div align="center">
 		
-		<table border = "1" align= "center">
-		<thead>
+		<table  class="userlist">
+
 			<tr>
 			<th>	ユーザーID	</th>
 			<th>	  名前		</th>
 			<th>	管理者権限		</th>
 			<th><form action="/usernew" method="GET">
-				<input type="submit" value="新規登録"/>
+				<input class="shinki" type="submit" value="新規登録"/>
 				</form>
 			</th>
-			</tr>
-				
+			</tr>	
+			
 			<tr th:each="user :${userlist}">
 			<td th:text="${user.getUser_id()}" ></td>	
 			<td th:text="${user.getUsername()}" ></td>
 			<td th:text="${user.getRole()}" ></td>
 			<td>
-				<form action="/userupdate" method="POST" th:object="${user}">
-				<input type="submit" value="編集"/>
+			<form action="/userupdate" method="POST" th:object="${user}">
+				<input class="hensyu" type="submit" value="編集"/>
 			
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
 				<input type="hidden" th:value="*{username}"  name="username"/>
 				<input type="hidden" th:value="*{password}"  name="password"/>
 				<input type="hidden" th:value="*{role}"  name="role"/>
-				</form>
-			</td>
-			<td>
-				<form action="/userdelete" method="GET" th:object="${user}">
-				<input type="submit" value="削除"/>
+			</form>
+			<form action="/userdelete" method="GET" th:object="${user}">
+				<input class="submitlist" type="submit" value="削除"/>
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
-				</form>
+			</form>
 			</td>
 				</tr>
-			</thead>
 		</table>	
 </div>		
 	</body>
