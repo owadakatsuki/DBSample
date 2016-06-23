@@ -4,6 +4,18 @@
 		<meta charset="UTF-8"/>
 		<title>《user》一覧</title>
 		<link rel="stylesheet" type="text/css" href="CSS_user.css" />
+				
+		<script type="text/javascript"><!--
+		function myEnter(){
+     	myRet = confirm("本当に削除してよろしいですか？");
+     		if ( myRet == true ){
+         	alert("削除しました。");
+     		}else{
+         	alert("キャンセルしました。");
+         
+     		}
+		}
+		// --></script>
 	</head>
 	<body>
 <div align="center">
@@ -34,7 +46,7 @@
 				<input type="hidden" th:value="*{role}"  name="role"/>
 			</form>
 			<form action="/userdelete" method="GET" th:object="${user}">
-				<input class="submitlist" type="submit" value="削除"/>
+				<input class="submitlist" type="submit" value="削除" onclick="myEnter()" />
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
 			</form>
 			</td>

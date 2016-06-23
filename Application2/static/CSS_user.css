@@ -22,32 +22,33 @@
 .submitup{
 	width: 90px;
     height: 40px;
-
     font-size: 1.2em;
-
     background-color:#1253A4;
     color:#FFFAFA;
     border-radius:5px;
-
 }
 
 .resetup{
 	width: 90px;
     height: 40px;
-
     font-size: 1.2em;
-
-    background-color:#FFD464
- ;
+    background-color:#FFD464;
     color:#FF3333;
     border-radius:5px;
-
 }
 
 .new{
 	color:#02AEDC; font-size:25px;
 	font-weight:bold;
-	
+}
+.input1{
+	width: 500px;
+}
+.input2{
+	width: 500px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 
@@ -83,7 +84,7 @@
 
 /* userlist.html */
 .userlist{
-	width: 100%;
+	width: 50%;
 	border-collapse: collapse;
 	border-right: 1px solid #999;
 }
@@ -105,7 +106,7 @@ border-bottom: 1px solid #999;
 border-left: 1px solid #999;
 }
 .shinki{
-		width: 90px;
+	width: 90px;
     height: 40px;
 
     font-size: 1.2em;
