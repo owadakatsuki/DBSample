@@ -11,7 +11,7 @@
 <div align="center">	
 		<div class="ermsg" th:text="${ermsg}"></div>
 		
-		<p class="new">WELCOME</p> 
+		<p class="new">WELCOME!!!!!!</p> 
 		
 	<form action="/usernewOK" method= "POST" th:object="${newuser}">
 		<p class="userid">UserID</p>
@@ -30,7 +30,7 @@
 		</p>
 		
 		<p class="radio">
-		<input type="radio" name="role" value="user" checked="checked" th:field="*{role}" />user
+		<input type="radio" name="role" value="user" checked="checked" th:field="*{role}"/>user
 		<input type="radio" name="role" value="admin" th:field="*{role}"/>admin
 		</p>
 		

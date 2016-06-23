@@ -26,7 +26,7 @@
 			<td th:text="${user.getRole()}" ></td>
 			<td>
 			<form action="/userupdate" method="POST" th:object="${user}">
-				<input type="submit" value="編集"/>
+				<input class="hensyu" type="submit" value="編集"/>
 			
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
 				<input type="hidden" th:value="*{username}"  name="username"/>

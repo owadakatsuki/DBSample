@@ -92,8 +92,8 @@ width: 25%;
 padding: 6px;
 text-align: left;
 vertical-align: top;
-color: #fff;
-background-color: #555;
+color: #CCDFCC;
+background-color: #27313D;
 border-left: 5px solid #ff6633; 
 border-top: 1px solid #fff;
 }
@@ -104,5 +104,37 @@ background-color: #fff;
 border-bottom: 1px solid #999;
 border-left: 1px solid #999;
 }
+.shinki{
+		width: 90px;
+    height: 40px;
 
+    font-size: 1.2em;
 
+    background-color:#7C858E;
+    color:#ECB935;
+    border-radius:5px;
+}
+
+.submitlist{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#DE4830;
+    color:#ECB935;
+    border-radius:5px;
+
+}
+
+.hensyu{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#0C555D;
+    color:#F8823C;
+    border-radius:5px;
+
+}
