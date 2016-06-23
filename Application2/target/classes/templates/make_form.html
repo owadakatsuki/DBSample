@@ -20,7 +20,7 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 <body>
 
 
-	<form action="#" th:action="@{/create}" method="post" th:object="${question_list}" th:id="${content_id}">
+	<form action="#" th:action="@{/create}" method="post" th:object="${question_list}" th:id="'form_' + ${question_list.content.content_id}">
 
 			
 
@@ -29,7 +29,7 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 <span>フォームタイトル：<input type="text" th:field="${question_list.content.content_title}"  required="required"/>
 <input type="hidden" th:field="${question_list.content.content_id}" /> 		
 <!--#### ボタン ####-->
-			<input type="button" class="add_question_btn" value="問題追加" th:id="${content_id}" />
+			<input type="button" class="add_question_btn" value="問題追加" th:id="${question_list.content.content_id}" />
 			<input type="submit" name="submit" /></span>
 		
 </div>

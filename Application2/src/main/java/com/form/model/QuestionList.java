@@ -1,5 +1,6 @@
 package com.form.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionList {
@@ -9,6 +10,8 @@ public class QuestionList {
 
 	public QuestionList() {
 		super();
+		this.questions = new ArrayList<Question>(); 
+		this.choices = new ArrayList<ChoicesEntity>(); 
 	}
 
 

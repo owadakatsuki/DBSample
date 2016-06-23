@@ -47,6 +47,7 @@ public class QuestionController {
 	// フォームの新規作成
 	@RequestMapping(value = "createNewForm")
 	public String createNewForm(Model model) {
+		System.out.println("[START] 新規フォームを作成します。");
 		QuestionList question_list = MakeFormService.createForm();
     	model.addAttribute("question_list", question_list);
 
