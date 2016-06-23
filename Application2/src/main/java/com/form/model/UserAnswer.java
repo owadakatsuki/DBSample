@@ -35,8 +35,8 @@ public class UserAnswer implements Serializable { //implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", unique = true, nullable = false)	// 後でuser_answer_id
-	private Integer		id;
+    @Column(name = "user_answer_id", unique = true, nullable = false)	// 後でuser_answer_id
+	private Integer		user_answer_id;
 
 	@NotNull
 	@Column
@@ -56,9 +56,9 @@ public class UserAnswer implements Serializable { //implements Serializable{
 	
 	@Column
 	private Timestamp 	time;			// 提出した時間(input default current local time) 
-	
-	public Integer getId() { return id; }
-	public void setId( Integer id ) { this.id = id; }
+
+	public Integer getUser_answer_id() { return user_answer_id; }
+	public void setUser_answer_id( Integer user_answer_id ) { this.user_answer_id = user_answer_id; }
 	
 	public Integer getUser_id() { return user_id; }
 	public void setUser_id( Integer user_id ) { this.user_id = user_id; }

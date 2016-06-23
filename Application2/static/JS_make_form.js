@@ -2,7 +2,6 @@ $(function() {
 	// 問題増加
 	$(document).on('click', '.add_question_btn', function() {
     	var content_id = this.id; 
-    	var form_id = this.form.id
         $.ajax({
             type        : "POST",
             url         : "createNewQuestion",
@@ -12,7 +11,7 @@ $(function() {
 								"question_id": null}),
             contentType : "application/json", 
             success     : function(data) {
-                            addQuestion(form_id, data);
+                            addQuestion(content_id, data);
                         },
             error       : function(XMLHttpRequest, textStatus, errorThrown) {
                             error(XMLHttpRequest, textStatus, errorThrown);
@@ -25,7 +24,7 @@ $(function() {
 $(function() {
 	// 選択肢増加
     $(document).on('click', '.add_choice_btn', function() {
-    	var content_id = this.form.id;
+    	var content_id = this.form.id.split("_")[1];
     	var id = this.id.split("_");
     	var question_id = id[0];
     	var choice_container_id = id[1];
@@ -122,7 +121,7 @@ function addQuestion(form_id, data) {
 	str += "<\div>";
 
 
-	$("#" + form_id).append(str);
+	$("#form_" + form_id).append(str);
 
 }
 

@@ -32,7 +32,7 @@ public class ResultController {
 				//questionEntityとchoicesEntityの小問IDが一致かつis_answerがtrueの選択肢を正解としてresultEntityに入れる
 				if (choices.getQuestion_id()==questionList.get(i).getQuestion_id()
 						&& choices.getIs_answer()) {
-					resultEntity.setAnswer(choices.getAnswer());
+					resultEntity.setAnswer(choices.getAnswer_id());
 				}
 			}
 
@@ -40,7 +40,7 @@ public class ResultController {
 			for(UserAnswer userAnswer : userAnswerList ){
 				//qustionEntityとuserAnswerEntityの小問IDが一致した解答をresultEntityに入れる
 				if(userAnswer.getQuestion_id()==questionList.get(i).getQuestion_id()){
-					resultEntity.setSelect_answer(userAnswer.getSelect_answer());
+					resultEntity.setSelect_answer(userAnswer.getAnswer_id());
 				}
 			}
 
@@ -51,7 +51,7 @@ public class ResultController {
 				flg = false;
 			} else {
 				//解答の中に一つでも正解がなければfalse
-				for(String answer : resultEntity.getAnswer()){
+				for(Integer answer : resultEntity.getAnswer()){
 					if(!resultEntity.getSelect_answer().contains(answer)){
 						flg = false;
 					}

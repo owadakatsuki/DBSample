@@ -9,17 +9,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.form.dao.MakeFormService;
 import com.form.model.ChoicesEntity;
 import com.form.model.Question;
 import com.form.model.QuestionList;
 import com.form.model.SendId;
+import com.form.model.UserInfo;
 
 @Controller
+@SessionAttributes("user_info")
 public class QuestionController {
 	@Autowired
 	MakeFormService MakeFormService;
+	@Autowired
+	private UserInfo user_info;
 	
 
 	// menu -> 問題作成 への遷移
@@ -28,10 +33,12 @@ public class QuestionController {
         System.out.println("[START] 問題作成画面を表示します。");
 
 		QuestionList question_list = MakeFormService.findFormByContent_id(content_id);
+		if(question_list == null) {
+			question_list = MakeFormService.createForm();
+		}
 		
     	model.addAttribute("question_list", question_list);
     	
-    	model.addAttribute("content_id", content_id);
 
     	return "make_form";
     }
@@ -39,8 +46,12 @@ public class QuestionController {
 	
 	// フォームの新規作成
 	@RequestMapping(value = "createNewForm")
-	public void createNewForm(Model model) {
-		MakeFormService.createForm();
+	public String createNewForm(Model model) {
+		System.out.println("[START] 新規フォームを作成します。");
+		QuestionList question_list = MakeFormService.createForm();
+    	model.addAttribute("question_list", question_list);
+
+    	return "make_form";
 	}
 	
 

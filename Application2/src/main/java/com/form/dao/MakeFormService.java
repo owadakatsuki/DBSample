@@ -24,12 +24,28 @@ public class MakeFormService {
 	  public List<Question> findAll() {
 	    return questionRepository.findAll();
 	  }
-	  public void createForm() {
+	  public QuestionList createForm() {
+		  QuestionList question_list = new QuestionList();
+		  
 		  Content content = new Content();
 		  content.setContent_title("無題のタイトル");
 		  contentRepository.save(content);
+		  question_list.setContent(content);
 		  
+		  Question question = new Question();
+		  question.setContent_id(content.getContent_id());
+		  question.setQuestion("無題の質問");
+		  questionSave(question);
+		  question_list.getQuestions().add(question);
+		
+		  ChoicesEntity choice = new ChoicesEntity();
+		  choice.setQuestion_id(question.getQuestion_id());
+		  choice.setContent_id(content.getContent_id());
+		  choice.setAnswer("選択肢");
+		  choiceSave(choice);
+		  question_list.getChoices().add(choice);
 		  
+		  return question_list;
 	  }
 
 	  public int questionSave(Question question) {
@@ -86,20 +102,6 @@ public class MakeFormService {
 		  	question_list.setContent(contentRepository.find(id));
 		  	question_list.setQuestions(questionRepository.findByContent_id(id));
 		  	question_list.setChoices(choicesRepository.findByContent_id(id));
-		  	if(question_list.getQuestions().size() == 0) {
-		  		Question question = new Question();
-		  		question.setContent_id(id);
-		  		question.setQuestion("無題の質問");
-		  		questionSave(question);
-		  		question_list.getQuestions().add(question);
-		  		
-		  		ChoicesEntity choice = new ChoicesEntity();
-		  		choice.setQuestion_id(question.getQuestion_id());
-		  		choice.setContent_id(id);
-		  		choice.setAnswer("選択肢");
-		  		choiceSave(choice);
-		  		question_list.getChoices().add(choice);
-		  	}
 		  	return question_list;
 	    }
 

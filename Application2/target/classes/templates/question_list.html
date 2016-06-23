@@ -20,8 +20,8 @@
 		<p class="question" th:text="*{question.question}"></p>
 		<div class="choice" th:each="choice : ${question_list.choices}">
 			<div class="choice" th:if="*{question.question_id} == *{choice.question_id}" >
-				<p th:inline="text">C : [[*{choice.answer_id}]] (Q : [[*{choice.question_id}]])</p><!-- 
-				<p th:inline="text"> [[*{choice.answer}]]</p> -->
+				<
+				<p th:inline="text">[[*{choice.answer}]] </p>
 			</div>
 		
 		</div>

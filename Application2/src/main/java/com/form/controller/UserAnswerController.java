@@ -42,65 +42,52 @@ public class UserAnswerController {
 	 @RequestMapping(value="/result/{user_id}/{content_id}", method=RequestMethod.GET)
 	 public String List(@PathVariable Integer user_id, @PathVariable Integer content_id, Model model ) {
 		 try{
-			 QuestionList	question_list  = makeformservice.findFormByContent_id(content_id);
-
-			 //UserAnswer answer = service.findById(id);
-			 List<UserAnswer> userAnswerList = service.findByUserIdandContentId(user_id, content_id);
-			 //System.out.println(id);
-
-
-
-			//小問ごとの結果を入れるListを作成
-			 List<ResultEntity> resultList = new ArrayList<ResultEntity>();
-			 boolean flg = true;
-
+			 QuestionList		question_list  	= makeformservice.findFormByContent_id(content_id);
+			 List<UserAnswer> 	userAnswerList 	= service.findByUserIdandContentId(user_id, content_id);
+			 List<ResultEntity> resultList 		= new ArrayList<ResultEntity>();	// 小問ごとの結果を入れるListを作成
+			 boolean 			flag 			= true;								// default true;
+		
 			 for(Question question : question_list.getQuestions()) {
 				 ResultEntity resultEntity = new ResultEntity();
 
 				 for(ChoicesEntity choices : question_list.getChoices()){
 					 resultEntity.setQuestion(question.getQuestion());
 					 resultEntity.setCommentary(question.getCommentary());
-
 					 if ((choices.getQuestion_id() == question.getQuestion_id()) && choices.getIs_answer()) {
-						    resultEntity.setAnswer(choices.getAnswer());
+						 resultEntity.setAnswer(choices.getAnswer_id());
 					 }
 				 }
 
 				 for(UserAnswer userAnswer : userAnswerList ){
 					 //qustionEntityとuserAnswerEntityの小問IDが一致した解答をresultEntityに入れる
 					 if(userAnswer.getQuestion_id()==question.getQuestion_id()){
-					 resultEntity.setSelect_answer(userAnswer.getSelect_answer());
+						 resultEntity.setSelect_answer(userAnswer.getAnswer_id());	
 					 }
 				 }
 
-
-
-
-
-				 //正解の数と解答の数が一致していなかったらfalse
+				 //正解の数と解答の数が一致していなかったらfalse    compareTo
 				 if (resultEntity.getAnswer().size() != resultEntity.getSelect_answer().size()) {
-				 flg = false;
+					 flag = false;
 				 } else {
-				 //解答の中に一つでも正解がなければfalse
-				 for(String answer : resultEntity.getAnswer()){
-				 if(!resultEntity.getSelect_answer().contains(answer)){
-				 	flg = false;
-				 }
-				 }
+					 //解答の中に一つでも正解がなければfalse
+					 for(Integer answer : resultEntity.getAnswer()){
+						 if(!resultEntity.getSelect_answer().contains(answer)){
+							 flag = false;
+						 }
+					 }
 				 }
 
 				 //flgの結果によって値をresultEntityに入れる
 				 //正解と解答の完全一致のみtrue
-				 if(flg){
-				 resultEntity.setMaruBatsu("〇");
+				 if(flag){
+					 resultEntity.setMaruBatsu("〇");
 				 }else{
-				 resultEntity.setMaruBatsu("×");
+					 resultEntity.setMaruBatsu("×");
 				 }
 
-				 //resultEntityをresultListに入れる
-				 resultList.add(resultEntity);
+				 resultList.add(resultEntity);	//resultEntityをresultListに入れる
 			 }
-			 model.addAttribute("resultList",resultList);
+			 model.addAttribute("resultList", resultList);
 
 		 }catch(Exception e){
 			 return "error";
