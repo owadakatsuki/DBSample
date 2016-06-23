@@ -117,6 +117,8 @@ function addQuestion(form_id, data) {
 	str += '<br /><span class="alert">※正解とする選択肢にチェックを入れてください。</span>';
 	
 	str += '<div class="choice_container" id="cContainer_' + question_num + '"></div>';
+	
+	str += '<div class="comment_container"><textarea row="3" cols="100" id="questions' + question_num + '.commentary" name="questions[' + question_num + '].commentary"  maxlength="100"></textarea></div>'
 
 	str += "<\div>";
 
