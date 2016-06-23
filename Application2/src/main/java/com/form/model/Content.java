@@ -2,6 +2,8 @@ package com.form.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +13,7 @@ public class Content {
 
 	@Id
 	@Column
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int content_id;         // 問題ID
 	@Column
 	private String content_title;   // タイトル
