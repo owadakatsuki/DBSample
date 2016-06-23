@@ -59,9 +59,9 @@ public class ContentController {
         System.out.println("[START] 削除を行います。" + contentID);
 
         // 問題の削除
-        contentRepository.delete(contentID);
-        questionRepository.delete(contentID);
         choicesRepository.delete(contentID);
+        questionRepository.delete(contentID);
+        contentRepository.delete(contentID);
 
         System.out.println("[END] 削除しました。");
 
