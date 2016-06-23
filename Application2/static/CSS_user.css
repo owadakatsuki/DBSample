@@ -19,24 +19,90 @@
 }
 .pass:first-letter{color:#19DD89;}
 
+.submitup{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#1253A4;
+    color:#FFFAFA;
+    border-radius:5px;
+
+}
+
+.resetup{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#FFD464
+ ;
+    color:#FF3333;
+    border-radius:5px;
+
+}
+
+.new{
+	color:#02AEDC; font-size:25px;
+	font-weight:bold;
+	
+}
+
 
 /* usernewOK */
-.id{
-	color:#696969; font-size:23px;
+.id1{
+	color:#F27398; font-size:23px;
 	font-weight:bold;
 }
-.id:last-letter{color:#0099ff;}
+
 
 .name1{
-	color:#696969; font-size:23px;
+	color:#40AAEF; font-size:23px;
 	font-weight:bold;
 }
-.name1:last-letter{color:#D31996;}
+
 
 .role1{
-	color:#696969; font-size:23px;
+	color:#FBA848; font-size:23px;
 	font-weight:bold;
 }
-.role1:last-letter{color:#19DD89;}
+
+.submit{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#58BE89;
+    color:#FFFAFA;
+    border-radius:5px;
+
+}
+
+/* userlist.html */
+.userlist{
+	width: 100%;
+	border-collapse: collapse;
+	border-right: 1px solid #999;
+}
+.userlist th{
+width: 25%;
+padding: 6px;
+text-align: left;
+vertical-align: top;
+color: #fff;
+background-color: #555;
+border-left: 5px solid #ff6633; 
+border-top: 1px solid #fff;
+}
+.userlist td{
+width: 25%;
+padding: 6px;
+background-color: #fff;
+border-bottom: 1px solid #999;
+border-left: 1px solid #999;
+}
 
 
