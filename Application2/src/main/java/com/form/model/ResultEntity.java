@@ -16,11 +16,17 @@ public class ResultEntity {
 	@Column
 	private List<Integer> answerID;
 	@Column
+	private List<String> select_answer;
+	@Column
+	private List<String> answer;
+	@Column
 	private String commentary;
 
 	public ResultEntity() {
 		select_answerID = new ArrayList<Integer>();
 		answerID = new ArrayList<Integer>();
+		select_answer = new ArrayList<String>();
+		answer = new ArrayList<String>();
 	}
 
 	public String getQuestion() {
@@ -35,9 +41,17 @@ public class ResultEntity {
 	public List<Integer> getAnswerID() {
 		return answerID;
 	}
+	public List<String> getSelect_answer(){
+		return select_answer;
+	}
+	public List<String> getAnswer() {
+		return answer;
+	}
 	public String getCommentary() {
 		return commentary;
 	}
+
+
 	public void setQuestion(String question) {
 		this.question = question;
 	}
@@ -49,6 +63,12 @@ public class ResultEntity {
 	}
 	public void setAnswerID(Integer answerID) {
 		this.answerID.add(answerID);
+	}
+	public void setSelect_answer(String select_answer) {
+		this.select_answer.add(select_answer);
+	}
+	public void setAnswer(String answer) {
+		this.answer.add(answer);
 	}
 	public void setCommentary(String commentary) {
 		this.commentary = commentary;

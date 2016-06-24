@@ -123,6 +123,7 @@ public class UserAnswerController {
 					 resultEntity.setCommentary(question.getCommentary());
 					 if ((choices.getQuestion_id() == question.getQuestion_id()) && choices.getIs_answer()) {
 						 resultEntity.setAnswerID(choices.getAnswer_id());
+						 resultEntity.setAnswer(choices.getAnswer());
 					 }
 				 }
 
@@ -130,6 +131,7 @@ public class UserAnswerController {
 					 //qustionEntityとuserAnswerEntityの小問IDが一致した解答をresultEntityに入れる
 					 if(userAnswer.getQuestion_id()==question.getQuestion_id()){
 						 resultEntity.setSelect_answerID(userAnswer.getAnswer_id());
+						 resultEntity.setSelect_answer(userAnswer.getSelect_answer());
 					 }
 				 }
 
@@ -139,8 +141,8 @@ public class UserAnswerController {
 					 flag = false;
 				 } else {
 					 //解答の中に一つでも正解がなければfalse
-					 for(Integer answer : resultEntity.getAnswerID()){
-						 if(!resultEntity.getSelect_answerID().contains(answer)){
+					 for(Integer answerID : resultEntity.getAnswerID()){
+						 if(!resultEntity.getSelect_answerID().contains(answerID)){
 							 flag = false;
 						 }
 					 }
@@ -153,11 +155,12 @@ public class UserAnswerController {
 				 }else{
 					 resultEntity.setMaruBatsu("×");
 				 }
+				 //System.out.println(resultEntity.getQuestion());
 				 answer_flag_count = resultEntity.getMaruBatsu().length();
 				 resultList.add(resultEntity);	//resultEntityをresultListに入れる
 			 }
 
-			 //model.addAttribute("question_count", question_list.getQuestions().size());
+			 model.addAttribute("question_count", question_list.getQuestions().size());
 			 model.addAttribute("answer_flag_count", answer_flag_count);
 			 model.addAttribute("resultList", resultList);
 
