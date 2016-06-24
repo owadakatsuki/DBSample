@@ -59,11 +59,11 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 					<input type="button" class="add_choice_btn" th:id="*{questions[__${q_row.index}__].question_id} + '_' + ${q_row.index}" value="選択肢追加" />
 					<input type="button" class="delete_question_btn" th:id="${q_row.index} + '_' + *{questions[__${q_row.index}__].question_id}" value="問題削除" />
 					<br />
-					<span>※正解とする選択肢にチェックを入れてください。</span>
 				
 				
 			<!--#### 選択肢 ####-->
 				<div class="choice_container" th:id="'cContainer_' + ${q_row.index}">
+					<span>※正解とする選択肢にチェックを入れてください。</span>
 					<div th:each="c, c_row : *{choices}"
 						th:if="*{questions[__${q_row.index}__].question_id} == *{choices[__${c_row.index}__].question_id}" th:id="'choice_' + *{choices[__${c_row.index}__].answer_id}">
 

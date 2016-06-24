@@ -44,11 +44,11 @@ public class ResultEntity {
 	public void setMaruBatsu(String maruBatsu) {
 		this.maruBatsu = maruBatsu;
 	}
-	public void setSelect_answerID(Integer select_answer){
-		this.select_answerID.add(select_answer);
+	public void setSelect_answerID(Integer select_answerID){
+		this.select_answerID.add(select_answerID);
 	}
-	public void setAnswerID(Integer answer) {
-		this.answerID.add(answer);
+	public void setAnswerID(Integer answerID) {
+		this.answerID.add(answerID);
 	}
 	public void setCommentary(String commentary) {
 		this.commentary = commentary;

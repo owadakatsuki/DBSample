@@ -40,37 +40,31 @@ public class LoginController {
 			//user_IDを引数として渡し、login判定をしてもらう。
 			/*User user_info = logService.execute(user_ID);*/
 			User user_data = logService.execute(user_ID);
-			user_info.setUser_id(user_data.getUser_id());
-			user_info.setRole(user_data.getRole());
 
 			//データがあったかどうか判定。
-			if(user_info != null){
-			    //System.out.println("データ取りました！！name="+user_info.getUsername());
-			    model.addAttribute("user_info", user_info);
-
-			} else{
-				System.out.println("データありません。");
+			if(user_data  == null){
 				model.addAttribute("errMsg","※ユーザーIDが存在しません。");
 				return"login";
 			}
 
-//			 String uPassword = user_info.getPassword();
-			String uPassword = user_data.getPassword();
+			user_info.setUser_id(user_data.getUser_id());
+			user_info.setRole(user_data.getRole());
+		    String uPassword = user_data.getPassword();
 
 			 //入力されたPasswordが合ってるかどうか判定。
 			if(! uPassword.equals(password)) {
 				System.out.println("passwordが違います。");
 				model.addAttribute("errMsg", "※passwordが違います。");
 				return "login";
-			} else{
-				System.out.println("login成功");
-
-				// 大問一覧取得
-		        List<Content> contentList = contentRepository.findAll();
-		        model.addAttribute("contentList", contentList);
-
-				return "menu";
 			}
+			System.out.println("login成功");
+
+		    model.addAttribute("user_info", user_info);
+			// 大問一覧取得
+	        List<Content> contentList = contentRepository.findAll();
+	        model.addAttribute("contentList", contentList);
+
+			return "menu";
 	}
 }
 

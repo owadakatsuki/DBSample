@@ -30,7 +30,7 @@ public class UserAnswerController {
 	 UserAnswerService 	service;
 	 @Autowired
 	 MakeFormService 	makeformservice;
-	 
+
 	 // redirectするときに必要
 	 public void addViewControllers(ViewControllerRegistry registry) {
 	    registry.addViewController("/result/{user_id}/{content_id}").setViewName("form/userAnswerResult");
@@ -58,7 +58,7 @@ public class UserAnswerController {
 	 public String PostUserAnswerForm(@Valid QuestionList question_list, BindingResult result, Model model){
 		 try{
 			 UserAnswer useranswer_result 	= null;
-			 
+
 			 if(!result.hasErrors()){
 				try{
 						// 項目必須チェック
@@ -73,7 +73,7 @@ public class UserAnswerController {
 								}
 							}
 						}
-					
+
 					 	for(ChoicesEntity choices : question_list.getChoices()) {
 					 		if(choices.getIs_answer() == true){
 					 			useranswer_result = new UserAnswer();
@@ -109,34 +109,34 @@ public class UserAnswerController {
 			 QuestionList		question_list  		= makeformservice.findFormByContent_id(content_id);
 			 List<UserAnswer> 	userAnswerList 		= service.findByUserIdandContentId(user_id, content_id);
 			 List<ResultEntity> resultList 			= new ArrayList<ResultEntity>();	// 小問ごとの結果を入れるListを作成
-			 boolean 			flag 				= true;								// default true;
 			 Integer			answer_flag_count 	= 0;
-			 
+
 			 for(Question question : question_list.getQuestions()) {
 				 ResultEntity resultEntity = new ResultEntity();
-				 	
+
 				 for(ChoicesEntity choices : question_list.getChoices()){
 					 resultEntity.setQuestion(question.getQuestion());
 					 resultEntity.setCommentary(question.getCommentary());
 					 if ((choices.getQuestion_id() == question.getQuestion_id()) && choices.getIs_answer()) {
-						 resultEntity.setAnswer(choices.getAnswer_id());
+						 resultEntity.setAnswerID(choices.getAnswer_id());
 					 }
 				 }
 
 				 for(UserAnswer userAnswer : userAnswerList ){
 					 //qustionEntityとuserAnswerEntityの小問IDが一致した解答をresultEntityに入れる
 					 if(userAnswer.getQuestion_id()==question.getQuestion_id()){
-						 resultEntity.setSelect_answer(userAnswer.getAnswer_id());	
+						 resultEntity.setSelect_answerID(userAnswer.getAnswer_id());
 					 }
 				 }
 
+				 boolean 			flag 				= true;								// default true;
 				 //正解の数と解答の数が一致していなかったらfalse    compareTo
-				 if (resultEntity.getAnswer().size() != resultEntity.getSelect_answer().size()) {
+				 if (resultEntity.getAnswerID().size() != resultEntity.getSelect_answerID().size()) {
 					 flag = false;
 				 } else {
 					 //解答の中に一つでも正解がなければfalse
-					 for(Integer answer : resultEntity.getAnswer()){
-						 if(!resultEntity.getSelect_answer().contains(answer)){
+					 for(Integer answer : resultEntity.getAnswerID()){
+						 if(!resultEntity.getSelect_answerID().contains(answer)){
 							 flag = false;
 						 }
 					 }
@@ -152,8 +152,8 @@ public class UserAnswerController {
 				 answer_flag_count = resultEntity.getMaruBatsu().length();
 				 resultList.add(resultEntity);	//resultEntityをresultListに入れる
 			 }
-			 
-			 model.addAttribute("question_count", question_list.getQuestions().size());
+
+			 //model.addAttribute("question_count", question_list.getQuestions().size());
 			 model.addAttribute("answer_flag_count", answer_flag_count);
 			 model.addAttribute("resultList", resultList);
 
