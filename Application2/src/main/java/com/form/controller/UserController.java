@@ -114,6 +114,7 @@ public class UserController {
 			//エラーメッセージをセット
 			String ermsg = "IDが既に使われています。";
 			model.addAttribute("ermsg",ermsg);
+			model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
 			
 			
 			System.out.println("IDが既に使われています。");
