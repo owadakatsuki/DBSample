@@ -26,6 +26,7 @@
 				<input type="hidden" th:field="*{questions[__${q_row.index}__].question_id}" /> 
 				<input type="hidden" th:field="*{questions[__${q_row.index}__].content_id}" />
 				<input type="hidden" th:field="*{questions[__${q_row.index}__].required_flag}" />
+				<input type="hidden" th:field="*{questions[__${q_row.index}__].question}" /> <!-- 06.24 修正箇所 questionを送ってなかった -->
 			</span>
 			
 			<div class="choice_container" th:id="'cContainer_' + ${q_row.index}">

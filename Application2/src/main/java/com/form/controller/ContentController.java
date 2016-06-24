@@ -31,8 +31,8 @@ public class ContentController {
 	@Autowired
 	private UserInfo user_info;
 
-    // contentメソッドの処理は、LoginControllerに移します。
-//    @RequestMapping("/menu")
+//    // contentメソッドの処理は、LoginControllerに移します。
+//    @RequestMapping(value ="/menu")
 //    public String content(Model model) {
 //        System.out.println("[START] データベースに接続してデータを取得します。");
 //
@@ -74,7 +74,7 @@ public class ContentController {
 
         model.addAttribute("contentList", contentList);
 
-        return "redirect:/menu";
+        return "menu";
     }
 /**
     @RequestMapping("/make_form")

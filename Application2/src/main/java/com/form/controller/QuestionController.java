@@ -1,5 +1,7 @@
 package com.form.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -54,7 +56,7 @@ public class QuestionController {
     	return "make_form";
 	}
 	
-
+	
 	// 新規問題追加
 	@RequestMapping(value = "createNewQuestion",consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ResponseBody
@@ -87,6 +89,7 @@ public class QuestionController {
 	@ResponseBody
 	public boolean deleteQuestion(@RequestBody SendId id) {
 		System.out.println("[START] deleteQuestion");
+		
     	MakeFormService.deleteQuestion(id.getQuestion_id());
 		
 		return true;
