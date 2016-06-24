@@ -11,24 +11,34 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.form.dao.ContentRepository;
 import com.form.dao.UserRepository;
 import com.form.model.User;
+import com.form.model.UserInfo;
+
 
 @Controller
+@SessionAttributes("user_info")
 @EnableAutoConfiguration
 public class UserController {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
+	@Autowired
+    ContentRepository contentRepository;
+	@Autowired
+	private UserInfo user_info;
 
-	@RequestMapping("/user")
+/*	@RequestMapping("/user")
 	public String user() {
 		System.out.println("管理者画面きました。");
 		return "user";
 	}
+*/	
 
-	@RequestMapping(value="/userlist",method=RequestMethod.GET)
+	@RequestMapping(value="/userlist",method=RequestMethod.POST)
 	public String userlist(Locale locale, Model model) {
 		System.out.println("ユーザーリスト表示します！");
 
@@ -45,7 +55,6 @@ public class UserController {
 	public String userdelete(@RequestParam ("user_id") String user_id, Locale locale, Model model) {
 		System.out.println("Stringでuseridは受け取れた。");
 
-
 		//	レコードを削除
 		userRepository.delete(user_id);
 		System.out.println("削除できた");
@@ -61,6 +70,7 @@ public class UserController {
 		System.out.println("新規登録画面きました。");
 		//UserEntity用意
 		model.addAttribute("newuser", new User());
+		model.addAttribute("isAdmin", user_info.getRole() == "admin" );
 		//新規登録画面へ
 		return "usernew";
 	}
@@ -73,10 +83,19 @@ public class UserController {
 		System.out.println(user.getUsername());
 		System.out.println(user.getPassword());
 		System.out.println(user.getRole());
-		
-		//受け取ったUserIDで重複があるか確認
+
+		String rtnVal = "redirect:/usernewOK";
+		//受け取ったUserIDで重複があるか判定
 		User userid = userRepository.findOne(user.getUser_id());
 		if(userid == null) {
+			//ゲストかどうかの判定
+			if(user_info.getUser_id() == null) {
+				user.setRole("user");
+				user_info.setRole(user.getRole());
+				user_info.setUser_id(user.getUser_id());				
+				
+				rtnVal = "redirect:/menu";
+			}
 			//重複ないなら登録
 			userRepository.save(user);
 		//確認画面のためdataをセット
@@ -88,12 +107,13 @@ public class UserController {
 		
 		System.out.println("登録しました");
 		//確認画面へ
-		return "usernewOK";
+		return rtnVal;
 		
 		} else {
 			//エラーメッセージをセット
 			String ermsg = "IDが既に使われています。";
 			model.addAttribute("ermsg",ermsg);
+			
 			
 			System.out.println("IDが既に使われています。");
 			//新規登録画面へ戻る

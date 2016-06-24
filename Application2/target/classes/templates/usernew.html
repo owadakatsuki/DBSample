@@ -21,16 +21,16 @@
 		</p>
 		
 		<p class="name">name</p>
-		<p class="input2">
+		<p class="input21">
 			<input type="text" name="username" th:field="*{username}" required="required" maxlength='20'  placeholder='20文字以内で名前を入力してください'/>
 		</p>
 		
 		<p class="pass">password</p>
-		<p class="input2">
+		<p class="input22">
 			<input type="password" name="password" th:field="*{password}" required="required" maxlength='20'  placeholder='20文字以内でパスワードを入力してください'/>
 		</p>
 		
-		<p class="radio">
+		<p class="radio" th:if="${isAdmin}">
 		<input type="radio" name="role" value="user" checked="checked" th:field="*{role}"  required="required"/>user
 		<input type="radio" name="role" value="admin" th:field="*{role}"  required="required"/>admin
 		</p>
