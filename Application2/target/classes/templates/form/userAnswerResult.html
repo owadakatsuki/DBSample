@@ -15,41 +15,33 @@
 			<h3 th:text="${answer_flag_count}+'/'+${question_count}"></h3>
 		</div>
 
-		<div th:object="${resultList}">
-			<div th:each="p, q_row :${resultList}">
-				<!--  <div th:if="${resultList[__${q_row.index}__].select_answer}!=null
-								|| ${resultList[__${q_row.index}__].select_answer.length()}!=0">-->
+		<div style="height:500px; width:800px; margin: 0 auto; overflow-y:scroll;">
 
-					<p th:text="'Q'+${i}+${resultList[__${q_row.index}__].question}"></p>
+		<div th:object="${resultList}">
+			<div th:each="p,q_row:${resultList}">
+
+					<p th:inline="text">Q[[${q_row.count}]] [[${resultList[__${q_row.index}__].question}]]</p>
 					<div th:if="${question_count} !=0">
-						<p th:text="${resultList[__${q_row.index}__].maruBatsu}"></p><!-- 問題文、〇× -->
+						<p th:text="${resultList[__${q_row.index}__].maruBatsu}"></p>
 					</div>
 					<p th:text="'あなたの解答→'+${resultList[__${q_row.index}__].select_answer}"></p>
 					<div th:if="${question_count} !=0">
 						<p th:text="'正解→'+${resultList[__${q_row.index}__].answer}"></p>
 					</div>
-					<div th:if="${resultList[__${q_row.index}__].commentary.length()}!=0">
+					<div th:if="${resultList[__${q_row.index}__].commentary}!=null
+									and ${resultList[__${q_row.index}__].commentary.length()}!=0">
 						<p th:text="'解説:'+${resultList[__${q_row.index}__].commentary}"></p>
 					</div>
 					<hr/>
 			</div>
-				<!--  </div>-->
 		</div>
-			<!-- <div th:each="i : ${#numbers.sequence(1,${resultList}.size())}">
-				<p th:text="'Q'+${i}" ></p>
-				<div th:each="p, q_row :${resultList}">
-					<p th:text="*{question}+':'+*{marubBatsu}"></p>	問題文、〇×
-					<p th:text="'あなたの解答→'+*{select_answer}"></p>	解答
-					<p th:text="'正解→'+*{answer}"></p>					正解
-					<div th:if="*{commentary}!=null"><p th:text="'解説:'+*{commentary}" ></p></div>	解説
-				</div>
-			</div> -->
+		</div>
 
 		<a th:href="@{/menu}">メニューへ</a>
 		<br></br>
 		<br></br>
 
-		<form action="/logout" method="startApp">
+		<form action="/logout">
 		<input type="submit" value="logout" name="logout"/>
 		</form>
 
