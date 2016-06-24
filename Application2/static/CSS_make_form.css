@@ -5,7 +5,7 @@
 /* html,bodyタグの設定 */
 html, body{
     margin: 0;         /* 余白の削除 */
-    padding:80px 0 0 0;    /* 上下に余白を取る */
+    padding:60px 0 0 0;    /* 上下に余白を取る */
     width:100%;
     height:100%;
     font-size: 1em;
@@ -23,7 +23,7 @@ div#header-fixed
  
 div#header-bk { 
     background-color: #fff;
-	padding:10px 0 20px;       
+	padding:0;       
 	height:110px;              
 	width:100%;                
 }
