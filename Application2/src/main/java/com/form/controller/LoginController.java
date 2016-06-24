@@ -25,7 +25,7 @@ public class LoginController {
     ContentRepository contentRepository;
 	@Autowired
 	private UserInfo user_info;
-	
+
 		@RequestMapping("/")
 		public String startApp(Model model){
 			System.out.println("StartApp来ました");
@@ -33,7 +33,6 @@ public class LoginController {
 			//こんにちは
 		}
 
-		@RequestMapping(value ="/Login",method=RequestMethod.POST)
 		public String login(Model model, @RequestParam("userid") String user_ID, @RequestParam("pass") String password){
 			System.out.println("login来ました");
 
@@ -47,7 +46,7 @@ public class LoginController {
 			if(user_info != null){
 			    //System.out.println("データ取りました！！name="+user_info.getUsername());
 			    model.addAttribute("user_info", user_info);
-			    
+
 			} else{
 				System.out.println("データありません。");
 				model.addAttribute("errMsg","※ユーザーIDが存在しません。");
