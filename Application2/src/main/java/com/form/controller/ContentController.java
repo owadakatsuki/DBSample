@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import com.form.model.Content;
 import com.form.model.UserInfo;
 
 @Controller
+@Transactional
 @SessionAttributes("user_info")
 public class ContentController {
 
@@ -64,10 +66,10 @@ public class ContentController {
         System.out.println("[START] 削除を行います。" + contentID);
 
         // 問題の削除
-        choicesRepository.deleteConChoice(15);
-//        user_answer_repository.deleteConUserAnswer(contentID);
-//        questionRepository.deleteConQuestion(contentID);
-//        contentRepository.deleteContent(contentID);
+        user_answer_repository.deleteConUserAnswer(contentID);
+        choicesRepository.deleteConChoice(contentID);
+        questionRepository.deleteConQuestion(contentID);
+        contentRepository.deleteContent(contentID);
 
         System.out.println("[END] 削除しました。");
 
