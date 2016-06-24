@@ -70,7 +70,8 @@ public class UserController {
 		System.out.println("新規登録画面きました。");
 		//UserEntity用意
 		model.addAttribute("newuser", new User());
-		model.addAttribute("isAdmin", user_info.getRole() == "admin" );
+		System.out.println(user_info.getUser_id() + user_info.getRole());
+		model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
 		//新規登録画面へ
 		return "usernew";
 	}
