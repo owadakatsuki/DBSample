@@ -113,6 +113,7 @@ public class UserAnswerController {
 			 List<UserAnswer> 	userAnswerList 		= service.findByUserIdandContentId(user_id, content_id);
 			 List<ResultEntity> resultList 			= new ArrayList<ResultEntity>();	// 小問ごとの結果を入れるListを作成
 			 Integer			answer_flag_count 	= 0;
+			 Integer			question_count 	= 0;
 
 			 for(Question question : question_list.getQuestions()) {
 				 ResultEntity resultEntity = new ResultEntity();
@@ -149,17 +150,21 @@ public class UserAnswerController {
 
 				 //flgの結果によって値をresultEntityに入れる
 				 //正解と解答の完全一致のみtrue
-				 if(flag){
+				 if(resultEntity.getAnswerID().size() == 0) {
+					 resultEntity.setMaruBatsu("");
+				 } else if(flag){
 					 resultEntity.setMaruBatsu("〇");
+					 question_count++;
+					 answer_flag_count++;
 				 }else{
+					 question_count++;
 					 resultEntity.setMaruBatsu("×");
 				 }
-				 //System.out.println(resultEntity.getQuestion());
-				 answer_flag_count = resultEntity.getMaruBatsu().length();
+
 				 resultList.add(resultEntity);	//resultEntityをresultListに入れる
 			 }
 
-			 model.addAttribute("question_count", question_list.getQuestions().size());
+			 model.addAttribute("question_count", question_count);
 			 model.addAttribute("answer_flag_count", answer_flag_count);
 			 model.addAttribute("resultList", resultList);
 

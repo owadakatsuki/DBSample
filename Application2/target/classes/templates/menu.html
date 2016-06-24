@@ -12,7 +12,7 @@
 </form>
 
 <div align="center" data-th-if="${user_info.getRole() eq 'admin'}">
-	<form action="/userlist" method="GET">
+	<form action="/userlist" method="POST">
 			<input type="submit" style="margin:0px; " value="ユーザ一覧" />
 	</form>
 
