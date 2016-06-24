@@ -85,7 +85,7 @@ public class UserController {
 		System.out.println(user.getPassword());
 		System.out.println(user.getRole());
 
-		String rtnVal = "redirect:/usernewOK";
+		String rtnVal = "usernewOK";
 		//受け取ったUserIDで重複があるか判定
 		User userid = userRepository.findOne(user.getUser_id());
 		if(userid == null) {
