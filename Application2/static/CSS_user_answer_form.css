@@ -12,6 +12,15 @@ html, body{
 	padding:0 20px 0;
 }
 
+.question_container {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.choice_container {
+	margin:10px 0 10px 0;
+}
+
 .button_margin {
-	margin:50px auto;	
+	margin:40px 0 40px 0;	
 }

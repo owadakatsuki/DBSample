@@ -91,11 +91,12 @@ public class UserAnswerController {
 					 		}
 					 	}
 				}catch(Exception e){
-					 model.addAttribute("validationError", "不正な値が入力されました。");
-				 	 return "form/userAnswerForm";
+					model.addAttribute("error", e.getMessage());
+					return "error";
 				}
 			 }else{
-			 		model.addAttribute("validationError", "不正な値が入力されました。");
+				 	model.addAttribute("question_list", question_list);
+			 		model.addAttribute("error_message", "必須項目をもう一度確認してください！");
 			 		return "form/userAnswerForm";
 			 }
 			 return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
