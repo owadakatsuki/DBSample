@@ -10,13 +10,14 @@
 
 		<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
 		<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
-
+		
+		<h3 th:text="${answer_flag_count}"></h3> / <h3 th:text="${question_count}"></h3>
 		<div th:object="${resultList}">
 			<div th:each="p, q_row :${resultList}">
 					<p th:text="${resultList[__${q_row.index}__].question}"></p>
 					<p th:text="${resultList[__${q_row.index}__].maruBatsu}"></p><!-- 問題文、〇× -->
-					<p th:text="'あなたの解答→'+${resultList[__${q_row.index}__].select_answer}"></p>	
-					<p th:text="'正解→'+${resultList[__${q_row.index}__].answer}"></p>					
+					<p th:text="'あなたの解答→'+${resultList[__${q_row.index}__].select_answer}"></p>
+					<p th:text="'正解→'+${resultList[__${q_row.index}__].answer}"></p>
 					<div th:if="${resultList[__${q_row.index}__].commentary}!=null">
 						<p th:text="'解説:'+${resultList[__${q_row.index}__].commentary}" ></p>
 					</div>
@@ -36,7 +37,11 @@
 		<a href="menu" name="menu">メニューへ</a>
 		<br></br>
 		<br></br>
+
+		<form action="/logout" method="startApp">
 		<input type="submit" value="logout" name="logout"/>
+		</form>
+
 	</div>
 </body>
 </html>

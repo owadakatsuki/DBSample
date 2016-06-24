@@ -103,18 +103,18 @@ function deleteChoice(choice_id) {
 function addQuestion(form_id, data) {
 	question_num++;
 	var str = '<div class="question_container" id="qContainer_'+ question_num +'">' 
-		+ '<span class="question">Q : <input id="questions' + question_num + '.question" name="questions[' + question_num + '].question" value="無題の質問" maxlength="100"  />'
+		+ '<textarea rows="2" cols="50" required="required" maxlength="100" id="questions' + question_num + '.question" name="questions[' + question_num + '].question"  ></textarea>'
 		+ '<input type="hidden" id="questions' + question_num + '.question_id" name="questions[' + question_num + '].question_id" value="' + data.question_id + '" />'
 		+ '<input type="hidden" id="questions' + question_num + '.content_id" name="questions[' + question_num + '].content_id" value="' + data.content_id + '" /></span>';
 	
-	str += '<input type="checkbox" id="questions'+ question_num+ '.required_flag1" name="questions['+question_num+'].required_flag" value="true"  /> '
-		+ '<input type="hidden" name="_questions[' + question_num +'].required_flag" value="on">解答必須';
+	str += '<label><input type="checkbox" id="questions'+ question_num+ '.required_flag1" name="questions['+question_num+'].required_flag" value="true"  /> '
+		+ '<input type="hidden" name="_questions[' + question_num +'].required_flag" value="on"><span class="alert">解答必須</span></label>';
 	
 	str += '<input type="button" class="add_choice_btn" id="' + data.question_id + '_' + question_num + '" value="選択肢追加" />';
 	
 	str += '<input type="button" class="delete_question_btn" value="問題削除" id="' + question_num + '_' + data.question_id + '">';
 	
-	str += '<br /><span class="alert">※正解とする選択肢にチェックを入れてください。</span>';
+	str += '<br /><span>※正解とする選択肢にチェックを入れてください。</span>';
 	
 	str += '<div class="choice_container" id="cContainer_' + question_num + '"></div>';
 	

@@ -1,10 +1,8 @@
 package com.form.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 
@@ -57,48 +55,66 @@ public class UserAnswerController {
 
 	 //BindingResult : object so you can test for and retrieve validation errors.
 	 @RequestMapping(value="/formAnswer", method=RequestMethod.POST)
-	 public String PostUserAnswerForm(@Valid Content content, @Valid QuestionList question_list, BindingResult result, Model model){
+	 public String PostUserAnswerForm(@Valid QuestionList question_list, BindingResult result, Model model){
 		 try{
-			 UserAnswer useranswer_result = null;
+			 UserAnswer useranswer_result 	= null;
+			 
 			 if(!result.hasErrors()){
-			 		try{
-			 				for(ChoicesEntity choices : question_list.getChoices()) {
-			 					if(choices.getIs_answer() == true){
-			 						useranswer_result = new UserAnswer();
-			 						useranswer_result.setUser_id(1);
-			 						useranswer_result.setContent_id(choices.getContent_id());
-			 						useranswer_result.setQuestion_id(choices.getQuestion_id());
-			 						useranswer_result.setAnswer_id(choices.getAnswer_id());
-			 						useranswer_result.setSelect_answer(choices.getAnswer());
-			 						service.Save(useranswer_result);
-			 					}
-			 				}
-			 		}catch(Exception e){
-			 			model.addAttribute("error", e.getMessage());
-			 			return "error";
-			 		}
-			 	}else{
+				try{
+						// 項目必須チェック
+						for (Question question : question_list.getQuestions()) {
+							if (question.isRequired_flag()) {
+								Stream<ChoicesEntity> choice = question_list.getChoices().stream().filter(x -> x.getQuestion_id() == question.getQuestion_id() && x.getIs_answer());
+								if (choice.count() == 0) {
+									 model.addAttribute("question_list", question_list);
+									 model.addAttribute("content_id", question.getContent_id());
+									 model.addAttribute("error_message", "必須項目をもう一度確認してください！");
+									 return "form/userAnswerForm";
+								}
+							}
+						}
+					
+					 	for(ChoicesEntity choices : question_list.getChoices()) {
+					 		if(choices.getIs_answer() == true){
+					 			useranswer_result = new UserAnswer();
+					 			useranswer_result.setUser_id("kim");
+					 			useranswer_result.setContent_id(choices.getContent_id());
+					 			useranswer_result.setQuestion_id(choices.getQuestion_id());
+					 			useranswer_result.setAnswer_id(choices.getAnswer_id());
+					 			useranswer_result.setSelect_answer(choices.getAnswer());
+					 			service.Save(useranswer_result);
+					 		}
+					 	}
+				}catch(Exception e){
+					 model.addAttribute("validationError", "不正な値が入力されました。");
+				 	 return "form/userAnswerForm";//GetUserAnswerForm(content, model);	// formにredirect?
+			 		//model.addAttribute("error", e.getMessage());
+			 		//return "error";
+				}
+			 }else{
 			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return GetUserAnswerForm(content, model);
-			 	}
-			 	return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
+			 		return "form/userAnswerForm";//return GetUserAnswerForm(content, model);	// formにredirect?
+			 }
+			 return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
 		 }catch(Exception e){
-			return "error";
+			 model.addAttribute("error", e.getMessage());
+			 return "error";
 		 }
 	 }
 
 	 // ユーザ解答結果
 	 @RequestMapping(value="/result/{user_id}/{content_id}", method=RequestMethod.GET)
-	 public String List(@PathVariable Integer user_id, @PathVariable Integer content_id, Model model ) {
+	 public String List(@PathVariable String user_id, @PathVariable Integer content_id, Model model ) {
 		 try{
-			 QuestionList		question_list  	= makeformservice.findFormByContent_id(content_id);
-			 List<UserAnswer> 	userAnswerList 	= service.findByUserIdandContentId(user_id, content_id);
-			 List<ResultEntity> resultList 		= new ArrayList<ResultEntity>();	// 小問ごとの結果を入れるListを作成
-			 boolean 			flag 			= true;								// default true;
-		
+			 QuestionList		question_list  		= makeformservice.findFormByContent_id(content_id);
+			 List<UserAnswer> 	userAnswerList 		= service.findByUserIdandContentId(user_id, content_id);
+			 List<ResultEntity> resultList 			= new ArrayList<ResultEntity>();	// 小問ごとの結果を入れるListを作成
+			 boolean 			flag 				= true;								// default true;
+			 Integer			answer_flag_count 	= 0;
+			 
 			 for(Question question : question_list.getQuestions()) {
 				 ResultEntity resultEntity = new ResultEntity();
-
+				 	
 				 for(ChoicesEntity choices : question_list.getChoices()){
 					 resultEntity.setQuestion(question.getQuestion());
 					 resultEntity.setCommentary(question.getCommentary());
@@ -133,9 +149,12 @@ public class UserAnswerController {
 				 }else{
 					 resultEntity.setMaruBatsu("×");
 				 }
-
+				 answer_flag_count = resultEntity.getMaruBatsu().length();
 				 resultList.add(resultEntity);	//resultEntityをresultListに入れる
 			 }
+			 
+			 model.addAttribute("question_count", question_list.getQuestions().size());
+			 model.addAttribute("answer_flag_count", answer_flag_count);
 			 model.addAttribute("resultList", resultList);
 
 		 }catch(Exception e){

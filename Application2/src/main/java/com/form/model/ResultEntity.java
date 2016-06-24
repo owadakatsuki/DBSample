@@ -12,28 +12,28 @@ public class ResultEntity {
 	@Column
 	private String maruBatsu;
 	@Column
-	private List<Integer> select_answer;
+	private List<Integer> select_answerID;
 	@Column
-	private List<Integer> answer;
+	private List<Integer> answerID;
 	@Column
 	private String commentary;
 
 	public ResultEntity() {
-		select_answer = new ArrayList<Integer>();
-		answer = new ArrayList<Integer>();
+		select_answerID = new ArrayList<Integer>();
+		answerID = new ArrayList<Integer>();
 	}
-	
+
 	public String getQuestion() {
 		return question;
 	}
 	public String getMaruBatsu() {
 		return maruBatsu;
 	}
-	public List<Integer> getSelect_answer(){
-		return select_answer;
+	public List<Integer> getSelect_answerID(){
+		return select_answerID;
 	}
-	public List<Integer> getAnswer() {
-		return answer;
+	public List<Integer> getAnswerID() {
+		return answerID;
 	}
 	public String getCommentary() {
 		return commentary;
@@ -44,11 +44,11 @@ public class ResultEntity {
 	public void setMaruBatsu(String maruBatsu) {
 		this.maruBatsu = maruBatsu;
 	}
-	public void setSelect_answer(Integer select_answer){
-		this.select_answer.add(select_answer);
+	public void setSelect_answerID(Integer select_answer){
+		this.select_answerID.add(select_answer);
 	}
-	public void setAnswer(Integer answer) {
-		this.answer.add(answer);
+	public void setAnswerID(Integer answer) {
+		this.answerID.add(answer);
 	}
 	public void setCommentary(String commentary) {
 		this.commentary = commentary;
