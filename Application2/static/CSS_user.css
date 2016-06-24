@@ -139,3 +139,15 @@ border-left: 1px solid #999;
     border-radius:5px;
 
 }
+
+
+.input21{
+	ime-mode: active; 
+}
+.input22{
+	ime-mode: inactive; 
+}
+
+.input1{
+	 ime-mode: inactive; 
+}

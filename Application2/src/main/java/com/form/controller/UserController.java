@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.form.dao.ContentRepository;
 import com.form.dao.UserRepository;
@@ -19,6 +20,7 @@ import com.form.model.UserInfo;
 
 
 @Controller
+@SessionAttributes("user_info")
 @EnableAutoConfiguration
 public class UserController {
 
@@ -83,12 +85,12 @@ public class UserController {
 		System.out.println(user.getRole());
 
 		String rtnVal = "redirect:/usernewOK";
-		//受け取ったUserIDで重複があるか確認
+		//受け取ったUserIDで重複があるか判定
 		User userid = userRepository.findOne(user.getUser_id());
 		if(userid == null) {
-			//ゲストにrole=userをセットする。
+			//ゲストかどうかの判定
 			if(user_info.getUser_id() == null) {
-				
+				user.setRole("user");
 				user_info.setRole(user.getRole());
 				user_info.setUser_id(user.getUser_id());				
 				
