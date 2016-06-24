@@ -88,7 +88,7 @@ public class UserController {
 		if(userid == null) {
 			//ゲストにrole=userをセットする。
 			if(user_info.getUser_id() == null) {
-				user.setRole("user");
+				
 				user_info.setRole(user.getRole());
 				user_info.setUser_id(user.getUser_id());				
 				
