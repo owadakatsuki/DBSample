@@ -119,24 +119,24 @@ public class UserAnswerController {
 					 resultEntity.setQuestion(question.getQuestion());
 					 resultEntity.setCommentary(question.getCommentary());
 					 if ((choices.getQuestion_id() == question.getQuestion_id()) && choices.getIs_answer()) {
-						 resultEntity.setAnswerID(choices.getAnswer_id());
+						 resultEntity.setAnswer(choices.getAnswer_id());
 					 }
 				 }
 
 				 for(UserAnswer userAnswer : userAnswerList ){
 					 //qustionEntityとuserAnswerEntityの小問IDが一致した解答をresultEntityに入れる
 					 if(userAnswer.getQuestion_id()==question.getQuestion_id()){
-						 resultEntity.setSelect_answerID(userAnswer.getAnswer_id());	
+						 resultEntity.setSelect_answer(userAnswer.getAnswer_id());	
 					 }
 				 }
 
 				 //正解の数と解答の数が一致していなかったらfalse    compareTo
-				 if (resultEntity.getAnswerID().size() != resultEntity.getSelect_answerID().size()) {
+				 if (resultEntity.getAnswer().size() != resultEntity.getSelect_answer().size()) {
 					 flag = false;
 				 } else {
 					 //解答の中に一つでも正解がなければfalse
 					 for(Integer answer : resultEntity.getAnswerID()){
-						 if(!resultEntity.getSelect_answerID().contains(answer)){
+						 if(!resultEntity.getSelect_answer().contains(answer)){
 							 flag = false;
 						 }
 					 }
