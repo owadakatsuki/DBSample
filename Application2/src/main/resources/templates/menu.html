@@ -36,11 +36,15 @@
 
 			<td>
 			<div style="display:inline-flex">
-				<form action="/form" method="POST" th:object="${contentList}" >
-					<input type="hidden" name="content_id" th:value="*{content_id}" />
-					<input type="hidden" name="content_title" th:value="*{content_title}" />
-					<input type="submit" style="margin:1px; float:left;" value="解答" />
-				</form>
+
+				<!-- content_idが一致すれば表示しない -->
+				<div data-th-if="*{contentList.getAnswer_flg()} eq false">
+					<form action="/form" method="POST" th:object="${contentList}" >
+						<input type="hidden" name="content_id" th:value="*{content_id}" />
+						<input type="hidden" name="content_title" th:value="*{content_title}" />
+						<input type="submit" style="margin:1px; float:left;" value="解答" />
+					</form>
+				</div>
 
 				<div data-th-if="${user_info.getRole() eq 'admin'}">
 					<form action="/make_form" method="GET">

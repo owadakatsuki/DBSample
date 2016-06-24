@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.form.dao.ContentRepository;
 import com.form.dao.UserRepository;
@@ -19,6 +20,7 @@ import com.form.model.UserInfo;
 
 
 @Controller
+@SessionAttributes("user_info")
 @EnableAutoConfiguration
 public class UserController {
 
@@ -68,7 +70,8 @@ public class UserController {
 		System.out.println("新規登録画面きました。");
 		//UserEntity用意
 		model.addAttribute("newuser", new User());
-		model.addAttribute("isAdmin", user_info.getRole() == "admin" );
+		System.out.println(user_info.getUser_id() + user_info.getRole());
+		model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
 		//新規登録画面へ
 		return "usernew";
 	}
@@ -82,11 +85,11 @@ public class UserController {
 		System.out.println(user.getPassword());
 		System.out.println(user.getRole());
 
-		String rtnVal = "redirect:/usernewOK";
-		//受け取ったUserIDで重複があるか確認
+		String rtnVal = "usernewOK";
+		//受け取ったUserIDで重複があるか判定
 		User userid = userRepository.findOne(user.getUser_id());
 		if(userid == null) {
-			//ゲストにrole=userをセットする。
+			//ゲストかどうかの判定
 			if(user_info.getUser_id() == null) {
 				user.setRole("user");
 				user_info.setRole(user.getRole());
@@ -111,6 +114,7 @@ public class UserController {
 			//エラーメッセージをセット
 			String ermsg = "IDが既に使われています。";
 			model.addAttribute("ermsg",ermsg);
+			model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
 			
 			
 			System.out.println("IDが既に使われています。");

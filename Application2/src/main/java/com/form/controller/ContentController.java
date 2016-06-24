@@ -1,5 +1,6 @@
 package com.form.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,7 +16,9 @@ import com.form.dao.ChoicesRepository;
 import com.form.dao.ContentRepository;
 import com.form.dao.QuestionRepository;
 import com.form.dao.UserAnswerRepository;
+import com.form.dao.UserAnswerService;
 import com.form.model.Content;
+import com.form.model.ContentAnswer;
 import com.form.model.UserInfo;
 
 @Controller
@@ -36,6 +39,9 @@ public class ContentController {
 	UserAnswerRepository user_answer_repository;
 
 	@Autowired
+	UserAnswerService user_answer_service;
+
+	@Autowired
 	private UserInfo user_info;
 
     // 解答結果画面から遷移
@@ -43,13 +49,25 @@ public class ContentController {
     public String content(Model model) {
         System.out.println("[START] メニュー画面");
 
-		// 大問一覧取得
+        // 大問一覧取得
         List<Content> contentList = contentRepository.findAll();
+		// 解答結果取得
+        List<Integer> contentIdList = user_answer_service.findByContentId(user_info.getUser_id());
 
+    	List<ContentAnswer> conAnswerList = new ArrayList<ContentAnswer>();
+        // 解答結果の件数分ループ
+        for (Content c : contentList) {
+
+        	ContentAnswer contentAnswer = new ContentAnswer();
+        	contentAnswer.setContent_id(c.getContent_id());
+        	contentAnswer.setContent_title(c.getContent_title());
+        	contentAnswer.setAnswer_flg(contentIdList.contains(c.getContent_id()));
+        	conAnswerList.add(contentAnswer);
+        }
+
+        // ユーザ情報、大問一覧をセット
 	    model.addAttribute("user_info", user_info);
-
-        // 大問一覧をセット
-        model.addAttribute("contentList", contentList);
+        model.addAttribute("contentList", conAnswerList);
 
         System.out.println("[END] セットしました");
 
@@ -68,62 +86,7 @@ public class ContentController {
 
         System.out.println("[END] 削除しました。");
 
-        List<Content> contentList = contentRepository.findAll();
-
-//        // 管理者権限でログインしたときに、ボタンが非表示になるか確認するための処理(結合テストでは消す予定)
-//        User user_info = new User();
-//        user_info.setRole("admin");
-//        model.addAttribute("user_info", user_info);
-
-        model.addAttribute("contentList", contentList);
-
-        return "menu";
-    }
-/**
-    @RequestMapping("/make_form")
-    public String makeForm(Locale locale, Model model) {
-        System.out.println("[START] フォーム編集画面に遷移します。");
-
-        List<Content> contentList = contentRepository.findAll();
-
-        for (Content content : contentList) {
-            System.out.println(content.getContent_id() + content.getContent_title());
-        }
-
-        // 削除後の大問一覧をセット
-        model.addAttribute("contentList", contentList);
-
-        return "menu";
+        return "redirect:/menu";
     }
 
-    @RequestMapping("/qustion")
-    public String question(Locale locale, Model model) {
-        System.out.println("[START] 解答画面に遷移します。");
-
-        List<Content> contentList = contentRepository.findAll();
-
-        for (Content content : contentList) {
-            System.out.println(content.getContent_id() + content.getContent_title());
-        }
-
-        model.addAttribute("contentList", contentList);
-
-        return "menu";
-    }
-
-    @RequestMapping("/make_form")
-    public String makeForm(Locale locale, Model model) {
-        System.out.println("[START] フォーム編集画面に遷移します。");
-
-        List<Content> contentList = contentRepository.findAll();
-
-        for (Content content : contentList) {
-            System.out.println(content.getContent_id() + content.getContent_title());
-        }
-
-        model.addAttribute("contentList", contentList);
-
-        return "menu";
-    }
-*/
 }
