@@ -4,19 +4,19 @@
 		<meta charset="UTF-8"/>
 		<title>《user》一覧</title>
 		<link rel="stylesheet" type="text/css" href="CSS_user.css" />
-				
+	</head>			
 		<script type="text/javascript"><!--
-		function myEnter(){
-     	myRet = confirm("本当に削除してよろしいですか？");
-     		if ( myRet == true ){
-         	alert("削除しました。");
-     		}else{
-         	alert("キャンセルしました。");
-         
+		function frmSubmit(){
+
+     		if(confirm("削除してよろしいですか。")) {
+         		return true;
+     		} else {
+     			return false;
      		}
 		}
-		// --></script>
-	</head>
+		// -->
+		</script>
+	
 	<body>
 <div align="center">
 		
@@ -33,9 +33,9 @@
 			</tr>	
 			
 			<tr th:each="user :${userlist}">
-			<td th:text="${user.getUser_id()}" ></td>	
-			<td th:text="${user.getUsername()}" ></td>
-			<td th:text="${user.getRole()}" ></td>
+			<td class="" th:text="${user.getUser_id()}" ></td>	
+			<td class="" th:text="${user.getUsername()}" ></td>
+			<td class="" th:text="${user.getRole()}" ></td>
 			<td>
 			<form action="/userupdate" method="POST" th:object="${user}">
 				<input class="hensyu" type="submit" value="編集"/>
@@ -46,7 +46,7 @@
 				<input type="hidden" th:value="*{role}"  name="role"/>
 			</form>
 			<form action="/userdelete" method="GET" th:object="${user}">
-				<input class="submitlist" type="submit" value="削除" onclick="myEnter()" />
+				<input class="submitlist" type="submit" value="削除" onclick="return frmSubmit();" />
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
 			</form>
 			</td>
