@@ -18,4 +18,8 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
       @Modifying
 	  @Query("delete from Question where question_id = ?1")
 	  void deleteQuestion(int id);
+
+      @Modifying
+	  @Query("delete from Question where content_id = ?1")
+	  void deleteConQuestion(int id);
 }

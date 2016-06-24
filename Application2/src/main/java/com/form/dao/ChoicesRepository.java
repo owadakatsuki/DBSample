@@ -21,4 +21,8 @@ public interface ChoicesRepository extends JpaRepository<ChoicesEntity, Integer>
       @Modifying
 	  @Query("delete from ChoicesEntity where answer_id = ?1")
 	  void deleteChoice(int id);
+
+      @Modifying
+	  @Query("delete from ChoicesEntity where content_id = ?1")
+	  void deleteConChoice(int id);
 }

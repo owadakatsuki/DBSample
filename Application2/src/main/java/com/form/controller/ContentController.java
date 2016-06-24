@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.form.dao.ChoicesRepository;
 import com.form.dao.ContentRepository;
 import com.form.dao.QuestionRepository;
+import com.form.dao.UserAnswerRepository;
 import com.form.model.Content;
 import com.form.model.UserInfo;
 
@@ -28,6 +29,10 @@ public class ContentController {
 
     @Autowired
     ChoicesRepository choicesRepository;
+
+	@Autowired
+	UserAnswerRepository user_answer_repository;
+
 	@Autowired
 	private UserInfo user_info;
 
@@ -59,9 +64,10 @@ public class ContentController {
         System.out.println("[START] 削除を行います。" + contentID);
 
         // 問題の削除
-        choicesRepository.delete(contentID);
-        questionRepository.delete(contentID);
-        contentRepository.delete(contentID);
+        choicesRepository.deleteConChoice(15);
+//        user_answer_repository.deleteConUserAnswer(contentID);
+//        questionRepository.deleteConQuestion(contentID);
+//        contentRepository.deleteContent(contentID);
 
         System.out.println("[END] 削除しました。");
 

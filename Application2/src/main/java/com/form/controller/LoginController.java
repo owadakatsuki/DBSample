@@ -33,7 +33,7 @@ public class LoginController {
 			//こんにちは
 		}
 
-		@RequestMapping(value ="/menu",method=RequestMethod.POST)
+		@RequestMapping(value ="/Login",method=RequestMethod.POST)
 		public String login(Model model, @RequestParam("userid") String user_ID, @RequestParam("pass") String password){
 			System.out.println("login来ました");
 
