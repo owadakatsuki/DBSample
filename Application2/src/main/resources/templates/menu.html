@@ -38,7 +38,7 @@
 			<div style="display:inline-flex">
 
 				<!-- content_idが一致すれば表示しない -->
-				<div data-th-if="*{contentList.getAnswer_flg()} eq true">
+				<div data-th-if="*{contentList.getAnswer_flg()} eq false">
 					<form action="/form" method="POST" th:object="${contentList}" >
 						<input type="hidden" name="content_id" th:value="*{content_id}" />
 						<input type="hidden" name="content_title" th:value="*{content_title}" />
