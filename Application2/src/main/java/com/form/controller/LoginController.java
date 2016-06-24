@@ -65,7 +65,6 @@ public class LoginController {
 	        model.addAttribute("contentList", contentList);
 
 			return "menu";
-
 	}
 }
 
