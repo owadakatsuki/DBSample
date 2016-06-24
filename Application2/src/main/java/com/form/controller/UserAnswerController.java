@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import com.form.dao.MakeFormService;
@@ -23,13 +24,17 @@ import com.form.model.Question;
 import com.form.model.QuestionList;
 import com.form.model.ResultEntity;
 import com.form.model.UserAnswer;
+import com.form.model.UserInfo;
 
 @Controller
+@SessionAttributes("user_info")
 public class UserAnswerController {
 	 @Autowired
 	 UserAnswerService 	service;
 	 @Autowired
 	 MakeFormService 	makeformservice;
+	 @Autowired
+	 private UserInfo 	user_info;
 
 	 // redirectするときに必要
 	 public void addViewControllers(ViewControllerRegistry registry) {
@@ -77,7 +82,7 @@ public class UserAnswerController {
 					 	for(ChoicesEntity choices : question_list.getChoices()) {
 					 		if(choices.getIs_answer() == true){
 					 			useranswer_result = new UserAnswer();
-					 			useranswer_result.setUser_id("kim");
+					 			useranswer_result.setUser_id(user_info.getUser_id());
 					 			useranswer_result.setContent_id(choices.getContent_id());
 					 			useranswer_result.setQuestion_id(choices.getQuestion_id());
 					 			useranswer_result.setAnswer_id(choices.getAnswer_id());
@@ -87,13 +92,11 @@ public class UserAnswerController {
 					 	}
 				}catch(Exception e){
 					 model.addAttribute("validationError", "不正な値が入力されました。");
-				 	 return "form/userAnswerForm";//GetUserAnswerForm(content, model);	// formにredirect?
-			 		//model.addAttribute("error", e.getMessage());
-			 		//return "error";
+				 	 return "form/userAnswerForm";
 				}
 			 }else{
 			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return "form/userAnswerForm";//return GetUserAnswerForm(content, model);	// formにredirect?
+			 		return "form/userAnswerForm";
 			 }
 			 return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
 		 }catch(Exception e){
