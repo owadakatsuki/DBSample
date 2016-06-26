@@ -41,7 +41,7 @@ public class UserAnswerController {
 	    registry.addViewController("/result/{user_id}/{content_id}").setViewName("form/userAnswerResult");
 	 }
 
-	 @RequestMapping(value="/form", method=RequestMethod.POST)	// user : menuからもらう必要ある
+	 @RequestMapping(value="/form", method=RequestMethod.POST)
 	 public String GetUserAnswerForm(@Valid Content content, Model model ){
 		try{
 			 QuestionList	question_list  = makeformservice.findFormByContent_id(content.getContent_id());
@@ -66,7 +66,7 @@ public class UserAnswerController {
 
 			 if(!result.hasErrors()){
 				try{
-						// 項目必須チェック
+						// 必須解答チェック
 						for (Question question : question_list.getQuestions()) {
 							if (question.isRequired_flag()) {
 								Stream<ChoicesEntity> choice = question_list.getChoices().stream().filter(x -> x.getQuestion_id() == question.getQuestion_id() && x.getIs_answer());
@@ -82,7 +82,7 @@ public class UserAnswerController {
 					 	for(ChoicesEntity choices : question_list.getChoices()) {
 					 		if(choices.getIs_answer() == true){
 					 			useranswer_result = new UserAnswer();
-					 			useranswer_result.setUser_id(user_info.getUser_id());
+					 			useranswer_result.setUser_id(user_info.getUser_id()); //　session	
 					 			useranswer_result.setContent_id(choices.getContent_id());
 					 			useranswer_result.setQuestion_id(choices.getQuestion_id());
 					 			useranswer_result.setAnswer_id(choices.getAnswer_id());
@@ -91,12 +91,13 @@ public class UserAnswerController {
 					 		}
 					 	}
 				}catch(Exception e){
-					 model.addAttribute("validationError", "不正な値が入力されました。");
-				 	 return "form/userAnswerForm";
+					model.addAttribute("error", e.getMessage());
+					return "error";
 				}
 			 }else{
-			 		model.addAttribute("validationError", "不正な値が入力されました。");
-			 		return "form/userAnswerForm";
+				 model.addAttribute("question_list", question_list);
+				 model.addAttribute("error_message", "必須項目をもう一度確認してください！");
+				 return "form/userAnswerForm";
 			 }
 			 return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
 		 }catch(Exception e){
