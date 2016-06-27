@@ -9,14 +9,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.form.model.UserInfo;
 
 @Controller
-@SessionAttributes("user_info")
+//@SessionAttributes("user_info")
 public class LogoutController {
-	private UserInfo user_info;
+	//private UserInfo user_info;
 	
 	@RequestMapping("/logout")
 	public String startApp(Model model, SessionStatus sessionStatus){
         sessionStatus.setComplete();
-        model.addAttribute("user_info", user_info);
+        //model.addAttribute("user_info", user_info);
 		return "redirect:/";
 	}
 
