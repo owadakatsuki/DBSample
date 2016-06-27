@@ -16,7 +16,7 @@
 			<h3 th:text="${answer_flag_count}+'/'+${question_count}+'点'"></h3>
 		</div>
 
-		<div style="height:500px; width:800px; margin: 0 auto; overflow-y:scroll;">
+		<div style="height:500px; width:800px; margin: 0 auto; overflow-y:auto;">
 
 		<div th:object="${resultList}">
 			<div th:each="p,q_row:${resultList}">
