@@ -36,9 +36,9 @@ public class UserController {
 		System.out.println("管理者画面きました。");
 		return "user";
 	}
-*/	
+*/
 
-	@RequestMapping(value="/userlist",method=RequestMethod.POST)
+	@RequestMapping(value="/userlist")
 	public String userlist(Locale locale, Model model) {
 		System.out.println("ユーザーリスト表示します！");
 
@@ -58,7 +58,7 @@ public class UserController {
 		//	レコードを削除
 		userRepository.delete(user_id);
 		System.out.println("削除できた");
-		
+
 		List<User> userlist = userRepository.findAll();
 		//リストをセット
 		model.addAttribute("userlist" , userlist);
@@ -71,7 +71,13 @@ public class UserController {
 		//UserEntity用意
 		model.addAttribute("newuser", new User());
 		System.out.println(user_info.getUser_id() + user_info.getRole());
-		model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
+//		boolean isAdmin;
+//		if (user_info.getRole() == null) {
+//			isAdmin = false;
+//		} else {
+//			isAdmin = user_info.getRole().equals("admin") ;
+//		}
+		model.addAttribute("isAdmin", user_info.getRole() == null ? false : user_info.getRole().equals("admin") );
 		//新規登録画面へ
 		return "usernew";
 	}
@@ -93,8 +99,8 @@ public class UserController {
 			if(user_info.getUser_id() == null) {
 				user.setRole("user");
 				user_info.setRole(user.getRole());
-				user_info.setUser_id(user.getUser_id());				
-				
+				user_info.setUser_id(user.getUser_id());
+
 				rtnVal = "redirect:/menu";
 			}
 			//重複ないなら登録
@@ -105,24 +111,24 @@ public class UserController {
 		model.addAttribute("name", user.getUsername());
 		model.addAttribute("pass", user.getPassword());
 		model.addAttribute("role", user.getRole());
-		
+
 		System.out.println("登録しました");
 		//確認画面へ
 		return rtnVal;
-		
+
 		} else {
 			//エラーメッセージをセット
 			String ermsg = "IDが既に使われています。";
 			model.addAttribute("ermsg",ermsg);
 			model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
-			
-			
+
+
 			System.out.println("IDが既に使われています。");
 			//新規登録画面へ戻る
 			return "usernew";
 		}
 	}
-		
+
 	@RequestMapping(value="/userupdate",method=RequestMethod.POST)
 	public String userupdate(@ModelAttribute("user") User user ,Model model)  {
 		System.out.println("編集したい情報受け取りました。");
@@ -131,14 +137,14 @@ public class UserController {
 		System.out.println(user.getUsername());
 		System.out.println(user.getPassword());
 		System.out.println(user.getRole());
-		
+
 		//変更する受け取った情報をセットする
 		model.addAttribute("user", user);
 
 		//編集画面へ
 		return "userupdate";
 	}
-	
+
 	@RequestMapping(value="/userrenew",method=RequestMethod.POST)
 	public String userrenew(@ModelAttribute("user") User user ,Model model)  {
 		System.out.println("変更した情報受け取りました。");
