@@ -40,7 +40,7 @@ public class LoginController {
 
 			//データがあったかどうか判定。
 			if(user_data  == null){
-				model.addAttribute("errMsg","※ユーザーIDが存在しません。");
+				model.addAttribute("errMsg","※UserIDかPasswordが違います。");
 				return"login";
 			}
 
@@ -50,8 +50,7 @@ public class LoginController {
 
 			 //入力されたPasswordが合ってるかどうか判定。
 			if(! uPassword.equals(password)) {
-				System.out.println("passwordが違います。");
-				model.addAttribute("errMsg", "※passwordが違います。");
+				model.addAttribute("errMsg", "※UserIDかPasswordが違います。");
 				return "login";
 			}
 			System.out.println("login成功");

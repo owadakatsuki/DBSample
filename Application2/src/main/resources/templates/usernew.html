@@ -2,44 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
-		<link rel="stylesheet" type="text/css" href="CSS_user.css" /> 
+		<link rel="stylesheet" type="text/css" href="CSS_user.css" />
 		<title>《user》登録</title>
 
 	</head>
 	<body>
-	
-	
-<div align="center">	
+
+
+<div align="center">
 		<div class="ermsg" th:text="${ermsg}"></div>
-		
-		<p class="new">WELCOME!!!!!!</p> 
-		
+
+		<p class="new">WELCOME!!!!!!</p>
+
 	<form action="/usernewOK" method="POST" th:object="${newuser}">
 		<p class="userid">UserID</p>
 		<p class="input1">
 			<input type="text" name="userid" th:field="*{user_id}" required="required" maxlength='10'  placeholder='10文字以内でIDを設定してください' />
 		</p>
-		
-		<p class="name">name</p>
+
+		<p class="name">Name</p>
 		<p class="input21">
 			<input type="text" name="username" th:field="*{username}" required="required" maxlength='20'  placeholder='20文字以内で名前を入力してください'/>
 		</p>
-		
-		<p class="pass">password</p>
+
+		<p class="pass">Password</p>
 		<p class="input22">
 			<input type="password" name="password" th:field="*{password}" required="required" maxlength='20'  placeholder='20文字以内でパスワードを入力してください'/>
 		</p>
-		
+
 		<p class="radio" th:if="${isAdmin}">
 		<input type="radio" name="role" value="user" checked="checked" th:field="*{role}"  required="required"/>user
 		<input type="radio" name="role" value="admin" th:field="*{role}"  required="required"/>admin
 		</p>
-		
+
 		<p>
 		<input class="submitup" type="submit" value="submit" name="registration"/>
 		<input class="resetup" type= "reset" value="reset" name="reset"/>
 		</p>
 	</form>
-</div>		
+
+	<a th:href="@{/userlist}">ユーザー一覧へ</a>
+
+</div>
 	</body>
 </html>
