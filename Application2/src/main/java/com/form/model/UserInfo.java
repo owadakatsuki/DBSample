@@ -13,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 public class UserInfo implements Serializable {
     private String user_id;
 
-    private String role;
+    private String role ="user";
     
     private static final long serialVersionUID = 1183516008630394266L;
 

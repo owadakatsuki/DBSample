@@ -4,7 +4,7 @@
 		<meta charset="UTF-8"/>
 		<title>《user》一覧</title>
 		<link rel="stylesheet" type="text/css" href="CSS_user.css" />
-	</head>			
+	</head>
 		<script type="text/javascript"><!--
 		function frmSubmit(){
 
@@ -16,10 +16,10 @@
 		}
 		// -->
 		</script>
-	
+
 	<body>
 <div align="center">
-		
+
 		<table  class="userlist">
 
 			<tr>
@@ -30,16 +30,16 @@
 				<input class="shinki" type="submit" value="新規登録"/>
 				</form>
 			</th>
-			</tr>	
-			
+			</tr>
+
 			<tr th:each="user :${userlist}">
-			<td class="" th:text="${user.getUser_id()}" ></td>	
+			<td class="" th:text="${user.getUser_id()}" ></td>
 			<td class="" th:text="${user.getUsername()}" ></td>
 			<td class="" th:text="${user.getRole()}" ></td>
 			<td>
 			<form action="/userupdate" method="POST" th:object="${user}">
 				<input class="hensyu" type="submit" value="編集"/>
-			
+
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
 				<input type="hidden" th:value="*{username}"  name="username"/>
 				<input type="hidden" th:value="*{password}"  name="password"/>
@@ -51,7 +51,9 @@
 			</form>
 			</td>
 				</tr>
-		</table>	
-</div>		
+		</table>
+
+		<a th:href="@{/menu}">メニューへ</a>
+</div>
 	</body>
 </html>
