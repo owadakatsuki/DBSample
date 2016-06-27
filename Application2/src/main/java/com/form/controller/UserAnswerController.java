@@ -53,6 +53,7 @@ public class UserAnswerController {
 			 model.addAttribute("question_list", question_list);
 			 model.addAttribute("content_id", content.getContent_id());
 		}catch(Exception e){
+			model.addAttribute("error", e.getMessage());
 			return "error";
 		}
 		return "form/userAnswerForm";
@@ -170,6 +171,7 @@ public class UserAnswerController {
 			 model.addAttribute("resultList", resultList);
 
 		 }catch(Exception e){
+			 model.addAttribute("error", e.getMessage());
 			 return "error";
 		 }
 		 return "form/userAnswerResult";
