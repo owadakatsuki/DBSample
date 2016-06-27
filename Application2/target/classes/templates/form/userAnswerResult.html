@@ -6,7 +6,11 @@
 </head>
 <body>
 	<div align="center">
-		<h1>解答結果</h1>
+		<form action="/logout" method="GET">
+		<input type="submit" style="position: absolute; right: 10px; top: 10px" value="ログアウト" />
+		</form>
+
+		<h1><font color="#ff9933">解答結果</font></h1>
 
 		<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
 		<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
@@ -38,13 +42,6 @@
 		</div>
 
 		<a th:href="@{/menu}">メニューへ</a>
-		<br></br>
-		<br></br>
-
-		<form action="/logout">
-		<input type="submit" value="logout" name="logout"/>
-		</form>
-
 	</div>
 </body>
 </html>

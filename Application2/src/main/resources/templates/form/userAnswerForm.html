@@ -11,6 +11,7 @@
 		<input type="hidden" th:field="${question_list.content}" />
 
 		<div class="page-header">
+			<a th:href="@{/menu}">メニューへ</a>
   			<h1 th:text="${question_list.content.content_title}"></h1>
 		</div>
 
@@ -54,9 +55,8 @@
 				</div>
 			</div>
 			<button type="submit" class="btn btn-success button_margin">提出</button>
-			<br></br>
-			<a th:href="@{/menu}">メニューへ</a>
 		</div>
+
 	</form>
 
 	<!-- <form th:action="@{/formAnswer}" method="post" th:object="${list}">

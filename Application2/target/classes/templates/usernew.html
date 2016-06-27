@@ -41,8 +41,9 @@
 		</p>
 	</form>
 
-	<a th:href="@{/userlist}">ユーザー一覧へ</a>
-
+	<form action="/userlist" method="POST">
+			<input type="submit" style="margin:0px; " value="ユーザ一覧" />
+	</form>
 </div>
 	</body>
 </html>
