@@ -41,9 +41,7 @@
 		</p>
 	</form>
 
-	<form action="/userlist" method="POST">
-			<input type="submit" style="margin:0px; " value="ユーザ一覧" />
-	</form>
+	<a th:if="${isAdmin}" th:href="@{/userlist}">ユーザー一覧へ</a>
 </div>
 	</body>
 </html>
