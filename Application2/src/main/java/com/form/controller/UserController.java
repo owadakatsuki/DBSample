@@ -133,7 +133,7 @@ public class UserController {
 			model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
 
 
-			System.out.println("IDが既に使われています。");
+			
 			//新規登録画面へ戻る
 			return "usernew";
 		}
