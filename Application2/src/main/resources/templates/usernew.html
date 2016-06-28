@@ -41,7 +41,7 @@
 		</p>
 	</form>
 
-	<!-- <a th:if="${isAdmin}" th:href="@{/userlist}">ユーザ一覧へ</a> -->
+	 <a data-th-if="${user_info.getRole() eq 'admin'}" th:href="@{/userlist}">ユーザ一覧へ</a>
 </div>
 	</body>
 </html>
