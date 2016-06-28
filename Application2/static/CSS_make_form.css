@@ -8,7 +8,11 @@ html, body{
     padding:60px 0 0 0;    /* 上下に余白を取る */
     width:100%;
     height:100%;
-    font-size: 1em;
+    font-size: 0.5em;
+}
+
+label {
+	font-size: 1.5em;	
 }
 
 /* ヘッダーの固定 */
@@ -18,7 +22,7 @@ div#header-fixed
     top: 0px;                   /* 位置(上0px) */
     left: 0px;                  /* 位置(右0px) */
     width: 100%;                /* 横幅100%　*/
-    height: 110px;              /* 縦幅140px */
+    height: 140px;              /* 縦幅140px */
 }
  
 div#header-bk { 
@@ -36,11 +40,15 @@ div#header {
 }
 
 input[type="button"] {
-	font-size: 1em;
+	font-size: 1.3em;
 }
 
 input[type="submit"] {
 	font-size: 1em; 
+}
+
+.wrapper {
+	padding:0 20px 0;
 }
 
 /* title_container */
@@ -49,17 +57,13 @@ input[type="submit"] {
 	padding: 10px;
 }
 .title_container input[type="text"] {
-	font-size: 2.3em; 
+	font-size: 1em; 
 }
 
 /* question_container */
 
 .question_container{
-	font-size:1.5em;
-	width: 80%;
-	margin: 15px auto;
-	padding: 20px;
-	border: solid 1px; 
+	font-size: 0.7em; 
 }
 
 .question{
@@ -68,11 +72,11 @@ input[type="submit"] {
 
 .question input {
 	padding: 5px;
-	font-size: 2em;
+	font-size: 1em;
 }
 .question_container textarea {
 	padding: 5px;
-	font-size: 1.5em;
+	font-size: 1.3em;
 }
 
 input[type=checkbox]:checked ~ span.alert {
@@ -84,6 +88,7 @@ input[type=checkbox]:checked ~ span.alert {
 
 .choice_container{
 	margin: 10px;
+	font-size: 1.3em;
 }
 .choice_container div {
 	margin:5px;
