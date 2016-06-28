@@ -31,13 +31,7 @@ public class UserController {
 	@Autowired
 	private UserInfo user_info;
 
-/*	@RequestMapping("/user")
-	public String user() {
-		System.out.println("管理者画面きました。");
-		return "user";
-	}
-*/
-
+//管理者ユーザー一覧画面
 	@RequestMapping(value="/userlist")
 	public String userlist(Model model) {
 		System.out.println("ユーザーリスト表示します！");
@@ -46,7 +40,7 @@ public class UserController {
 		List<User> userlist = userRepository.findAll();
 		//リストをセット
 		model.addAttribute("userlist" , userlist);
-		System.out.println("リスト取れた");
+		System.out.println("リスト取れたyo!");
 		//一覧画面へ
 		return "userlist";
 	}
