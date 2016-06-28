@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
 <title>MENU</title>
 	<script type="text/javascript"><!--
 		function frmSubmit(){
@@ -17,12 +18,14 @@
 <body>
 
 <h1 align="center"><font color="#ff9933">MENU</font></h1>
-
+<div align="right">
 <form th:action="@{/logout}" method="GET">
-	<input type="submit" style="position: absolute; right: 10px; top: 10px" value="ログアウト" />
+	<input type="submit" class="btn btn-success button_margin" value="ログアウト" />
 </form>
+</div>
 
 <div align="center" data-th-if="${user_info.getRole() eq 'admin'}">
+
 	<form th:action="@{/userlist}" method="POST">
 			<input type="submit" style="margin:0px; " value="ユーザ一覧" />
 	</form>

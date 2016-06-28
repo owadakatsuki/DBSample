@@ -102,17 +102,17 @@ function deleteChoice(choice_id) {
 //Ajax通信成功時処理
 function addQuestion(form_id, data) {
 	question_num++;
-	var str = '<div class="question_container" id="qContainer_'+ question_num +'">' 
-		+ '<textarea rows="2" cols="50" required="required" maxlength="100" id="questions' + question_num + '.question" name="questions[' + question_num + '].question"  ></textarea>'
+	var str = '<div class="question_container" id="qContainer_'+ question_num +'"><div class="jumbotron wrapper">' 
+		+ '<label>Q :</label><textarea rows="2" cols="50" required="required" maxlength="100" id="questions' + question_num + '.question" name="questions[' + question_num + '].question"  ></textarea>'
 		+ '<input type="hidden" id="questions' + question_num + '.question_id" name="questions[' + question_num + '].question_id" value="' + data.question_id + '" />'
 		+ '<input type="hidden" id="questions' + question_num + '.content_id" name="questions[' + question_num + '].content_id" value="' + data.content_id + '" /></span>';
 	
 	str += '<label><input type="checkbox" id="questions'+ question_num+ '.required_flag1" name="questions['+question_num+'].required_flag" value="true"  /> '
 		+ '<input type="hidden" name="_questions[' + question_num +'].required_flag" value="on"><span class="alert">解答必須</span></label>';
 	
-	str += '<input type="button" class="add_choice_btn" id="' + data.question_id + '_' + question_num + '" value="選択肢追加" />';
+	str += '<input type="button" class="add_choice_btn btn btn-primary" id="' + data.question_id + '_' + question_num + '" value="選択肢追加" />';
 	
-	str += '<input type="button" class="delete_question_btn" value="問題削除" id="' + question_num + '_' + data.question_id + '">';
+	str += '<input type="button" class="delete_question_btn btn btn-danger" value="問題削除" id="' + question_num + '_' + data.question_id + '">';
 	
 	str += '<br /><span>※正解とする選択肢にチェックを入れてください。</span>';
 	
@@ -120,7 +120,7 @@ function addQuestion(form_id, data) {
 	
 	str += '<div class="comment_container"><textarea row="3" cols="100" id="questions' + question_num + '.commentary" name="questions[' + question_num + '].commentary"  maxlength="100"></textarea></div>'
 
-	str += "<\div>";
+	str += "</div></div>";
 
 
 	$("#form_" + form_id).append(str);
@@ -136,7 +136,7 @@ function addChoice(choice_container_id, data) {
 			+ '<input type="checkbox" id="choices' + choice_num + '.is_answer1" name="choices[' + choice_num + '].is_answer" value="true" />'
 			+ '<input type="hidden" name="_choices[' + choice_num + '].is_answer" value="on" />'
 			+ '<div class="checked"><input id="choices' + choice_num + '.answer" name="choices['+ choice_num +'].answer" value="' + data.answer + '"  maxlength="100" /></div>'
-			+ '<input type="button" class="delete_choice_btn" value="削除" id="' + data.answer_id +'" />';
+			+ '<input type="button" class="delete_choice_btn btn btn-danger" value="削除" id="' + data.answer_id +'" />';
 	str += '</div>'; 
 	$("#cContainer_" + choice_container_id).append(str);
 

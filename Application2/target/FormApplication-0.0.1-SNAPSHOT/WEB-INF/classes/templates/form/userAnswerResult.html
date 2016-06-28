@@ -2,14 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
+ <link href="/css/CSS_userAnswerResult.css" th:href="@{/css/CSS_userAnswerResult.css}" rel="stylesheet"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
 <title>ユーザ解答結果</title>
 </head>
 <body>
-	<div align="center">
+		<div align="right">
+		<a th:href="@{/menu}">メニューへ</a>
 		<form th:action="@{/logout}" method="GET">
-			<input type="submit" style="position: absolute; right: 10px; top: 10px" value="ログアウト" />
+			<input type="submit" class="btn btn-success button_margin" value="ログアウト" />
 		</form>
-
+		</div>
+	<div align="center">
 		<h1><font color="#ff9933">解答結果</font></h1>
 
 		<div th:if="${question_count} !=0">
@@ -19,7 +23,7 @@
 		<div style="height:500px; width:800px; margin: 0 auto; overflow-y:auto;">
 
 		<div th:object="${resultList}">
-			<div th:each="p,q_row:${resultList}">
+			<div class="jumbotron wrapper" th:each="p,q_row:${resultList}">
 
 					<p th:inline="text">Q[[${q_row.count}]] [[${resultList[__${q_row.index}__].question}]]</p>
 					<div th:if="${question_count} !=0">
@@ -33,18 +37,10 @@
 									and ${resultList[__${q_row.index}__].commentary.length()}!=0">
 						<p th:text="'解説:'+${resultList[__${q_row.index}__].commentary}"></p>
 					</div>
-					<hr/>
 			</div>
 		</div>
 		</div>
-
-		<a th:href="@{/menu}">メニューへ</a>
-		<br></br>
-		<br></br>
-
-		<form action="/logout">
-		<input type="submit" value="logout" name="logout"/>
-		</form>
 	</div>
+
 </body>
 </html>

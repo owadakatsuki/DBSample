@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>《user》一覧</title>
-		<link rel="stylesheet" type="text/css" href="CSS_user.css" />
+		<link rel="stylesheet" type="text/css" href="/css/CSS_user.css" th:href="@{/css/CSS_user.css}"/>
 	</head>
 		<script type="text/javascript"><!--
 		function frmSubmit(){
@@ -26,7 +26,7 @@
 			<th>	ユーザーID	</th>
 			<th>	  名前		</th>
 			<th>	管理者権限		</th>
-			<th><form action="#"  th:action="@{/usernew}" method="GET">
+			<th><form th:action="@{/usernew}" method="GET">
 				<input class="shinki" type="submit" value="新規登録"/>
 				</form>
 			</th>
@@ -37,7 +37,7 @@
 			<td class="" th:text="${user.getUsername()}" ></td>
 			<td class="" th:text="${user.getRole()}" ></td>
 			<td>
-			<form action="/userupdate" method="POST" th:object="${user}">
+			<form th:action="@{/userupdate}" method="POST" th:object="${user}">
 				<input class="hensyu" type="submit" value="編集"/>
 
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
@@ -45,7 +45,7 @@
 				<input type="hidden" th:value="*{password}"  name="password"/>
 				<input type="hidden" th:value="*{role}"  name="role"/>
 			</form>
-			<form action="/userdelete" method="GET" th:object="${user}">
+			<form th:action="@{/userdelete}" method="GET" th:object="${user}">
 				<input class="delete" type="submit" value="削除" onclick="return frmSubmit();" />
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
 			</form>

@@ -1,5 +1,18 @@
 @CHARSET "UTF-8";
 
+.body{
+}
+
+.style{
+
+	border-style: solid ;
+	border-width: 10px;
+	border-color: #FFD464;
+	padding: 50px 50px 50px 50px;
+	width: 500px;
+	margin-top:100px;
+}
 .errMsg{
 	font-color:red;
 }
+
