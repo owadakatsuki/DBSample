@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
 		<title>《ユーザー》削除完了</title>
@@ -10,10 +10,10 @@
 		
 		
 
-			<form action="/userlist" method="GET">
+			<form th:action="@{/userlist}" method="GET">
 				<input type="submit" value="ユーザー一覧" style="color:#F08080;font-size: 130%"/>
 			</form>
-			<form action="/user" method="GET">
+			<form th:action="@{/user}" method="GET">
 				<input type="submit" value="メニュー"  style="color:#FA8072;font-size: 130%"/>
 			</form>
 		</div>	
