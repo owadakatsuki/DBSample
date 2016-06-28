@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <title>Success</title>
-<link rel="stylesheet" type="text/css" href="CSS_make_form.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-<link href="/CSS_make_form.css" th:href="@{/CSS_make_form.css}" rel="stylesheet"/>
+<link href="/css/CSS_make_form.css" th:href="@{/css/CSS_make_form.css}" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="JS_make_form.js"></script>
+<script type="text/javascript" src="/js/JS_make_form.js" th:src="@{/js/JS_make_form.js}"></script>
 
 <script  th:inline="javascript">
 /*<![CDATA[*/
@@ -24,10 +23,8 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
                 	<div class="title_container">
 						<div class="row">
 							<div class="col-md-4">
-								<a th:href="@{/menu}"><!-- menu に飛ばず上のcreateに飛ぶ。。。 -->
-									<button class="btn btn-link">
-										<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>メニューへ
-									</button>
+								<a th:href="@{/menu}">
+									メニューへ
 								</a>
 							</div>
 							<div class="col-md-4 col-md-offset-4">
