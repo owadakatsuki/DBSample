@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <title>Success</title>
 <link rel="stylesheet" type="text/css" href="CSS_make_form.css" />
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="JS_make_form.js"></script>
 
@@ -14,53 +14,62 @@ question_num = /*[[${question_list.questions.size()}]]*/ 1;
 choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 /*]]>*/
 </script>
-
-
 </head>
 <body>
-
-
 	<form action="#" th:action="@{/create}" method="post" th:object="${question_list}" th:id="'form_' + ${question_list.content.content_id}">
-              <div id="header-fixed">
-                     <div id="header-bk">
-                            <div id="header">
-
-								<div class="title_container">
-								<table border="0" width="100%" CELLSPACING="0" CELLPADDING="0">
-								<tr>
-									<td><a th:href="@{/menu}" >メニューへ</a></td>
-									<td align="right"><input type="submit" name="submit" /></td>
-								</tr>
-								</table>
-										<!--#### タイトル ####-->
-								フォームタイトル：<input type="text" th:field="${question_list.content.content_title}"  required="required" maxlength="100" />
-								<input type="hidden" th:field="${question_list.content.content_id}" />
-								<!--#### ボタン ####-->
-									<input type="button" class="add_question_btn" value="問題追加" th:id="${question_list.content.content_id}" />
-
-								</div>
-                            </div>
-                     </div>
-              </div>
-
-
-
-		<!--#### 問題 ####-->
-
-			<div class="question_container" th:each="p, q_row : *{questions}"  th:id="'qContainer_' + ${q_row.index}" >
-
-			<!--#### 問題文 ####-->Q :
-					<textarea rows="2" cols="50" required="required" maxlength="100"  th:field="*{questions[__${q_row.index}__].question}"></textarea>
-
-					<input type="hidden" th:field="*{questions[__${q_row.index}__].question_id}" />
-					<input type="hidden" th:field="*{questions[__${q_row.index}__].content_id}" />
-					<label><input type="checkbox" th:field="*{questions[__${q_row.index}__].required_flag}" /><span class="alert">解答必須</span></label>
-					<input type="button" class="add_choice_btn" th:id="*{questions[__${q_row.index}__].question_id} + '_' + ${q_row.index}" value="選択肢追加" />
-					<input type="button" class="delete_question_btn" th:id="${q_row.index} + '_' + *{questions[__${q_row.index}__].question_id}" value="問題削除" />
-					<br />
-
-
-			<!--#### 選択肢 ####-->
+        <div id="header-fixed">
+            <div id="header-bk">
+                <div id="header">
+                	<div class="title_container">
+						<div class="row">
+							<div class="col-md-4">
+								<a th:href="@{/menu}"><!-- menu に飛ばず上のcreateに飛ぶ。。。 -->
+									<button class="btn btn-link">
+										<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>メニューへ
+									</button>
+								</a>
+							</div>
+							<div class="col-md-4 col-md-offset-4">
+								<input class="btn btn-success" type="submit" name="submit" />
+							</div>
+						</div>
+					</div>
+					
+					<hr/>
+					
+					<div class="form-inline">
+						<div class="form-group">
+							<label for="basic-url">フォームタイトル</label>
+							<!--#### タイトル ####-->
+							<input type="text" th:field="${question_list.content.content_title}"  class="form-control input-lg" required="required" maxlength="100" />
+							<input type="hidden" th:field="${question_list.content.content_id}" />
+						</div>
+						<!--#### ボタン ####-->
+						<input type="button" class="add_question_btn btn btn-info" value="問題追加" th:id="${question_list.content.content_id}" />
+					</div>
+                </div>
+            </div>
+        </div>
+        
+        <!--#### 問題 ####-->
+		<div class="question_container" th:each="p, q_row : *{questions}"  th:id="'qContainer_' + ${q_row.index}" >
+			<div class="jumbotron wrapper">
+				<div class="form-inline">
+					<div class="form-group">
+						<label for="basic-url">Q : </label>
+						
+						<!--#### 問題文 ####-->
+						<textarea rows="2" cols="50" required="required" maxlength="100"  th:field="*{questions[__${q_row.index}__].question}"></textarea>
+						<input type="hidden" th:field="*{questions[__${q_row.index}__].question_id}" />
+						<input type="hidden" th:field="*{questions[__${q_row.index}__].content_id}" />
+			
+						<label><input type="checkbox" th:field="*{questions[__${q_row.index}__].required_flag}" /><span class="alert">解答必須</span></label>
+						<input type="button" class="add_choice_btn btn btn-primary" th:id="*{questions[__${q_row.index}__].question_id} + '_' + ${q_row.index}" value="選択肢追加" />
+						<input type="button" class="delete_question_btn btn btn-danger" th:id="${q_row.index} + '_' + *{questions[__${q_row.index}__].question_id}" value="問題削除" />
+					</div>
+				</div>
+				
+				<!--#### 選択肢 ####-->
 				<div class="choice_container" th:id="'cContainer_' + ${q_row.index}">
 					<span>※正解とする選択肢にチェックを入れてください。</span>
 					<div th:each="c, c_row : *{choices}"
@@ -76,7 +85,7 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 						<div class="checked">
 						<input th:field="*{choices[__${c_row.index}__].answer}"  required="required" maxlength="100" />
 						</div>
-						<input type="button" class="delete_choice_btn" th:id="*{choices[__${c_row.index}__].answer_id}" value="削除" />
+						<input type="button" class="delete_choice_btn　btn btn-danger" th:id="*{choices[__${c_row.index}__].answer_id}" value="削除" />
 					</div>
 				</div>
 
@@ -84,12 +93,8 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
 					<textarea row="3" cols="100" th:field="*{questions[__${q_row.index}__].commentary}" maxlength="100">
 					</textarea>
 				</div>
-
-
-
-
 			</div>
+		</div>
 	</form>
-
 </body>
 </html>
