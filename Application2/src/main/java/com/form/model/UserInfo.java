@@ -32,5 +32,10 @@ public class UserInfo implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	public void clear() {
+		this.user_id = null;
+		this.role = null;
+	}
 
 }

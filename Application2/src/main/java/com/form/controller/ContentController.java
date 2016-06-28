@@ -48,6 +48,12 @@ public class ContentController {
     @RequestMapping(value ="/menu")
     public String content(Model model) {
         System.out.println("[START] メニュー画面");
+        System.out.println(user_info.getUser_id());
+
+        // 直接アクセスできないように
+        if (user_info.getUser_id() == null) {
+        	return "error";
+        }
 
         // 大問一覧取得
         List<Content> contentList = contentRepository.findAll();

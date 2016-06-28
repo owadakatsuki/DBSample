@@ -23,7 +23,7 @@
 </form>
 
 <div align="center" data-th-if="${user_info.getRole() eq 'admin'}">
-	<form action="/userlist" method="POST">
+	<form th:action="@{/userlist}" method="POST">
 			<input type="submit" style="margin:0px; " value="ユーザ一覧" />
 	</form>
 	<br/>
@@ -52,7 +52,7 @@
 
 				<!-- content_idが一致すれば表示しない -->
 				<div data-th-if="*{contentList.getAnswer_flg()} eq false">
-					<form action="/form" method="POST" th:object="${contentList}" >
+					<form th:action="@{/form}" method="POST" th:object="${contentList}" >
 						<input type="hidden" name="content_id" th:value="*{content_id}" />
 						<input type="hidden" name="content_title" th:value="*{content_title}" />
 						<input type="submit" style="margin:1px; float:left;" value="解答" />
@@ -60,14 +60,14 @@
 				</div>
 
 				<div data-th-if="${user_info.getRole() eq 'admin'}">
-					<form action="/make_form" method="GET">
+					<form th:action="@{/make_form}" method="GET">
 						<input type="hidden" name="contentId" th:value="${contentList.getContent_id()}" />
 						<input type="submit" style="margin:1px; float:left;" value="更新" />
 					</form>
 				</div>
 
 				<div data-th-if="${user_info.getRole() eq 'admin'}">
-					<form action="/remove" method="GET">
+					<form th:action="@{/remove}" method="GET">
 						<input type="hidden" name="contentId" th:value="${contentList.getContent_id()}" />
 						<input type="submit" style="margin:1px; float:left;" value	="削除" onclick="return frmSubmit();" />
 					</form>
