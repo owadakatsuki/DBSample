@@ -72,15 +72,15 @@ public class UserController {
 		model.addAttribute("newuser", new User());
 		System.out.println(user_info.getUser_id() + user_info.getRole());
 
-		boolean isAdmin;
-		if (user_info.getRole().equals("user")) {
-			isAdmin = false;
-		} else {
-		isAdmin = user_info.getRole().equals("admin") ;
-		}
-		model.addAttribute("isAdmin", isAdmin);
+//		boolean isAdmin;
+//		if (user_info.getRole().equals("user")) {
+//			isAdmin = false;
+//		} else {
+//		isAdmin = user_info.getRole().equals("admin") ;
+//		}
+//		model.addAttribute("isAdmin", isAdmin);
 		//model.addAttribute("isAdmin", user_info.getRole() == null ? false : user_info.getRole().equals("admin") );
-		
+
 
 		model.addAttribute("user_info", user_info);
 
@@ -119,7 +119,7 @@ public class UserController {
 		model.addAttribute("name", user.getUsername());
 		model.addAttribute("pass", user.getPassword());
 		model.addAttribute("role", user.getRole());
-		
+
 		System.out.println(user.getRole());
 		System.out.println(user_info.getRole());
 		System.out.println("登録しました");
@@ -133,7 +133,7 @@ public class UserController {
 			model.addAttribute("isAdmin", user_info.getRole().equals("admin") );
 
 
-			
+
 			//新規登録画面へ戻る
 			return "usernew";
 		}
