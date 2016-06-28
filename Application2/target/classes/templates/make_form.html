@@ -26,19 +26,17 @@ choice_num = /*[[${question_list.choices.size()}]]*/ 1;
                             <div id="header">
 
 								<div class="title_container">
-										<!--#### タイトル ####-->
-								フォームタイトル：<input type="text" th:field="${question_list.content.content_title}"  required="required" maxlength="100" />
-								<input type="hidden" th:field="${question_list.content.content_id}" /> 	<br />
-								<!--#### ボタン ####-->
 								<table border="0" width="100%" CELLSPACING="0" CELLPADDING="0">
 								<tr>
 									<td><a th:href="@{/menu}" >メニューへ</a></td>
-									<td align="center"><input type="button" class="add_question_btn" value="問題追加" th:id="${question_list.content.content_id}" /></td>
 									<td align="right"><input type="submit" name="submit" /></td>
 								</tr>
 								</table>
-
-
+										<!--#### タイトル ####-->
+								フォームタイトル：<input type="text" th:field="${question_list.content.content_title}"  required="required" maxlength="100" />
+								<input type="hidden" th:field="${question_list.content.content_id}" />
+								<!--#### ボタン ####-->
+									<input type="button" class="add_question_btn" value="問題追加" th:id="${question_list.content.content_id}" />
 
 								</div>
                             </div>

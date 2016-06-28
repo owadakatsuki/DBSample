@@ -6,20 +6,17 @@
 </head>
 <body>
 	<div align="center">
-		<form action="/logout" method="GET">
-		<input type="submit" style="position: absolute; right: 10px; top: 10px" value="ログアウト" />
+		<form th:action="@{/logout}" method="GET">
+			<input type="submit" style="position: absolute; right: 10px; top: 10px" value="ログアウト" />
 		</form>
 
 		<h1><font color="#ff9933">解答結果</font></h1>
 
-		<!--  <p th:text="${}"></p> -->	<!--大問タイトル  -->
-		<!--  <p th:text="${}"></p> -->	<!-- 点数 -->
-
 		<div th:if="${question_count} !=0">
-			<h3 th:text="${answer_flag_count}+'/'+${question_count}"></h3>
+			<h3 th:text="${answer_flag_count}+'/'+${question_count}+'点'"></h3>
 		</div>
 
-		<div style="height:500px; width:800px; margin: 0 auto; overflow-y:scroll;">
+		<div style="height:500px; width:800px; margin: 0 auto; overflow-y:auto;">
 
 		<div th:object="${resultList}">
 			<div th:each="p,q_row:${resultList}">
@@ -42,6 +39,12 @@
 		</div>
 
 		<a th:href="@{/menu}">メニューへ</a>
+		<br></br>
+		<br></br>
+
+		<form action="/logout">
+		<input type="submit" value="logout" name="logout"/>
+		</form>
 	</div>
 </body>
 </html>
