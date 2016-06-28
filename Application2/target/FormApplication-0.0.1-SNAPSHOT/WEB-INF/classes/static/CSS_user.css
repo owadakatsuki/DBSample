@@ -1,0 +1,145 @@
+@CHARSET "UTF-8";
+/* userupdate.html & usernew.html */
+
+.userid{
+	color:#696969; font-size:23px;
+	font-weight:bold;
+}
+.userid:first-letter{color:#0099ff;}
+
+.name{
+	color:#696969; font-size:23px;
+	font-weight:bold;
+}
+.name:first-letter{color:#D31996;}
+
+.pass{
+	color:#696969; font-size:23px;
+	font-weight:bold;
+}
+.pass:first-letter{color:#19DD89;}
+
+.submitup{
+	width: 90px;
+    height: 40px;
+    font-size: 1.2em;
+    background-color:#1253A4;
+    color:#FFFAFA;
+    border-radius:5px;
+}
+
+.resetup{
+	width: 90px;
+    height: 40px;
+    font-size: 1.2em;
+    background-color:#FFD464;
+    color:#FF3333;
+    border-radius:5px;
+}
+
+.new{
+	color:#02AEDC; font-size:25px;
+	font-weight:bold;
+}
+.input1{
+	width: 500px;
+}
+.input2{
+	width: 500px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+
+/* usernewOK */
+.id1{
+	color:#F27398; font-size:23px;
+	font-weight:bold;
+}
+
+
+.name1{
+	color:#40AAEF; font-size:23px;
+	font-weight:bold;
+}
+
+
+.role1{
+	color:#FBA848; font-size:23px;
+	font-weight:bold;
+}
+
+.submit{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#58BE89;
+    color:#FFFAFA;
+    border-radius:5px;
+
+}
+
+/* userlist.html */
+.userlist{
+	width: 50%;
+	border-collapse: collapse;
+	border-right: 1px solid #999;
+}
+.userlist th{
+width: 25%;
+padding: 6px;
+text-align: left;
+vertical-align: top;
+color: #332A32;
+background-color: #F58E7E;
+border-left: 5px solid #F3E5D1; 
+border-top: 1px solid #fff;
+}
+.userlist td{
+width: 25%;
+padding: 6px;
+background-color: #F5F1E9;
+border-bottom: 1px solid #999;
+border-left: 1px solid #999;
+
+text-align: left;
+vertical-align: top;
+}
+.shinki{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#60392d;
+    color:#F5F1E9;
+    border-radius:5px;
+}
+
+
+.delete{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#838383;
+    color:#F5F1E9;
+    border-radius:5px;
+
+}
+
+.hensyu{
+	width: 90px;
+    height: 40px;
+
+    font-size: 1.2em;
+
+    background-color:#FF6860;
+    color:#F5F1E9;
+    border-radius:5px;
+
+}

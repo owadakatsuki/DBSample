@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="CSS_user.css" /> 
+		<title>《user》登録</title>
+	</head>
+	<body>
+	
+	
+<div align="center">	
+	<form action="/userrenew" method= "POST" th:object="${user}">
+		<p class="userid">UserID</p>
+		<p class="input1">
+			<input type="text" name="userid" th:field="*{user_id}" readonly="readonly" />
+		</p>
+		
+		<p class="name">name</p>
+		<p class="input21">
+			<input type="text" name="username" th:field="*{username}" required="required" maxlength='20' placeholder='20文字以内で名前を入力してください'/>
+		</p>
+		
+		<p class="pass">password</p>
+		<p class="input22">
+			<input type="password" name="password" th:field="*{password}" required="required" maxlength='20' placeholder='20文字以内で	パスワードを入力してください。'/>
+		</p>
+		
+		<p class="radio">
+		<input type="radio" name="role" value="user" checked="checked" th:field="*{role}" required="required"/>user
+		<input type="radio" name="role" value="admin" th:field="*{role}" required="required"/>admin
+		</p>
+		
+		<p>
+		<input class="submitup" type="submit" value="submit" name="registration"/>
+		<input class="resetup" type= "reset" value="reset" name="reset"/>
+		</p>
+	</form>
+	
+	<a th:href="@{/userlist}">ユーザー一覧へ</a>
+</div>		
+	</body>
+</html>
