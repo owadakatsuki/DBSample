@@ -9,7 +9,7 @@
 	
 	
 <div align="center">	
-	<form action="/userrenew" method= "POST" th:object="${user}">
+	<form th:action="@{/userrenew}" method= "POST" th:object="${user}">
 		<p class="userid">UserID</p>
 		<p class="input1">
 			<input type="text" name="userid" th:field="*{user_id}" readonly="readonly" />
