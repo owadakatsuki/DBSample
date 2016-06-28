@@ -14,7 +14,7 @@
 
 		<p class="new">WELCOME!!!!!!</p>
 
-	<form action="/usernewOK" method="POST" th:object="${newuser}">
+	<form th:action="@{/usernewOK}" method="POST" th:object="${newuser}">
 		<p class="userid">UserID</p>
 		<p class="input1">
 			<input type="text" name="userid" th:field="*{user_id}" required="required" maxlength='10'  placeholder='10文字以内でIDを設定してください' />
@@ -41,7 +41,7 @@
 		</p>
 	</form>
 
-	<!-- <a th:if="${isAdmin}" th:href="@{/userlist}">ユーザ一覧へ</a> -->
+	 <a data-th-if="${user_info.getRole() eq 'admin'}" th:href="@{/userlist}">ユーザ一覧へ</a>
 </div>
 	</body>
 </html>
