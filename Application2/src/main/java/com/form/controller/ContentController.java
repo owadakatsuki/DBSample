@@ -48,20 +48,21 @@ public class ContentController {
     @RequestMapping(value ="/menu")
     public String content(Model model) {
         System.out.println("[START] メニュー画面");
-        System.out.println(user_info.getUser_id());
 
-        // 直接アクセスできないように
+        // 直接アクセス拒否
         if (user_info.getUser_id() == null) {
+			model.addAttribute("error", "ログイン処理をしてください");
         	return "error";
         }
 
         // 大問一覧取得
         List<Content> contentList = contentRepository.findAll();
-		// 解答結果取得
+		// ユーザ毎の解答結果取得
         List<Integer> contentIdList = user_answer_service.findByContentId(user_info.getUser_id());
-
+        // 解答済問題判定用リスト
     	List<ContentAnswer> conAnswerList = new ArrayList<ContentAnswer>();
-        // 解答結果の件数分ループ
+
+        // 一覧表示する問題をセットしていく
         for (Content c : contentList) {
 
         	ContentAnswer contentAnswer = new ContentAnswer();
