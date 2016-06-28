@@ -104,6 +104,9 @@ padding: 6px;
 background-color: #F5F1E9;
 border-bottom: 1px solid #999;
 border-left: 1px solid #999;
+
+text-align: left;
+vertical-align: top;
 }
 .shinki{
 	width: 90px;
@@ -111,7 +114,7 @@ border-left: 1px solid #999;
 
     font-size: 1.2em;
 
-    background-color:#764e40;
+    background-color:#60392d;
     color:#F5F1E9;
     border-radius:5px;
 }
