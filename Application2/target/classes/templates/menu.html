@@ -18,10 +18,11 @@
 <body>
 
 <h1 align="center"><font color="#ff9933">MENU</font></h1>
-
+<div align="right">
 <form th:action="@{/logout}" method="GET">
 	<input type="submit" class="btn btn-success button_margin" value="ログアウト" />
 </form>
+</div>
 
 <div align="center" data-th-if="${user_info.getRole() eq 'admin'}">
 
