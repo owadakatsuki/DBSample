@@ -64,7 +64,7 @@ public class UserAnswerController {
 	 public String PostUserAnswerForm(@Valid QuestionList question_list, BindingResult result, Model model){
 		 try{
 			 UserAnswer useranswer_result 	= null;
-
+			 
 			 if(!result.hasErrors()){
 				try{
 						// 必須解答チェック
@@ -100,6 +100,13 @@ public class UserAnswerController {
 				 model.addAttribute("error_message", "必須項目をもう一度確認してください！");
 				 return "form/userAnswerForm";
 			 }
+			 
+			 if(useranswer_result == null) {
+				 model.addAttribute("question_list", question_list);
+				 model.addAttribute("error_message", "必須項目をもう一度確認してください！");
+				 return "form/userAnswerForm";
+			 }
+			 
 			 return "redirect:/result/" + useranswer_result.getUser_id() + "/" + useranswer_result.getContent_id();
 		 }catch(Exception e){
 			 model.addAttribute("error", e.getMessage());
