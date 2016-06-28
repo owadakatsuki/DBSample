@@ -2,14 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
 <title>ユーザ解答結果</title>
 </head>
 <body>
-	<div align="center">
-		<form th:action="@{/logout}" method="GET">
-			<input type="submit" style="position: absolute; right: 10px; top: 10px" value="ログアウト" />
-		</form>
 
+	<a th:href="@{/menu}">メニューへ</a>
+	<div align="right">
+	<form th:action="@{/logout}" method="GET">
+		<input type="button" class="btn btn-success button_margin" value="ログアウト" />
+	</form>
+	</div>
+
+	<div align="center">
 		<h1><font color="#ff9933">解答結果</font></h1>
 
 		<div th:if="${question_count} !=0">
@@ -37,14 +42,7 @@
 			</div>
 		</div>
 		</div>
-
-		<a th:href="@{/menu}">メニューへ</a>
-		<br></br>
-		<br></br>
-
-		<form action="/logout">
-		<input type="submit" value="logout" name="logout"/>
-		</form>
 	</div>
+
 </body>
 </html>

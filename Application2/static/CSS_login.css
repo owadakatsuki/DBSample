@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+body{
+	margin-top:50;
+}
+
+.errMsg{
+	font-color:red;
+}
+
