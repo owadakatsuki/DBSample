@@ -46,7 +46,7 @@
 				<input type="hidden" th:value="*{role}"  name="role"/>
 			</form>
 			<form action="/userdelete" method="GET" th:object="${user}">
-				<input class="submitlist" type="submit" value="削除" onclick="return frmSubmit();" />
+				<input class="delete" type="submit" value="削除" onclick="return frmSubmit();" />
 				<input type="hidden" th:value="*{user_id}"  name="user_id"/>
 			</form>
 			</td>

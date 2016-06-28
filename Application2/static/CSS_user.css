@@ -93,15 +93,15 @@ width: 25%;
 padding: 6px;
 text-align: left;
 vertical-align: top;
-color: #CCDFCC;
-background-color: #27313D;
-border-left: 5px solid #ff6633; 
+color: #332A32;
+background-color: #F58E7E;
+border-left: 5px solid #F3E5D1; 
 border-top: 1px solid #fff;
 }
 .userlist td{
 width: 25%;
 padding: 6px;
-background-color: #fff;
+background-color: #F5F1E9;
 border-bottom: 1px solid #999;
 border-left: 1px solid #999;
 }
@@ -111,19 +111,20 @@ border-left: 1px solid #999;
 
     font-size: 1.2em;
 
-    background-color:#7C858E;
-    color:#ECB935;
+    background-color:#764e40;
+    color:#F5F1E9;
     border-radius:5px;
 }
 
-.submitlist{
+
+.delete{
 	width: 90px;
     height: 40px;
 
     font-size: 1.2em;
 
-    background-color:#DE4830;
-    color:#ECB935;
+    background-color:#838383;
+    color:#F5F5F5;
     border-radius:5px;
 
 }
@@ -134,9 +135,8 @@ border-left: 1px solid #999;
 
     font-size: 1.2em;
 
-    background-color:#0C555D;
-    color:#F8823C;
+    background-color:#FF6860;
+    color:#F5F5F5;
     border-radius:5px;
 
 }
-
