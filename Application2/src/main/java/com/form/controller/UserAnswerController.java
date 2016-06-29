@@ -97,13 +97,13 @@ public class UserAnswerController {
 				}
 			 }else{
 				 model.addAttribute("question_list", question_list);
-				 model.addAttribute("error_message", "必須項目をもう一度確認してください！");
+				 model.addAttribute("error_message", "もう一度確認してください！");
 				 return "form/userAnswerForm";
 			 }
 			 
 			 if(useranswer_result == null) {
 				 model.addAttribute("question_list", question_list);
-				 model.addAttribute("error_message", "必須項目をもう一度確認してください！");
+				 model.addAttribute("error_message", "一つぐらいチェック入れましょうか?笑");
 				 return "form/userAnswerForm";
 			 }
 			 
